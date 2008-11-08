@@ -8,7 +8,7 @@
                  http://jboss.com/products/seam/transaction http://jboss.com/products/seam/transaction-2.0.xsd
                  http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.0.xsd">
   
-  <core:init jndi-pattern="java:comp/env/geocast/#{ejbName}/local" debug="true"/>    
+  <core:init jndi-pattern="java:comp/env/webmail/#{ejbName}/local" debug="true"/>    
   
   <transaction:ejb-transaction/>
   
