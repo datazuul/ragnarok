@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.myslek.webmail</groupId>
+		<artifactId>webmail</artifactId>
+		<version>0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>webmail-application</artifactId>
+	<name>WebMail Application</name>
+	<packaging>ear</packaging>
+
+	<dependencies>
+
+		<!-- webmail dependencies -->
+
+		<dependency>
+			<groupId>com.myslek.webmail</groupId>
+			<artifactId>webmail-core</artifactId>
+			<version>${pom.version}</version>
+			<type>ejb</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.myslek.webmail</groupId>
+			<artifactId>webmail-web</artifactId>
+			<version>${pom.version}</version>
+			<type>war</type>
+		</dependency>
+
+		<!-- additonal dependencies -->
+
+		<dependency>
+			<groupId>org.jboss.seam</groupId>
+			<artifactId>jboss-seam</artifactId>
+			<type>ejb</type>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.el</groupId>
+					<artifactId>el-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.seam</groupId>
+			<artifactId>jboss-el</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.el</groupId>
+					<artifactId>el-api</artifactId>
+				</exclusion>
+			</exclusions>
+			<type>jar</type>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+			<type>jar</type>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<configuration>
+					<version>5</version>
+					<modules>
+						<webModule>
+							<groupId>com.myslek.webmail</groupId>
+							<artifactId>webmail-web</artifactId>
+							<contextRoot>/webmail</contextRoot>
+						</webModule>
+
+						<ejbModule>
+							<groupId>com.myslek.webmail</groupId>
+							<artifactId>webmail-core</artifactId>
+						</ejbModule>
+
+						<ejbModule>
+							<groupId>org.jboss.seam</groupId>
+							<artifactId>jboss-seam</artifactId>
+						</ejbModule>
+
+						<jarModule>
+							<groupId>org.jboss.seam</groupId>
+							<artifactId>jboss-el</artifactId>
+							<bundleDir>lib</bundleDir>
+						</jarModule>
+
+						<jarModule>
+							<groupId>commons-beanutils</groupId>
+							<artifactId>commons-beanutils</artifactId>
+							<bundleDir>lib</bundleDir>
+						</jarModule>
+
+						<jarModule>
+							<groupId>org.hibernate</groupId>
+							<artifactId>hibernate-validator</artifactId>
+							<bundleDir>lib</bundleDir>
+						</jarModule>
+
+						<!--
+							<jarModule> <groupId>jboss</groupId>
+							<artifactId>javassist</artifactId> <bundleDir>lib</bundleDir>
+							</jarModule>
+						-->
+
+						<jarModule>
+							<groupId>dom4j</groupId>
+							<artifactId>dom4j</artifactId>
+							<bundleDir>lib</bundleDir>
+						</jarModule>
+
+						<jarModule>
+							<groupId>commons-beanutils</groupId>
+							<artifactId>commons-beanutils</artifactId>
+							<bundleDir>lib</bundleDir>
+						</jarModule>
+
+					</modules>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+
+	<profiles>
+		<!--
+			Glassfish V2 Profile 
+		 -->
+		<profile>
+			<id>server.glassfish</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>server</name>
+					<value>glassfish</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.glassfish.maven.plugin</groupId>
+						<artifactId>maven-glassfish-plugin</artifactId>
+						<version>2.1</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>deploy</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<glassfishDirectory>${glassfish.home}</glassfishDirectory>
+							<user>${glassfish.adminUser}</user>
+							<adminPassword>${glassfish.adminPassword}</adminPassword>
+							<autoCreate>true</autoCreate>
+							<debug>true</debug>
+							<echo>false</echo>
+							<terse>true</terse>
+							<skip>${test.int.skip}</skip>
+							<domain>
+								<name>${project.artifactId}</name>
+								<adminPort>4848</adminPort>
+								<httpPort>8080</httpPort>
+								<httpsPort>8443</httpsPort>
+								<iiopPort>3700</iiopPort>
+								<jmsPort>7676</jmsPort>
+								<reuse>false</reuse>
+							</domain>
+							<components>
+								<component>
+									<name>${project.artifactId}</name>
+									<artifact>${project.build.directory}/${project.build.finalName}.${project.packaging}</artifact>
+								</component>
+							</components>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
+
+</project>
