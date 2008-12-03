@@ -13,31 +13,31 @@ public class DefaultMailSessionManager implements MailSessionManager {
 	
 	private MailSession mailSession;
 	
-	private MailStorageManager storageService;
+	private MailStorageManager storageManager;
 
-	public MailSession getMailConnector() {
+	public MailSession getMailSession() {
 		return mailSession;
 	}
 
-	public void setMailConnector(MailSession mailSession) {
+	public void setMailSession(MailSession mailSession) {
 		this.mailSession = mailSession;
 	}
 
-	public MailStorageManager getStorageService() {
-		return storageService;
+	public MailStorageManager getStorageManager() {
+		return storageManager;
 	}
 
-	public void setStorageService(MailStorageManager storageService) {
-		this.storageService = storageService;
+	public void setStorageManager(MailStorageManager storageManager) {
+		this.storageManager = storageManager;
 	}
 
 	public Collection<MailMessage> fetchAndStoreMessages(MailBox mailBox,
 			MessageFilter filter) {
 		
-		Collection<MailMessage> messages = mailSession.fetchMessages(
+		Collection<MailMessage> messages = getMailSession().fetchMessages(
 				mailBox.getMailStore(), filter);
 		
-		storageService.storeMessages(messages);
+		getStorageManager().storeMessages(messages);
 		
 		return messages;
 	}
