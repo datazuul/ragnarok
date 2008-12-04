@@ -8,14 +8,14 @@ import javax.mail.MessagingException;
 import javax.mail.Part;
 
 import com.myslek.webmail.api.ContentHandler;
-import com.myslek.webmail.api.ContentHandlerChain;
+import com.myslek.webmail.api.ContentHandlerManager;
 import com.myslek.webmail.api.MessageContentHandler;
 import com.myslek.webmail.api.MessageConversionException;
 import com.myslek.webmail.api.MultipartContentHandler;
 import com.myslek.webmail.api.TextContentHandler;
 import com.myslek.webmail.domain.MailPart;
 
-public class DefaultContentHandlerChain implements ContentHandlerChain {
+public class DefaultContentHandlerManager implements ContentHandlerManager {
 	
 	private Map<String, ContentHandler> handlers = new HashMap<String, ContentHandler>();
 	
@@ -23,7 +23,7 @@ public class DefaultContentHandlerChain implements ContentHandlerChain {
 	public static final String MESSAGE = "message/*";
 	public static final String MULTIPART = "multipart/*";
 	
-	public DefaultContentHandlerChain() {
+	public DefaultContentHandlerManager() {
 		addContentHandler(TEXT, new TextContentHandler());
 		addContentHandler(MESSAGE, new MessageContentHandler());
 		addContentHandler(MULTIPART, new MultipartContentHandler());

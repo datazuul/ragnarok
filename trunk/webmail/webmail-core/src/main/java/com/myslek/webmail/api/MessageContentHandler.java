@@ -10,7 +10,7 @@ import com.myslek.webmail.domain.MailMessage;
 import com.myslek.webmail.domain.MailPart;
 
 public class MessageContentHandler extends AbstractContentHandler {
-	
+
 	private EnvelopeHandler envelopeConverter;
 
 	public EnvelopeHandler getEnvelopeConverter() {
@@ -25,17 +25,19 @@ public class MessageContentHandler extends AbstractContentHandler {
 		return contentType.startsWith("message/");
 	}
 
-	public void fromPartContent(Part part, MailPart mailPart, ContentHandlerChain chain) throws MessageConversionException {
+	public void fromPartContent(Part part, MailPart mailPart,
+			ContentHandlerManager contentHandlerManager)
+			throws MessageConversionException {
 		try {
 			Message message = (Message) part.getContent();
 			MailMessage mailMessage = new MailMessage();
 			mailPart.addPart(mailMessage);
 			mailMessage.setContentType(message.getContentType());
-			
+
 			getEnvelopeConverter().fromEnvelope(message, mailMessage);
-			
-			chain.fromPartContent(message, mailMessage);
-			
+
+			contentHandlerManager.fromPartContent(message, mailMessage);
+
 		} catch (IOException e) {
 			throw new MessageConversionException(e);
 		} catch (MessagingException e) {
@@ -44,6 +46,7 @@ public class MessageContentHandler extends AbstractContentHandler {
 	}
 
 	public void toPartContent(MailPart mailPart, Part part,
-			ContentHandlerChain chain) throws MessageConversionException {
+			ContentHandlerManager contentHandlerManager)
+			throws MessageConversionException {
 	}
 }

@@ -12,8 +12,9 @@ public class TextContentHandler extends AbstractContentHandler {
 	public boolean accept(String contentType) throws MessageConversionException {
 		return contentType.startsWith("text/");
 	}
-	
-	public void fromPartContent(Part part, MailPart mailPart, ContentHandlerChain chain) throws MessageConversionException {
+
+	public void fromPartContent(Part part, MailPart mailPart,
+			ContentHandlerManager contentHandlerManager) throws MessageConversionException {
 		try {
 			String text = (String) part.getContent();
 			mailPart.setData(text.getBytes());
@@ -25,8 +26,8 @@ public class TextContentHandler extends AbstractContentHandler {
 		}
 	}
 
-	public void toPartContent(MailPart mailPart, Part part, ContentHandlerChain chain)
-			throws MessageConversionException {
+	public void toPartContent(MailPart mailPart, Part part,
+			ContentHandlerManager contentHandlerManager) throws MessageConversionException {
 		try {
 			String text = new String(mailPart.getData());
 			part.setContent(text, mailPart.getContentType());
