@@ -1,4 +1,4 @@
-package com.myslek.webmail.manager;
+package com.myslek.webmail.service;
 
 import java.util.Collection;
 
@@ -6,7 +6,7 @@ import com.myslek.webmail.api.MessageFilter;
 import com.myslek.webmail.domain.MailBox;
 import com.myslek.webmail.domain.MailMessage;
 
-public interface MailSessionManager {
+public interface MailSessionService {
 	
-	public Collection<MailMessage> fetchAndStoreMessages(MailBox mailBox, MessageFilter filter);
+	public Collection<MailMessage> fetchMessages(MailBox mailBox, MessageFilter filter);
 }
