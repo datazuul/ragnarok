@@ -52,6 +52,8 @@ public class DefaultMailSession extends AbstractMailSession {
 				if (filter == null || filter.accept(message)) {
 					MailMessage mailMessage = 
 						getMessageConverter().fromMessage(message);
+					
+					//TODO: Determine destination MailFolder for the message
 					mailMessages.add(mailMessage);
 				}
 			}
