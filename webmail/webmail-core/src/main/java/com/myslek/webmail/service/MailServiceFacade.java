@@ -2,6 +2,8 @@ package com.myslek.webmail.service;
 
 import javax.ejb.Local;
 
+import com.myslek.webmail.domain.MailBox;
+
 
 /**
  * Facade interface that provides one entry point to all the messaging components 
@@ -11,7 +13,5 @@ import javax.ejb.Local;
 @Local
 public interface MailServiceFacade {
 	
-	MailSessionService getMailSessionService();
-	
-	MailStoreService getMailStoreService();
+	void fetchAndStoreMessages(MailBox mailBox);
 }
