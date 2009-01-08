@@ -47,7 +47,7 @@ public class MessageConverterTest extends TestCase {
 	
 	//start test methods
 
-	public void testConvertTextPlainMessage() throws Exception {
+	public void testConvertFromTextPlainMessage() throws Exception {
 		Message message = createTextPlainMessage();
 		MailMessage mailMessage = getMessageConverter().fromMessage(message);
 		
