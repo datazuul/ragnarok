@@ -13,16 +13,20 @@ import com.myslek.webmail.domain.MailMessage;
 
 public class DefaultMessageConverter implements MessageConverter {
 
-	private EnvelopeHandler envelopeConverter;
-
+	private EnvelopeHandler envelopeHandler;
 	private ContentHandlerManager contentHandlerManager;
-
-	public EnvelopeHandler getEnvelopeConverter() {
-		return envelopeConverter;
+	
+	public DefaultMessageConverter() {
+		this.envelopeHandler = new DefaultEnvelopeHandler();
+		this.contentHandlerManager = new DefaultContentHandlerManager();
 	}
 
-	public void setEnvelopeConverter(EnvelopeHandler envelopeConverter) {
-		this.envelopeConverter = envelopeConverter;
+	public EnvelopeHandler getEnvelopeHandler() {
+		return envelopeHandler;
+	}
+
+	public void setEnvelopeHandler(EnvelopeHandler envelopeHandler) {
+		this.envelopeHandler = envelopeHandler;
 	}
 
 	public ContentHandlerManager getContentHandlerManager() {
@@ -40,7 +44,7 @@ public class DefaultMessageConverter implements MessageConverter {
 			MailMessage mailMessage = new MailMessage();
 			mailMessage.setContentType(message.getContentType());
 
-			getEnvelopeConverter().fromEnvelope(message, mailMessage);
+			getEnvelopeHandler().fromEnvelope(message, mailMessage);
 
 			// Process message content.
 			getContentHandlerManager().fromPartContent(message, mailMessage);

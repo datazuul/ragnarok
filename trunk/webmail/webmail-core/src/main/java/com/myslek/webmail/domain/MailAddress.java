@@ -14,6 +14,15 @@ public class MailAddress implements Serializable {
 	private String personal;
 	private MailAddressType type;
 	
+	public MailAddress() {
+		
+	}
+	
+	public MailAddress(String address, String personal) {
+		this.address = address;
+		this.personal = personal;
+	}
+	
 	public Long getId() {
 		return id;
 	}
