@@ -11,8 +11,7 @@ public class MailPart implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	//TODO: maybe we should add a separate field for text content???
-	private byte[] data;
+	private Object content;
 	private String contentType;
 	private String fileName;
 	private MailPart parent;
@@ -27,12 +26,12 @@ public class MailPart implements Serializable {
 		this.id = id;
 	}
 
-	public byte[] getData() {
-		return data;
+	public Object getContent() {
+		return content;
 	}
-	
-	public void setData(byte[] data) {
-		this.data = data;
+
+	public void setContent(Object content) {
+		this.content = content;
 	}
 
 	public String getContentType() {

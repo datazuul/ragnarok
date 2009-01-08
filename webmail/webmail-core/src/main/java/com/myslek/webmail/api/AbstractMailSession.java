@@ -22,7 +22,7 @@ public abstract class AbstractMailSession implements MailSession {
 		this.messageConverter = messageConverter;
 	}
 	
-	protected Session getSession() throws MailSessionException {
+	public Session getSession() throws MailSessionException {
 		Properties props = getMailProperties();
 		return Session.getDefaultInstance(props, null);
 	}

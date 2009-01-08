@@ -43,6 +43,7 @@ public class DefaultContentHandlerManager implements ContentHandlerManager {
 			for (ContentHandler handler : handlers.values()) {
 				if (handler.accept(contentType)) {
 					handler.fromPartContent(part, mailPart, this);
+					return;
 				}
 			}
 			throw new MessageConversionException("Unable to find 'ContentHandler' " +
@@ -58,6 +59,7 @@ public class DefaultContentHandlerManager implements ContentHandlerManager {
 		for (ContentHandler handler : handlers.values()) {
 			if (handler.accept(contentType)) {
 				handler.toPartContent(mailPart, part, this);
+				return;
 			}
 		}
 		throw new MessageConversionException("Unable to find 'ContentHandler' " +
