@@ -2,7 +2,7 @@ package com.myslek.webmail.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 public class MailPart implements Serializable {
 	/**
@@ -15,7 +15,7 @@ public class MailPart implements Serializable {
 	private String contentType;
 	private String fileName;
 	private MailPart parent;
-	private Collection<MailPart> parts = new ArrayList<MailPart>();
+	private List<MailPart> parts = new ArrayList<MailPart>();
 	private int size;
 	
 	public Long getId() {
@@ -58,11 +58,11 @@ public class MailPart implements Serializable {
 		this.parent = parent;
 	}
 
-	public Collection<MailPart> getParts() {
+	public List<MailPart> getParts() {
 		return parts;
 	}
 
-	public void setParts(Collection<MailPart> parts) {
+	public void setParts(List<MailPart> parts) {
 		this.parts = parts;
 	}
 
