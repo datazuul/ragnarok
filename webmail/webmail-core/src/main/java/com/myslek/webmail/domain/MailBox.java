@@ -16,7 +16,9 @@ public class MailBox implements Serializable {
 	private MailServer mailStore;
 	private MailServer mailTransport;
 	private boolean defaultMailBox;
-	private Collection<MailMessageFilter> messageFilters = new ArrayList<MailMessageFilter>();
+	private Collection<MailFolder> folders = new ArrayList<MailFolder>();
+	private Collection<MailMessageFilter> messageFilters = 
+		new ArrayList<MailMessageFilter>();
 
 	public Long getId() {
 		return id;
@@ -58,11 +60,24 @@ public class MailBox implements Serializable {
 		this.defaultMailBox = defaultMailBox;
 	}
 
+	public Collection<MailFolder> getFolders() {
+		return folders;
+	}
+
+	public void setFolders(Collection<MailFolder> folders) {
+		this.folders = folders;
+	}
+
 	public Collection<MailMessageFilter> getMessageFilters() {
 		return messageFilters;
 	}
 
 	public void setMessageFilters(Collection<MailMessageFilter> messageFilters) {
 		this.messageFilters = messageFilters;
+	}
+	
+	//TODO: implement me!
+	public MailFolder getInbox() {
+		return null;
 	}
 }

@@ -12,7 +12,9 @@ import com.myslek.webmail.api.MailSession;
 import com.myslek.webmail.api.MailSessionFactory;
 import com.myslek.webmail.api.MessageConverter;
 import com.myslek.webmail.domain.MailAddress;
+import com.myslek.webmail.domain.MailBox;
 import com.myslek.webmail.domain.MailMessage;
+import com.myslek.webmail.domain.MailServer;
 
 public class MessageConverterTest extends TestCase {
 
@@ -72,7 +74,8 @@ public class MessageConverterTest extends TestCase {
 	}
 
 	protected Message createMimeMessage() throws Exception {
-		MailSession session = getMailSessionFactory().createMailSession();
+		MailBox mailBox = createMailBox();
+		MailSession session = getMailSessionFactory().createMailSession(mailBox);
 		Message message = new MimeMessage(session.getSession());
 		
 		Address from = new InternetAddress(FROM.getAddress(), FROM.getPersonal());
@@ -93,5 +96,14 @@ public class MessageConverterTest extends TestCase {
 		
 		return message;
 		
+	}
+	
+	protected MailBox createMailBox() throws Exception {
+		MailBox mailBox = new MailBox();
+		MailServer mailStore = new MailServer();
+		mailStore.setProtocol("pop3");
+		mailBox.setMailStore(mailStore);
+		
+		return mailBox;
 	}
 }

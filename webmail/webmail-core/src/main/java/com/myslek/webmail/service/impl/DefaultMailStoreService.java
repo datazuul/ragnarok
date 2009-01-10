@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.ejb.Stateless;
 
+import com.myslek.webmail.domain.MailBox;
 import com.myslek.webmail.domain.MailMessage;
 import com.myslek.webmail.service.MailStoreService;
 
@@ -14,4 +15,7 @@ public class DefaultMailStoreService implements MailStoreService {
 		
 	}
 
+	public Collection<String> getUids(MailBox mailBox) {
+		return null;
+	}
 }
