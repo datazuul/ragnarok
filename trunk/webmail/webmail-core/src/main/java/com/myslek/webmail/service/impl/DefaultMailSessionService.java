@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.ejb.Stateless;
 
+import com.myslek.webmail.api.MailSession;
 import com.myslek.webmail.api.MailSessionFactory;
 import com.myslek.webmail.api.MessageFilter;
 import com.myslek.webmail.domain.MailBox;
@@ -24,12 +25,12 @@ public class DefaultMailSessionService implements MailSessionService {
 	}
 
 	public Collection<MailMessage> fetchMessages(MailBox mailBox,
-			MessageFilter filter) {
+			Collection<String> uids, MessageFilter filter) {
+		MailSession mailSession = getMailSessionFactory().createMailSession(
+				mailBox);
 
-		Collection<MailMessage> messages = getMailSessionFactory()
-				.createMailSession().fetchMessages(mailBox.getMailStore(),
-						filter);
-
+		Collection<MailMessage> messages = mailSession.fetchMessages(mailBox,
+				uids, filter);
 		return messages;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.ejb.Stateless;
 
+import com.myslek.webmail.api.MessageFilter;
 import com.myslek.webmail.domain.MailBox;
 import com.myslek.webmail.domain.MailMessage;
 import com.myslek.webmail.service.MailServiceFacade;
@@ -17,10 +18,11 @@ public class DefaultMailServiceFacade implements MailServiceFacade {
 
 	private MailStoreService mailStoreService;
 
-	@Override
-	public void fetchAndStoreMessages(MailBox mailBox) {
-		Collection<MailMessage> messages = getMailSessionService()
-				.fetchMessages(mailBox, null);
+	public void fetchAndStoreMessages(MailBox mailBox, MessageFilter filter) {
+		Collection<String> uids = getMailStoreService().getUids(mailBox);
+
+		Collection<MailMessage> messages = 
+			getMailSessionService().fetchMessages(mailBox, uids, filter);
 
 		getMailStoreService().storeMessages(messages);
 	}

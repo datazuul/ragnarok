@@ -2,6 +2,7 @@ package com.myslek.webmail.service;
 
 import javax.ejb.Local;
 
+import com.myslek.webmail.api.MessageFilter;
 import com.myslek.webmail.domain.MailBox;
 
 
@@ -13,5 +14,5 @@ import com.myslek.webmail.domain.MailBox;
 @Local
 public interface MailServiceFacade {
 	
-	void fetchAndStoreMessages(MailBox mailBox);
+	void fetchAndStoreMessages(MailBox mailBox, MessageFilter filter);
 }

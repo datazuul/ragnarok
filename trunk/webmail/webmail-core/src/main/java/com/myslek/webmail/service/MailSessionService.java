@@ -11,5 +11,5 @@ import com.myslek.webmail.domain.MailMessage;
 @Local
 public interface MailSessionService {
 	
-	public Collection<MailMessage> fetchMessages(MailBox mailBox, MessageFilter filter);
+	public Collection<MailMessage> fetchMessages(MailBox mailBox, Collection<String> uids, MessageFilter filter);
 }

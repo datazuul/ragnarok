@@ -9,6 +9,7 @@ public class MailMessage extends MailPart {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private String uid;
 	private String from;
 	private Collection<MailAddress> to = new ArrayList<MailAddress>();
 	private Collection<MailAddress> cc = new ArrayList<MailAddress>();
@@ -17,6 +18,14 @@ public class MailMessage extends MailPart {
 	private String subject;
 	
 	private MailFolder folder;
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 
 	public String getFrom() {
 		return from;
