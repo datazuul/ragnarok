@@ -10,6 +10,8 @@ import com.myslek.webmail.domain.MailMessage;
 import com.myslek.webmail.domain.MailPart;
 
 public class MessageContentHandler extends AbstractContentHandler {
+	
+	public static final String MESSAGE_TYPE_PREFIX = "message/";
 
 	private EnvelopeHandler envelopeConverter;
 
@@ -22,7 +24,7 @@ public class MessageContentHandler extends AbstractContentHandler {
 	}
 
 	public boolean accept(String contentType) throws MessageConversionException {
-		return contentType.startsWith("message/");
+		return contentType.startsWith(MESSAGE_TYPE_PREFIX);
 	}
 
 	public void fromPartContent(Part part, MailPart mailPart,
