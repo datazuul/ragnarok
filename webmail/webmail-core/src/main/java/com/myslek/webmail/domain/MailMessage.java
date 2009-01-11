@@ -1,22 +1,20 @@
 package com.myslek.webmail.domain;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 public class MailMessage extends MailPart {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private String uid;
 	private String from;
-	private Collection<MailAddress> to = new ArrayList<MailAddress>();
-	private Collection<MailAddress> cc = new ArrayList<MailAddress>();
-	private Collection<MailAddress> bcc = new ArrayList<MailAddress>();
-	
+	private List<MailAddress> to = new ArrayList<MailAddress>();
+	private List<MailAddress> cc = new ArrayList<MailAddress>();
+	private List<MailAddress> bcc = new ArrayList<MailAddress>();
 	private String subject;
-	
 	private MailFolder folder;
 
 	public String getUid() {
@@ -35,27 +33,27 @@ public class MailMessage extends MailPart {
 		this.from = from;
 	}
 
-	public Collection<MailAddress> getTo() {
+	public List<MailAddress> getTo() {
 		return to;
 	}
 
-	public void setTo(Collection<MailAddress> to) {
+	public void setTo(List<MailAddress> to) {
 		this.to = to;
 	}
 
-	public Collection<MailAddress> getCc() {
+	public List<MailAddress> getCc() {
 		return cc;
 	}
 
-	public void setCc(Collection<MailAddress> cc) {
+	public void setCc(List<MailAddress> cc) {
 		this.cc = cc;
 	}
 
-	public Collection<MailAddress> getBcc() {
+	public List<MailAddress> getBcc() {
 		return bcc;
 	}
 
-	public void setBcc(Collection<MailAddress> bcc) {
+	public void setBcc(List<MailAddress> bcc) {
 		this.bcc = bcc;
 	}
 
@@ -73,5 +71,17 @@ public class MailMessage extends MailPart {
 
 	public void setFolder(MailFolder folder) {
 		this.folder = folder;
+	}
+
+	public MailPart getMailPartByHeaderValue(String name, String value) {
+		for (MailPart part : getParts()) {
+			for (MailHeader header : part.getHeaders()) {
+				if (header.getName().equals(name)
+						&& header.getValue().equals(value)) {
+					return part;
+				}
+			}
+		}
+		return null;
 	}
 }

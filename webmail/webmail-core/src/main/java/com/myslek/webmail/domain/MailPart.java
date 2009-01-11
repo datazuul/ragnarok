@@ -14,9 +14,15 @@ public class MailPart implements Serializable {
 	private Content content;
 	private String contentType;
 	private String fileName;
+	private String description;
+	private String disposition;
 	private MailPart parent;
+	private List<MailHeader> headers = new ArrayList<MailHeader>();
 	private List<MailPart> parts = new ArrayList<MailPart>();
 	private int size;
+	
+	public static final String ATTACHMENT = "attachment";
+	public static final String INLINE = "inline";
 	
 	public Long getId() {
 		return id;
@@ -50,12 +56,36 @@ public class MailPart implements Serializable {
 		this.fileName = fileName;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDisposition() {
+		return disposition;
+	}
+
+	public void setDisposition(String disposition) {
+		this.disposition = disposition;
+	}
+
 	public MailPart getParent() {
 		return parent;
 	}
 
 	public void setParent(MailPart parent) {
 		this.parent = parent;
+	}
+
+	public List<MailHeader> getHeaders() {
+		return headers;
+	}
+
+	public void setHeaders(List<MailHeader> headers) {
+		this.headers = headers;
 	}
 
 	public List<MailPart> getParts() {
