@@ -78,9 +78,9 @@ public class MessageConverterTest extends TestCase {
 		Assert.assertEquals(message.getSubject(), mailMessage.getSubject());
 		Assert.assertEquals(SUBJECT, mailMessage.getSubject());
 		Assert.assertEquals((String) message.getContent(), (String) mailMessage
-				.getContent());
+				.getContent().getText());
 		Assert.assertEquals(TEXT_PLAIN_CONTENT, (String) mailMessage
-				.getContent());
+				.getContent().getText());
 	}
 
 	public void testConvertFromMultipartMessage() throws Exception {
@@ -118,7 +118,7 @@ public class MessageConverterTest extends TestCase {
 		Assert.assertEquals(
 				"Expected content of the 1st part of the MailMessage multiPart is: "
 						+ TEXT_PLAIN_CONTENT, TEXT_PLAIN_CONTENT,
-				(String) part1.getContent());
+				(String) part1.getContent().getText());
 		MailPart part2 = multiPart.getParts().get(1);
 		Assert.assertNotNull(
 				"Second part of the MailMessage multiPart must not be null",
@@ -130,7 +130,7 @@ public class MessageConverterTest extends TestCase {
 		Assert.assertEquals(
 				"Expected content of the 2nd part of the MailMessage multiPart is: "
 						+ TEXT_HTML_CONTENT, TEXT_HTML_CONTENT, (String) part2
-						.getContent());
+						.getContent().getText());
 	}
 
 	// end test methods

@@ -11,7 +11,7 @@ public class MailPart implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	private Object content;
+	private Content content;
 	private String contentType;
 	private String fileName;
 	private MailPart parent;
@@ -26,11 +26,11 @@ public class MailPart implements Serializable {
 		this.id = id;
 	}
 
-	public Object getContent() {
+	public Content getContent() {
 		return content;
 	}
 
-	public void setContent(Object content) {
+	public void setContent(Content content) {
 		this.content = content;
 	}
 
