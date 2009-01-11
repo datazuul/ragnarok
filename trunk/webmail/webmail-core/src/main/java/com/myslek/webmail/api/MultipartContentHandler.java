@@ -31,8 +31,8 @@ public class MultipartContentHandler extends AbstractContentHandler {
 			for (int i = 0; i < multipart.getCount(); i++) {
 				Part body = multipart.getBodyPart(i);
 				MailPart bodyPart = new MailPart();
+				getAttributesHandler().fromAttributes(body, bodyPart);
 				multiPart.addPart(bodyPart);
-				bodyPart.setContentType(body.getContentType());
 
 				// pass the body part to a specialized 'ContentHandler' object
 				contentHandlerManager.fromPartContent(body, bodyPart);

@@ -1,10 +1,10 @@
 package com.myslek.webmail.impl;
 
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
+import com.myslek.webmail.api.AttributesHandler;
 import com.myslek.webmail.api.ContentHandlerManager;
 import com.myslek.webmail.api.EnvelopeHandler;
 import com.myslek.webmail.api.MessageConversionException;
@@ -13,10 +13,12 @@ import com.myslek.webmail.domain.MailMessage;
 
 public class DefaultMessageConverter implements MessageConverter {
 
+	private AttributesHandler attributesHandler;
 	private EnvelopeHandler envelopeHandler;
 	private ContentHandlerManager contentHandlerManager;
-	
+
 	public DefaultMessageConverter() {
+		this.attributesHandler = new DefaultAttributesHandler();
 		this.envelopeHandler = new DefaultEnvelopeHandler();
 		this.contentHandlerManager = new DefaultContentHandlerManager();
 	}
@@ -38,29 +40,31 @@ public class DefaultMessageConverter implements MessageConverter {
 		this.contentHandlerManager = contentHandlerManager;
 	}
 
+	public AttributesHandler getAttributesHandler() {
+		return attributesHandler;
+	}
+
+	public void setAttributesHandler(AttributesHandler attributesHandler) {
+		this.attributesHandler = attributesHandler;
+	}
+
 	public MailMessage fromMessage(Message message)
 			throws MessageConversionException {
-		try {
-			MailMessage mailMessage = new MailMessage();
-			mailMessage.setContentType(message.getContentType());
+		MailMessage mailMessage = new MailMessage();
+		
+		getAttributesHandler().fromAttributes(message, mailMessage);
+		getEnvelopeHandler().fromEnvelope(message, mailMessage);
+		getContentHandlerManager().fromPartContent(message, mailMessage);
 
-			getEnvelopeHandler().fromEnvelope(message, mailMessage);
-
-			// Process message content.
-			getContentHandlerManager().fromPartContent(message, mailMessage);
-
-			return mailMessage;
-		} catch (MessagingException e) {
-			throw new MessageConversionException(e);
-		}
+		return mailMessage;
 	}
 
 	public Message toMessage(MailMessage mailMessage, Session session)
 			throws MessageConversionException {
 		Message message = new MimeMessage(session);
-
-		// TODO: set message contentType, etc...
-
+		
+		getAttributesHandler().toAttributes(mailMessage, message);
+		getEnvelopeHandler().toEnvelope(mailMessage, message);
 		getContentHandlerManager().toPartContent(mailMessage, message);
 
 		return message;

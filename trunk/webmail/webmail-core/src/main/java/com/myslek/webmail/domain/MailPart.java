@@ -108,4 +108,9 @@ public class MailPart implements Serializable {
 		part.setParent(this);
 		getParts().add(part);
 	}
+	
+	public void addHeader(MailHeader header) {
+		header.setMailPart(this);
+		getHeaders().add(header);
+	}
 }

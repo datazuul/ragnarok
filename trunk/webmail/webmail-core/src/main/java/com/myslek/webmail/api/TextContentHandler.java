@@ -24,7 +24,6 @@ public class TextContentHandler extends AbstractContentHandler {
 			Content content = new Content();
 			content.setText(text);
 			mailPart.setContent(content);
-			mailPart.setSize(part.getSize());
 		} catch (IOException e) {
 			throw new MessageConversionException(e);
 		} catch (MessagingException e) {
