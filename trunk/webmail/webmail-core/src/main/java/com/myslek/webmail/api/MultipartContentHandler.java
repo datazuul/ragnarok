@@ -12,9 +12,11 @@ import javax.mail.internet.MimeMultipart;
 import com.myslek.webmail.domain.MailPart;
 
 public class MultipartContentHandler extends AbstractContentHandler {
+	
+	public static final String MULTIPART_TYPE_PREFIX = "multipart/";
 
 	public boolean accept(String contentType) throws MessageConversionException {
-		return contentType.startsWith("multipart/");
+		return contentType.startsWith(MULTIPART_TYPE_PREFIX);
 	}
 
 	public void fromPartContent(Part part, MailPart mailPart,
@@ -24,7 +26,7 @@ public class MultipartContentHandler extends AbstractContentHandler {
 			Multipart multipart = (Multipart) part.getContent();
 			MailPart multiPart = new MailPart();
 			mailPart.addPart(multiPart);
-			multiPart.setContentType(part.getContentType());
+			multiPart.setContentType(multipart.getContentType());
 
 			for (int i = 0; i < multipart.getCount(); i++) {
 				Part body = multipart.getBodyPart(i);

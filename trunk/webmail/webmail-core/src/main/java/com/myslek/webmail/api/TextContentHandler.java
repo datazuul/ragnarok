@@ -8,9 +8,11 @@ import javax.mail.Part;
 import com.myslek.webmail.domain.MailPart;
 
 public class TextContentHandler extends AbstractContentHandler {
+	
+	public static final String TEXT_TYPE_PREFIX = "text/";
 
 	public boolean accept(String contentType) throws MessageConversionException {
-		return contentType.startsWith("text");
+		return contentType.startsWith(TEXT_TYPE_PREFIX);
 	}
 
 	public void fromPartContent(Part part, MailPart mailPart,

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.mail.MessagingException;
 import javax.mail.Part;
 
+import com.myslek.webmail.api.BlobContentHandler;
 import com.myslek.webmail.api.ContentHandler;
 import com.myslek.webmail.api.ContentHandlerManager;
 import com.myslek.webmail.api.MessageContentHandler;
@@ -19,14 +20,16 @@ public class DefaultContentHandlerManager implements ContentHandlerManager {
 	
 	private Map<String, ContentHandler> handlers = new HashMap<String, ContentHandler>();
 	
-	public static final String TEXT = "text/*";
-	public static final String MESSAGE = "message/*";
-	public static final String MULTIPART = "multipart/*";
+	public static final String TEXT_TYPE_HANDLER = "TEXT";
+	public static final String MESSAGE_TYPE_HANDLER = "MESSAGE";
+	public static final String MULTIPART_TYPE_HANDLER = "MULTIPART";
+	public static final String BLOB_TYPE_HANDLER = "BLOB";
 	
 	public DefaultContentHandlerManager() {
-		addContentHandler(TEXT, new TextContentHandler());
-		addContentHandler(MESSAGE, new MessageContentHandler());
-		addContentHandler(MULTIPART, new MultipartContentHandler());
+		addContentHandler(TEXT_TYPE_HANDLER, new TextContentHandler());
+		addContentHandler(MESSAGE_TYPE_HANDLER, new MessageContentHandler());
+		addContentHandler(MULTIPART_TYPE_HANDLER, new MultipartContentHandler());
+		addContentHandler(BLOB_TYPE_HANDLER, new BlobContentHandler());
 	}
 	
 	public void addContentHandler(String contentType, ContentHandler handler) {
