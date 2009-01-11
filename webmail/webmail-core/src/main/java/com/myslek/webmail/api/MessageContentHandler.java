@@ -13,16 +13,6 @@ public class MessageContentHandler extends AbstractContentHandler {
 	
 	public static final String MESSAGE_TYPE_PREFIX = "message/";
 
-	private EnvelopeHandler envelopeConverter;
-
-	public EnvelopeHandler getEnvelopeConverter() {
-		return envelopeConverter;
-	}
-
-	public void setEnvelopeConverter(EnvelopeHandler envelopeConverter) {
-		this.envelopeConverter = envelopeConverter;
-	}
-
 	public boolean accept(String contentType) throws MessageConversionException {
 		return contentType.startsWith(MESSAGE_TYPE_PREFIX);
 	}
@@ -34,10 +24,9 @@ public class MessageContentHandler extends AbstractContentHandler {
 			Message message = (Message) part.getContent();
 			MailMessage mailMessage = new MailMessage();
 			mailPart.addPart(mailMessage);
-			mailMessage.setContentType(message.getContentType());
 
-			getEnvelopeConverter().fromEnvelope(message, mailMessage);
-
+			getAttributesHandler().fromAttributes(message, mailMessage);
+			getEnvelopeHandler().fromEnvelope(message, mailMessage);
 			contentHandlerManager.fromPartContent(message, mailMessage);
 
 		} catch (IOException e) {
