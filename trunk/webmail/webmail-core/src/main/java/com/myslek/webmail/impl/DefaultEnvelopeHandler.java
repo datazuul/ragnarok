@@ -13,6 +13,8 @@ public class DefaultEnvelopeHandler implements EnvelopeHandler {
 			throws MessageConversionException {
 		try {
 			mailMessage.setSubject(message.getSubject());
+			//TODO: 1. copy all message recipients
+			//TODO: 2. copy all message headers (message.getAllHeaders())
 		} catch (MessagingException e) {
 			throw new MessageConversionException(e);
 		}
