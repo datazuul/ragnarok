@@ -13,6 +13,15 @@ public class MailHeader implements Serializable {
 	private String name;
 	private String value;
 	
+	public MailHeader() {
+		
+	}
+	
+	public MailHeader(String name, String value) {
+		this.name = name;
+		this.value = value;
+	}
+	
 	public Long getId() {
 		return id;
 	}
