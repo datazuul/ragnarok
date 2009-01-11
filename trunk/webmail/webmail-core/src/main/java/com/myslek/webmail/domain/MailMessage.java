@@ -72,6 +72,15 @@ public class MailMessage extends MailPart {
 	public void setFolder(MailFolder folder) {
 		this.folder = folder;
 	}
+	
+	public MailHeader getMailHeaderByName(String name) {
+		for (MailHeader header : getHeaders()) {
+			if (header.getName().equals(name)) {
+				return header;
+			}
+		}
+		return null;
+	}
 
 	public MailPart getMailPartByHeaderValue(String name, String value) {
 		for (MailPart part : getParts()) {
