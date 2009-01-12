@@ -14,7 +14,7 @@ import com.myslek.webmail.domain.MailPart;
 public class MessageContentHandler extends AbstractContentHandler {
 
 	public boolean accept(String contentType) throws MessageConversionException {
-		return contentType.startsWith(ContentHandler.MESSAGE_TYPE_PREFIX);
+		return contentType.startsWith(MailPart.MESSAGE_TYPE_PREFIX);
 	}
 
 	public void fromPartContent(Part part, MailPart mailPart,
@@ -22,13 +22,12 @@ public class MessageContentHandler extends AbstractContentHandler {
 			throws MessageConversionException {
 		try {
 			Message message = (Message) part.getContent();
-			MailMessage mailMessage = new MailMessage();
-			mailPart.addPart(mailMessage);
+			
+			MailPart messagePart = new MailPart();
+			mailPart.addPart(messagePart);
 
-			getAttributesHandler().fromAttributes(message, mailMessage);
-			getEnvelopeHandler().fromEnvelope(message, mailMessage);
-			contentHandlerManager.fromPartContent(message, mailMessage);
-
+			getAttributesHandler().fromAttributes(message, messagePart);
+			contentHandlerManager.fromPartContent(message, messagePart);
 		} catch (IOException e) {
 			throw new MessageConversionException(e);
 		} catch (MessagingException e) {

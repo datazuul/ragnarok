@@ -15,7 +15,7 @@ import com.myslek.webmail.domain.MailPart;
 public class MultipartContentHandler extends AbstractContentHandler {
 
 	public boolean accept(String contentType) throws MessageConversionException {
-		return contentType.startsWith(ContentHandler.MULTIPART_TYPE_PREFIX);
+		return contentType.startsWith(MailPart.MULTIPART_TYPE_PREFIX);
 	}
 
 	public void fromPartContent(Part part, MailPart mailPart,
@@ -29,7 +29,7 @@ public class MultipartContentHandler extends AbstractContentHandler {
 
 			for (int i = 0; i < multipart.getCount(); i++) {
 				Part body = multipart.getBodyPart(i);
-				MailPart bodyPart = new MailPart();
+				MailPart bodyPart = MailPart.create(body.getContentType());
 				getAttributesHandler().fromAttributes(body, bodyPart);
 				multiPart.addPart(bodyPart);
 

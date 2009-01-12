@@ -12,7 +12,7 @@ import com.myslek.webmail.domain.MailPart;
 public class TextContentHandler extends AbstractContentHandler {
 
 	public boolean accept(String contentType) throws MessageConversionException {
-		return contentType.startsWith(ContentHandler.TEXT_TYPE_PREFIX);
+		return contentType.startsWith(MailPart.TEXT_TYPE_PREFIX);
 	}
 
 	public void fromPartContent(Part part, MailPart mailPart,
