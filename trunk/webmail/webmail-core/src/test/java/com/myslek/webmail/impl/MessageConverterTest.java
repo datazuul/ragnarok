@@ -48,6 +48,8 @@ public class MessageConverterTest extends TestCase {
 	public static final String TEXT_PLAIN_TYPE = "text/plain; charset=utf-8";
 
 	public static final String TEXT_HTML_TYPE = "text/html; charset=utf-8";
+	
+	public static final String MESSAGE_RFC822_TYPE = "message/rfc822";
 
 	public MailSessionFactory getMailSessionFactory() {
 		return mailSessionFactory;
@@ -69,68 +71,76 @@ public class MessageConverterTest extends TestCase {
 
 	public void testConvertFromTextPlainMessage() throws Exception {
 		Message message = createTextPlainMessage();
-		//convert message
 		MailMessage mailMessage = getMessageConverter().fromMessage(message);
 
 		Assert.assertNotNull(mailMessage);
-		Assert.assertEquals(message.getContentType(), mailMessage
-				.getContentType());
+		Assert.assertEquals(message.getContentType(), mailMessage.getContentType());
 		Assert.assertEquals(message.getSubject(), mailMessage.getSubject());
 		Assert.assertEquals(SUBJECT, mailMessage.getSubject());
-		Assert.assertEquals((String) message.getContent(), (String) mailMessage
-				.getContent().getText());
-		Assert.assertEquals(TEXT_PLAIN_CONTENT, (String) mailMessage
-				.getContent().getText());
+		Assert.assertEquals((String) message.getContent(), (String) mailMessage.getContent().getText());
+		Assert.assertEquals(TEXT_PLAIN_CONTENT, (String) mailMessage.getContent().getText());
 	}
 
 	public void testConvertFromMultipartMessage() throws Exception {
 		Message message = createMultipartMessage();
-		//convert message
 		MailMessage mailMessage = getMessageConverter().fromMessage(message);
 
 		Assert.assertNotNull(mailMessage);
-		Assert.assertEquals("ContentType is both messages must be the same",
-				message.getContentType(), mailMessage.getContentType());
+		Assert.assertEquals("ContentType is both messages must be the same", message.getContentType(), 
+				mailMessage.getContentType());
 		Assert.assertEquals(SUBJECT, mailMessage.getSubject());
-		Assert.assertNotNull("MailMessage parts must not be null", mailMessage
-				.getParts());
-		Assert.assertEquals("Expected MailMessage parts size: 1", 1,
-				mailMessage.getParts().size());
+		Assert.assertNotNull("MailMessage parts must not be null", mailMessage.getParts());
+		Assert.assertEquals("Expected MailMessage parts size: 1", 1, mailMessage.getParts().size());
 
 		MailPart multiPart = mailMessage.getParts().get(0);
-		Assert.assertNotNull("MailMessage multiPart must not be null",
-				multiPart);
-		Assert.assertNotNull("MailMessage multiPart parent must not be null",
-				multiPart.getParent());
-		Assert.assertSame(
-				"MailMessage multiPart parent must be mailMessage object",
+		Assert.assertNotNull("MailMessage multiPart must not be null", multiPart);
+		Assert.assertNotNull("MailMessage multiPart parent must not be null", multiPart.getParent());
+		Assert.assertSame("MailMessage multiPart parent must be mailMessage object",
 				mailMessage, multiPart.getParent());
-		Assert.assertEquals("Expected MailMessage multiPart parts size: 2", 2,
-				multiPart.getParts().size());
+		Assert.assertEquals("Expected MailMessage multiPart parts size: 2", 2, multiPart.getParts().size());
+		
 		MailPart part1 = multiPart.getParts().get(0);
-		Assert.assertNotNull(
-				"First part of the MailMessage multiPart must not be null",
-				part1);
-		Assert.assertEquals(
-				"Expected contentType of 1st part of the MailMessage multiPart is: "
-						+ TEXT_PLAIN_TYPE, TEXT_PLAIN_TYPE, part1
-						.getContentType());
-		Assert.assertEquals(
-				"Expected content of the 1st part of the MailMessage multiPart is: "
-						+ TEXT_PLAIN_CONTENT, TEXT_PLAIN_CONTENT,
-				(String) part1.getContent().getText());
+		Assert.assertNotNull("First part of the MailMessage multiPart must not be null", part1);
+		Assert.assertEquals("Expected contentType of 1st part of the MailMessage multiPart is: "
+						+ TEXT_PLAIN_TYPE, TEXT_PLAIN_TYPE, part1.getContentType());
+		Assert.assertEquals("Expected content of the 1st part of the MailMessage multiPart is: "
+						+ TEXT_PLAIN_CONTENT, TEXT_PLAIN_CONTENT, (String) part1.getContent().getText());
 		MailPart part2 = multiPart.getParts().get(1);
-		Assert.assertNotNull(
-				"Second part of the MailMessage multiPart must not be null",
-				part2);
-		Assert.assertEquals(
-				"Expected contentType of the 2nd part of the MailMessage multiPart is: "
-						+ TEXT_HTML_TYPE, TEXT_HTML_TYPE, part2
-						.getContentType());
-		Assert.assertEquals(
-				"Expected content of the 2nd part of the MailMessage multiPart is: "
-						+ TEXT_HTML_CONTENT, TEXT_HTML_CONTENT, (String) part2
-						.getContent().getText());
+		Assert.assertNotNull("Second part of the MailMessage multiPart must not be null", part2);
+		Assert.assertEquals("Expected contentType of the 2nd part of the MailMessage multiPart is: "
+						+ TEXT_HTML_TYPE, TEXT_HTML_TYPE, part2.getContentType());
+		Assert.assertEquals("Expected content of the 2nd part of the MailMessage multiPart is: "
+						+ TEXT_HTML_CONTENT, TEXT_HTML_CONTENT, (String) part2.getContent().getText());
+	}
+
+	public void testConvertFromSimpleForwardMessage() throws Exception {
+		Message message = createSimpleForwardMessage();
+		MailMessage mailMessage = getMessageConverter().fromMessage(message);
+
+		Assert.assertNotNull("MailMessage must not be null", mailMessage);
+		Assert.assertEquals("Expected MailMessage contentType is: multipart/mixed", true, 
+				mailMessage.isMimeType("multipart/mixed"));
+		Assert.assertEquals("Expected MailMessage parts size is: 1", 1, mailMessage.getParts().size());
+		MailPart multiPart = mailMessage.getParts().get(0);
+		Assert.assertNotNull("MailMessage multiPart must not be null", multiPart);
+		
+		MailPart part1 = multiPart.getParts().get(0);
+		Assert.assertNotNull("Part1 object must not be null", part1);
+		Assert.assertEquals("Expected contentType of part1 object is: text/plain", true, part1.isMimeType("text/plain"));
+		Assert.assertEquals("Expected content of part1 object is: " + TEXT_PLAIN_CONTENT, TEXT_PLAIN_CONTENT, 
+				part1.getContent().getText());
+		
+		MailPart part2 = multiPart.getParts().get(1);
+		Assert.assertNotNull("Part2 object must not be null", part2);
+		Assert.assertEquals("Expected contentType of part2 object is: message/rfc822", 
+				true, part2.isMimeType("message/rfc822"));
+		
+		MailPart part2_1 = part2.getParts().get(0);
+		Assert.assertNotNull("Part2_1 object must not be null", part2_1);
+		Assert.assertEquals("Expected contentType of the part2_1 object is: text/html", 
+				true, part2_1.isMimeType("text/html"));
+		Assert.assertEquals("Expected content of part2_1 object is: " + TEXT_HTML_CONTENT, TEXT_HTML_CONTENT, 
+				part2_1.getContent().getText());
 	}
 
 	// end test methods
@@ -138,6 +148,14 @@ public class MessageConverterTest extends TestCase {
 	protected Message createTextPlainMessage() throws Exception {
 		Message message = createMimeMessage();
 		message.setContent(TEXT_PLAIN_CONTENT, TEXT_PLAIN_TYPE);
+		message.saveChanges();
+
+		return message;
+	}
+	
+	protected Message createTextHtmlMessage() throws Exception {
+		Message message = createMimeMessage();
+		message.setContent(TEXT_HTML_CONTENT, TEXT_HTML_TYPE);
 		message.saveChanges();
 
 		return message;
@@ -159,6 +177,25 @@ public class MessageConverterTest extends TestCase {
 		message.saveChanges();
 
 		return message;
+	}
+
+	protected Message createSimpleForwardMessage() throws Exception {
+		Message forward = createMimeMessage();
+		BodyPart part1 = new MimeBodyPart();
+		part1.setContent(TEXT_PLAIN_CONTENT, TEXT_PLAIN_TYPE);
+
+		Message message = createTextHtmlMessage();
+		BodyPart part2 = new MimeBodyPart();
+		part2.setContent(message, MESSAGE_RFC822_TYPE);
+
+		Multipart multipart = new MimeMultipart();
+		multipart.addBodyPart(part1);
+		multipart.addBodyPart(part2);
+
+		forward.setContent(multipart);
+		forward.saveChanges();
+
+		return forward;
 	}
 
 	protected Message createMimeMessage() throws Exception {

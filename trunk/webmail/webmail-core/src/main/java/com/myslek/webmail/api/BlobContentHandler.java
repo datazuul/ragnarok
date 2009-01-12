@@ -12,10 +12,10 @@ import com.myslek.webmail.domain.MailPart;
 public class BlobContentHandler extends AbstractContentHandler {
 
 	public boolean accept(String contentType) throws MessageConversionException {
-		return contentType.startsWith(ContentHandler.IMAGE_TYPE_PREFIX)
-				|| contentType.startsWith(ContentHandler.VIDEO_TYPE_PREFIX)
-				|| contentType.startsWith(ContentHandler.APPLICATION_TYPE_PREFIX)
-				|| contentType.startsWith(ContentHandler.AUDIO_TYPE_PREFIX);
+		return contentType.startsWith(MailPart.IMAGE_TYPE_PREFIX)
+				|| contentType.startsWith(MailPart.VIDEO_TYPE_PREFIX)
+				|| contentType.startsWith(MailPart.APPLICATION_TYPE_PREFIX)
+				|| contentType.startsWith(MailPart.AUDIO_TYPE_PREFIX);
 	}
 
 	public void fromPartContent(Part part, MailPart mailPart,

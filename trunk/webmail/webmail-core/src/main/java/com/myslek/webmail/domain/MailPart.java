@@ -24,6 +24,14 @@ public class MailPart implements Serializable {
 	public static final String ATTACHMENT = "attachment";
 	public static final String INLINE = "inline";
 	
+	public static final String TEXT_TYPE_PREFIX = "text/";
+	public static final String MESSAGE_TYPE_PREFIX = "message/";
+	public static final String MULTIPART_TYPE_PREFIX = "multipart/";
+	public static final String IMAGE_TYPE_PREFIX = "image/";
+	public static final String VIDEO_TYPE_PREFIX = "video/";
+	public static final String APPLICATION_TYPE_PREFIX = "application/";
+	public static final String AUDIO_TYPE_PREFIX = "audio/";
+	
 	public Long getId() {
 		return id;
 	}
@@ -112,5 +120,23 @@ public class MailPart implements Serializable {
 	public void addHeader(MailHeader header) {
 		header.setMailPart(this);
 		getHeaders().add(header);
+	}
+	
+	public boolean isMimeType(String mimeType) {
+		if (mimeType != null && mimeType.trim().length() > 0) {
+			String contentType = this.getContentType();
+			if (contentType.indexOf(";") != -1) {
+				contentType = contentType.substring(0, contentType.indexOf(";"));
+			}
+			return contentType.equalsIgnoreCase(mimeType);
+		}
+		return false;
+	}
+	
+	public static MailPart create(String contentType) {
+		if (contentType != null && contentType.startsWith(MailPart.MESSAGE_TYPE_PREFIX)) {
+			return new MailMessage();
+		}
+		return new MailPart();
 	}
 }
