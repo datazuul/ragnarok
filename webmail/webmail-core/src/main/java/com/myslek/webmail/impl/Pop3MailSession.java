@@ -49,11 +49,12 @@ public class Pop3MailSession extends AbstractMailSession {
 
 			for (int i = 0; i < messages.length; i++) {
 				String uid = folder.getUID(messages[i]);
-				if (isNew(uids, uid)) {
+				if (isNewMessage(uids, uid)) {
 					Message message = folder.getMessage(i + 1);
 					if (filter == null || filter.accept(message)) {
 						MailMessage mailMessage = 
 							getMessageConverter().fromMessage(message);
+						mailMessage.setUid(uid);
 						mailMessage.setFolder(mailBox.getInbox());
 						mailMessages.add(mailMessage);
 					}
@@ -85,7 +86,7 @@ public class Pop3MailSession extends AbstractMailSession {
 		return mailMessages;
 	}
 
-	private boolean isNew(Collection<String> uids, String uid) throws MailSessionException {
+	private boolean isNewMessage(Collection<String> uids, String uid) throws MailSessionException {
 		return !uids.contains(uid);
 	}
 }
