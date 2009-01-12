@@ -48,10 +48,11 @@ public class MultipartContentHandler extends AbstractContentHandler {
 			throws MessageConversionException {
 		try {
 			Multipart multipart = new MimeMultipart();
+			MailPart multiPart = mailPart.getParts().get(0);
 
-			for (MailPart body : mailPart.getParts()) {
+			for (MailPart body : multiPart.getParts()) {
 				BodyPart bodyPart = new MimeBodyPart();
-				contentHandlerManager.toPartContent(body, bodyPart, null);
+				contentHandlerManager.toPartContent(body, bodyPart, session);
 
 				multipart.addBodyPart(bodyPart);
 			}
