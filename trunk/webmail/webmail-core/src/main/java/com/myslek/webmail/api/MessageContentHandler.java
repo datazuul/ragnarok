@@ -6,6 +6,7 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Part;
 import javax.mail.Session;
+import javax.mail.internet.MimeMessage;
 
 import com.myslek.webmail.domain.MailMessage;
 import com.myslek.webmail.domain.MailPart;
@@ -38,5 +39,17 @@ public class MessageContentHandler extends AbstractContentHandler {
 	public void toPartContent(MailPart mailPart, Part part,
 			Session session, ContentHandlerManager contentHandlerManager)
 			throws MessageConversionException {
+		try {
+			Message message = new MimeMessage(session);
+			MailMessage mailMessage = (MailMessage) mailPart;
+			
+			getAttributesHandler().toAttributes(mailMessage, message);
+			getEnvelopeHandler().toEnvelope(mailMessage, message);
+			contentHandlerManager.toPartContent(mailMessage, message, session);
+			
+			part.setDataHandler(message.getDataHandler());
+		} catch (MessagingException e) {
+			throw new MessageConversionException(e);
+		}
 	}
 }
