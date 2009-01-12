@@ -65,7 +65,7 @@ public class DefaultMessageConverter implements MessageConverter {
 		
 		getAttributesHandler().toAttributes(mailMessage, message);
 		getEnvelopeHandler().toEnvelope(mailMessage, message);
-		getContentHandlerManager().toPartContent(mailMessage, message);
+		getContentHandlerManager().toPartContent(mailMessage, message, session);
 
 		return message;
 	}

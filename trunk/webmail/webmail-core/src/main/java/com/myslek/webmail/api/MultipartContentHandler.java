@@ -6,17 +6,16 @@ import javax.mail.BodyPart;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
+import javax.mail.Session;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
 
 import com.myslek.webmail.domain.MailPart;
 
 public class MultipartContentHandler extends AbstractContentHandler {
-	
-	public static final String MULTIPART_TYPE_PREFIX = "multipart/";
 
 	public boolean accept(String contentType) throws MessageConversionException {
-		return contentType.startsWith(MULTIPART_TYPE_PREFIX);
+		return contentType.startsWith(ContentHandler.MULTIPART_TYPE_PREFIX);
 	}
 
 	public void fromPartContent(Part part, MailPart mailPart,
@@ -45,14 +44,14 @@ public class MultipartContentHandler extends AbstractContentHandler {
 	}
 
 	public void toPartContent(MailPart mailPart, Part part,
-			ContentHandlerManager contentHandlerManager)
+			Session session, ContentHandlerManager contentHandlerManager)
 			throws MessageConversionException {
 		try {
 			Multipart multipart = new MimeMultipart();
 
 			for (MailPart body : mailPart.getParts()) {
 				BodyPart bodyPart = new MimeBodyPart();
-				contentHandlerManager.toPartContent(body, bodyPart);
+				contentHandlerManager.toPartContent(body, bodyPart, null);
 
 				multipart.addBodyPart(bodyPart);
 			}

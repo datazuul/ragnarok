@@ -5,16 +5,15 @@ import java.io.IOException;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Part;
+import javax.mail.Session;
 
 import com.myslek.webmail.domain.MailMessage;
 import com.myslek.webmail.domain.MailPart;
 
 public class MessageContentHandler extends AbstractContentHandler {
-	
-	public static final String MESSAGE_TYPE_PREFIX = "message/";
 
 	public boolean accept(String contentType) throws MessageConversionException {
-		return contentType.startsWith(MESSAGE_TYPE_PREFIX);
+		return contentType.startsWith(ContentHandler.MESSAGE_TYPE_PREFIX);
 	}
 
 	public void fromPartContent(Part part, MailPart mailPart,
@@ -37,7 +36,7 @@ public class MessageContentHandler extends AbstractContentHandler {
 	}
 
 	public void toPartContent(MailPart mailPart, Part part,
-			ContentHandlerManager contentHandlerManager)
+			Session session, ContentHandlerManager contentHandlerManager)
 			throws MessageConversionException {
 	}
 }

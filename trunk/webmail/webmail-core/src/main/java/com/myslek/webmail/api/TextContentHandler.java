@@ -4,16 +4,15 @@ import java.io.IOException;
 
 import javax.mail.MessagingException;
 import javax.mail.Part;
+import javax.mail.Session;
 
 import com.myslek.webmail.domain.Content;
 import com.myslek.webmail.domain.MailPart;
 
 public class TextContentHandler extends AbstractContentHandler {
 
-	public static final String TEXT_TYPE_PREFIX = "text/";
-
 	public boolean accept(String contentType) throws MessageConversionException {
-		return contentType.startsWith(TEXT_TYPE_PREFIX);
+		return contentType.startsWith(ContentHandler.TEXT_TYPE_PREFIX);
 	}
 
 	public void fromPartContent(Part part, MailPart mailPart,
@@ -32,7 +31,7 @@ public class TextContentHandler extends AbstractContentHandler {
 	}
 
 	public void toPartContent(MailPart mailPart, Part part,
-			ContentHandlerManager contentHandlerManager)
+			Session session, ContentHandlerManager contentHandlerManager)
 			throws MessageConversionException {
 		try {
 			part.setContent((String) mailPart.getContent().getText(), mailPart

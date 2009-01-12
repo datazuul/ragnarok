@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.Part;
+import javax.mail.Session;
 
 import com.myslek.webmail.api.BlobContentHandler;
 import com.myslek.webmail.api.ContentHandler;
@@ -56,12 +57,12 @@ public class DefaultContentHandlerManager implements ContentHandlerManager {
 		}
 	}
 	
-	public void toPartContent(MailPart mailPart, Part part)
+	public void toPartContent(MailPart mailPart, Part part, Session session)
 			throws MessageConversionException {
 		String contentType = mailPart.getContentType();
 		for (ContentHandler handler : handlers.values()) {
 			if (handler.accept(contentType)) {
-				handler.toPartContent(mailPart, part, this);
+				handler.toPartContent(mailPart, part, session, this);
 				return;
 			}
 		}
