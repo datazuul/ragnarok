@@ -22,12 +22,12 @@ public class MessageContentHandler extends AbstractContentHandler {
 			throws MessageConversionException {
 		try {
 			Message message = (Message) part.getContent();
-			
-			MailPart messagePart = new MailPart();
-			mailPart.addPart(messagePart);
+			MailMessage mailMessage = new MailMessage();
+			mailPart.addPart(mailMessage);
 
-			getAttributesHandler().fromAttributes(message, messagePart);
-			contentHandlerManager.fromPartContent(message, messagePart);
+			getAttributesHandler().fromAttributes(message, mailMessage);
+			getEnvelopeHandler().fromEnvelope(message, mailMessage);
+			contentHandlerManager.fromPartContent(message, mailMessage);
 		} catch (IOException e) {
 			throw new MessageConversionException(e);
 		} catch (MessagingException e) {
@@ -40,13 +40,16 @@ public class MessageContentHandler extends AbstractContentHandler {
 			throws MessageConversionException {
 		try {
 			Message message = new MimeMessage(session);
-			MailMessage mailMessage = (MailMessage) mailPart;
+			MailMessage mailMessage = (MailMessage) mailPart.getParts().get(0);
 			
 			getAttributesHandler().toAttributes(mailMessage, message);
 			getEnvelopeHandler().toEnvelope(mailMessage, message);
 			contentHandlerManager.toPartContent(mailMessage, message, session);
 			
-			part.setDataHandler(message.getDataHandler());
+			//TODO: if the contentType of the forward message is text/plain or text/html, 
+			//include the content of the forward message in the new message. Otherwise, 
+			//attach the forward message as an attachment.
+			part.setContent(message, MailPart.MESSAGE_RFC822_TYPE);
 		} catch (MessagingException e) {
 			throw new MessageConversionException(e);
 		}
