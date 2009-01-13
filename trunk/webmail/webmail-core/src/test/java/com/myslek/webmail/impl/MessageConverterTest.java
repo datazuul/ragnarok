@@ -118,27 +118,32 @@ public class MessageConverterTest extends TestCase {
 		MailMessage mailMessage = getMessageConverter().fromMessage(message);
 
 		Assert.assertNotNull("MailMessage must not be null", mailMessage);
-		Assert.assertEquals("Expected MailMessage contentType is: multipart/mixed", true, 
+		Assert.assertTrue("Expected MailMessage contentType is: multipart/mixed", 
 				mailMessage.isMimeType("multipart/mixed"));
 		Assert.assertEquals("Expected MailMessage parts size is: 1", 1, mailMessage.getParts().size());
+		
 		MailPart multiPart = mailMessage.getParts().get(0);
-		Assert.assertNotNull("MailMessage multiPart must not be null", multiPart);
+		Assert.assertNotNull("MultiPart object must not be null", multiPart);
 		
 		MailPart part1 = multiPart.getParts().get(0);
 		Assert.assertNotNull("Part1 object must not be null", part1);
-		Assert.assertEquals("Expected contentType of part1 object is: text/plain", true, part1.isMimeType("text/plain"));
+		Assert.assertTrue("Expected contentType of part1 object is: text/plain", part1.isMimeType("text/plain"));
 		Assert.assertEquals("Expected content of part1 object is: " + TEXT_PLAIN_CONTENT, TEXT_PLAIN_CONTENT, 
 				part1.getContent().getText());
 		
 		MailPart part2 = multiPart.getParts().get(1);
 		Assert.assertNotNull("Part2 object must not be null", part2);
-		Assert.assertEquals("Expected contentType of part2 object is: message/rfc822", 
-				true, part2.isMimeType("message/rfc822"));
+		Assert.assertTrue("Expected contentType of part2 object is: message/rfc822", 
+				part2.isMimeType("message/rfc822"));
 		
 		MailPart part2_1 = part2.getParts().get(0);
 		Assert.assertNotNull("Part2_1 object must not be null", part2_1);
-		Assert.assertEquals("Expected contentType of the part2_1 object is: text/html", 
-				true, part2_1.isMimeType("text/html"));
+		Assert.assertTrue("Expected type of part2_1 is MailMessage", part2_1 instanceof MailMessage);
+		MailMessage forward = (MailMessage) part2_1;
+		Assert.assertNotNull("Forward subject must not be null", forward.getSubject());
+		Assert.assertEquals("Expected forward subject: " + SUBJECT, SUBJECT, forward.getSubject());
+		Assert.assertTrue("Expected contentType of the part2_1 object is: text/html", 
+				part2_1.isMimeType("text/html"));
 		Assert.assertEquals("Expected content of part2_1 object is: " + TEXT_HTML_CONTENT, TEXT_HTML_CONTENT, 
 				part2_1.getContent().getText());
 	}

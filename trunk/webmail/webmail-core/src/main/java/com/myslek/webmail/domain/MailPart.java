@@ -32,6 +32,8 @@ public class MailPart implements Serializable {
 	public static final String APPLICATION_TYPE_PREFIX = "application/";
 	public static final String AUDIO_TYPE_PREFIX = "audio/";
 	
+	public static final String MESSAGE_RFC822_TYPE = "message/rfc822";
+	
 	public Long getId() {
 		return id;
 	}
@@ -131,12 +133,5 @@ public class MailPart implements Serializable {
 			return contentType.equalsIgnoreCase(mimeType);
 		}
 		return false;
-	}
-	
-	public static MailPart create(String contentType) {
-		if (contentType != null && contentType.startsWith(MailPart.MESSAGE_TYPE_PREFIX)) {
-			return new MailMessage();
-		}
-		return new MailPart();
 	}
 }
