@@ -58,7 +58,7 @@ public class DefaultAttributesHandler implements AttributesHandler {
 			throws MessageConversionException {
 		try {
 			for (MailHeader header : mailPart.getHeaders()) {
-				part.addHeader(header.getName(), header.getValue());
+				part.setHeader(header.getName(), header.getValue());
 			}
 		} catch (MessagingException e) {
 			throw new MessageConversionException(e);
