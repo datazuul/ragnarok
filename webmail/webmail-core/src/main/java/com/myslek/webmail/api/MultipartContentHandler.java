@@ -51,6 +51,8 @@ public class MultipartContentHandler extends AbstractContentHandler {
 
 			for (MailPart body : multiPart.getParts()) {
 				BodyPart bodyPart = new MimeBodyPart();
+				
+				getAttributesHandler().toAttributes(body, bodyPart);
 				contentHandlerManager.toPartContent(body, bodyPart, session);
 
 				multipart.addBodyPart(bodyPart);
