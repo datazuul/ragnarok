@@ -1,5 +1,9 @@
 package com.myslek.webmail.impl;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+
+import javax.activation.DataHandler;
 import javax.mail.Address;
 import javax.mail.BodyPart;
 import javax.mail.Message;
@@ -9,6 +13,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -50,6 +55,9 @@ public class MessageConverterTest extends TestCase {
 	public static final String TEXT_HTML_TYPE = "text/html; charset=utf-8";
 	
 	public static final String MESSAGE_RFC822_TYPE = "message/rfc822";
+	
+	public static final String IMAGE_FILE = "image.jpg";
+	public static final String IMAGE_TYPE = "image/jpeg";
 
 	public MailSessionFactory getMailSessionFactory() {
 		return mailSessionFactory;
@@ -147,6 +155,32 @@ public class MessageConverterTest extends TestCase {
 		Assert.assertEquals("Expected content of part2_1 object is: " + TEXT_HTML_CONTENT, TEXT_HTML_CONTENT, 
 				part2_1.getContent().getText());
 	}
+	
+	public void testConvertFromMessageWithImageAttachment() throws Exception {
+		Message message = createMessageWithImageAttachment();
+		MailMessage mailMessage = getMessageConverter().fromMessage(message);
+		
+		Assert.assertNotNull("MailMessage must not be null", mailMessage);
+		Assert.assertTrue("MailMessage contentType should be multipart/mixed", 
+				mailMessage.isMimeType("multipart/mixed"));
+		
+		MailPart multiPart = mailMessage.getParts().get(0);
+		Assert.assertNotNull("MultiPart must not be null", multiPart);
+		Assert.assertEquals("MultiPart size should be: 2", 2, multiPart.getParts().size());
+		
+		MailPart part1 = multiPart.getParts().get(0);
+		Assert.assertNotNull("Part1 must not be null", part1);
+		Assert.assertTrue("Part1 contentType should be: text/plain", part1.isMimeType("text/plain"));
+		Assert.assertEquals("Part1 content should be: " + TEXT_PLAIN_CONTENT, 
+				TEXT_PLAIN_CONTENT, part1.getContent().getText());
+		
+		MailPart part2 = multiPart.getParts().get(1);
+		Assert.assertNotNull("Part2 must not be null", part2);
+		Assert.assertTrue("Part2 contentType should be: image/jpeg", part2.isMimeType("image/jpeg"));
+		Assert.assertEquals("Part2 filename should be: image.jpeg", IMAGE_FILE, part2.getFileName());
+		Assert.assertEquals("Part2 content.getData().length == getImageBytes().length", 
+				getImageBytes().length, part2.getContent().getData().length);
+	}
 
 	// end test methods
 
@@ -202,6 +236,26 @@ public class MessageConverterTest extends TestCase {
 
 		return forward;
 	}
+	
+	protected Message createMessageWithImageAttachment() throws Exception {
+		Message message = createMimeMessage();
+		BodyPart part1 = new MimeBodyPart();
+		part1.setContent(TEXT_PLAIN_CONTENT, TEXT_PLAIN_TYPE);
+		
+		BodyPart part2 = new MimeBodyPart();
+		ByteArrayDataSource ds = new ByteArrayDataSource(getImageBytes(), IMAGE_TYPE);
+		part2.setDataHandler(new DataHandler(ds));
+		part2.setFileName(IMAGE_FILE);
+		
+		Multipart multipart = new MimeMultipart();
+		multipart.addBodyPart(part1);
+		multipart.addBodyPart(part2);
+		
+		message.setContent(multipart);
+		message.saveChanges();
+		
+		return message;
+	}
 
 	protected Message createMimeMessage() throws Exception {
 		MailBox mailBox = createMailBox();
@@ -239,5 +293,17 @@ public class MessageConverterTest extends TestCase {
 		mailBox.setMailStore(mailStore);
 
 		return mailBox;
+	}
+	
+	protected byte[] getImageBytes() throws Exception {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		InputStream in = Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream(IMAGE_FILE);
+		byte[] buffer = new byte[4 * 1024];
+		int len;
+		while ((len = in.read(buffer)) != -1) {
+			out.write(buffer, 0, len);
+		}
+		return out.toByteArray();
 	}
 }
