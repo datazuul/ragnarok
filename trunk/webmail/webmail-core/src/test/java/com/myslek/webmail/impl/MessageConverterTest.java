@@ -75,7 +75,7 @@ public class MessageConverterTest extends TestCase {
 		this.messageConverter = messageConverter;
 	}
 
-	// start test methods
+	//============================= TESTS =============================
 
 	public void testConvertFromTextPlainMessage() throws Exception {
 		Message message = createTextPlainMessage();
@@ -182,7 +182,7 @@ public class MessageConverterTest extends TestCase {
 				getImageBytes().length, part2.getContent().getData().length);
 	}
 
-	// end test methods
+	//=================================================================
 
 	protected Message createTextPlainMessage() throws Exception {
 		Message message = createMimeMessage();
