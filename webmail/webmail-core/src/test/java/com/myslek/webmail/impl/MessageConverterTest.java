@@ -200,7 +200,7 @@ public class MessageConverterTest extends TestCase {
 				getImageBytes().length, part2.getContent().getData().length);
 	}
 	
-	public void testConvertToPlainTextMailMessage() throws Exception {
+	public void testConvertToPlainTextMessage() throws Exception {
 		MailMessage mailMessage = createTextPlainMailMessage();
 		MailSession mailSession = createMailSession();
 		Message message = getMessageConverter().toMessage(mailMessage, mailSession.getSession());
