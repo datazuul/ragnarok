@@ -25,7 +25,7 @@ public class MailMessage extends MailPart {
 	private static final long serialVersionUID = 1L;
 
 	private String uid;
-	private String from;
+	private MailAddress from;
 	private List<MailAddress> to = new ArrayList<MailAddress>();
 	private List<MailAddress> cc = new ArrayList<MailAddress>();
 	private List<MailAddress> bcc = new ArrayList<MailAddress>();
@@ -40,11 +40,11 @@ public class MailMessage extends MailPart {
 		this.uid = uid;
 	}
 
-	public String getFrom() {
+	public MailAddress getFrom() {
 		return from;
 	}
 
-	public void setFrom(String from) {
+	public void setFrom(MailAddress from) {
 		this.from = from;
 	}
 

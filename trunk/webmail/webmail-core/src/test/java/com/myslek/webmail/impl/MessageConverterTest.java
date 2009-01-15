@@ -17,6 +17,8 @@ package com.myslek.webmail.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.activation.DataHandler;
 import javax.mail.Address;
@@ -36,6 +38,7 @@ import junit.framework.TestCase;
 import com.myslek.webmail.api.MailSession;
 import com.myslek.webmail.api.MailSessionFactory;
 import com.myslek.webmail.api.MessageConverter;
+import com.myslek.webmail.domain.Content;
 import com.myslek.webmail.domain.MailAddress;
 import com.myslek.webmail.domain.MailBox;
 import com.myslek.webmail.domain.MailMessage;
@@ -196,6 +199,20 @@ public class MessageConverterTest extends TestCase {
 		Assert.assertEquals("Part2 content.getData().length == getImageBytes().length", 
 				getImageBytes().length, part2.getContent().getData().length);
 	}
+	
+	public void testConvertToPlainTextMailMessage() throws Exception {
+		MailMessage mailMessage = createTextPlainMailMessage();
+		MailSession mailSession = createMailSession();
+		Message message = getMessageConverter().toMessage(mailMessage, mailSession.getSession());
+		
+		Assert.assertNotNull("Message must not be null", message);
+		Assert.assertTrue("Message contentType should be: text/plain", message.isMimeType("text/plain"));
+		Assert.assertTrue("Message content should a string", message.getContent() instanceof String);
+		Assert.assertEquals("Message content should be: " + TEXT_PLAIN_CONTENT, 
+				TEXT_PLAIN_CONTENT, (String) message.getContent());
+		Assert.assertNotNull("Message subject must not be null", message.getSubject());
+		Assert.assertEquals("Message subject should be: " + SUBJECT, SUBJECT, message.getSubject());
+	}
 
 	//=================================================================
 
@@ -271,12 +288,20 @@ public class MessageConverterTest extends TestCase {
 		
 		return message;
 	}
+	
+	protected MailMessage createTextPlainMailMessage() throws Exception {
+		MailMessage mailMessage = createMailMessage();
+		Content content = new Content();
+		content.setText(TEXT_PLAIN_CONTENT);
+		mailMessage.setContent(content);
+		mailMessage.setContentType(TEXT_PLAIN_TYPE);
+		
+		return mailMessage;
+	}
 
 	protected Message createMimeMessage() throws Exception {
-		MailBox mailBox = createMailBox();
-		MailSession session = getMailSessionFactory()
-				.createMailSession(mailBox);
-		Message message = new MimeMessage(session.getSession());
+		MailSession mailSession = createMailSession();
+		Message message = new MimeMessage(mailSession.getSession());
 
 		Address from = new InternetAddress(FROM.getAddress(), FROM
 				.getPersonal());
@@ -300,6 +325,26 @@ public class MessageConverterTest extends TestCase {
 		return message;
 
 	}
+	
+	protected MailMessage createMailMessage() throws Exception {
+		MailMessage mailMessage = new MailMessage();
+		mailMessage.setFrom(FROM);
+		List<MailAddress> to = new ArrayList<MailAddress>();
+		to.add(TO);
+		mailMessage.setTo(to);
+		List<MailAddress> cc = new ArrayList<MailAddress>();
+		cc.add(CC1);
+		cc.add(CC2);
+		mailMessage.setCc(cc);
+		List<MailAddress> bcc = new ArrayList<MailAddress>();
+		bcc.add(BCC1);
+		bcc.add(BCC2);
+		mailMessage.setBcc(bcc);
+		
+		mailMessage.setSubject(SUBJECT);
+		
+		return mailMessage;
+	}
 
 	protected MailBox createMailBox() throws Exception {
 		MailBox mailBox = new MailBox();
@@ -308,6 +353,13 @@ public class MessageConverterTest extends TestCase {
 		mailBox.setMailStore(mailStore);
 
 		return mailBox;
+	}
+	
+	protected MailSession createMailSession() throws Exception {
+		MailBox mailBox = createMailBox();
+		MailSession session = getMailSessionFactory()
+				.createMailSession(mailBox);
+		return session;
 	}
 	
 	protected byte[] getImageBytes() throws Exception {
