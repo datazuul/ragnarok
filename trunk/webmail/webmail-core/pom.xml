@@ -12,12 +12,33 @@
 	<artifactId>webmail-core</artifactId>
 	<name>WebMail Core</name>
 	<packaging>ejb</packaging>
+	
+	<properties>
+        <glassfish.home>c:/Users/rafal/dev/glassfish</glassfish.home>
+    </properties>
+	
 
 	<dependencies>
 
 		<!-- webmail dependencies-->
 
 		<!-- infrastructure dependencies-->
+		
+		<dependency>
+            <groupId>glassfish</groupId>
+            <artifactId>appserv-rt.jar</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${glassfish.home}/lib/appserv-rt.jar</systemPath>
+        </dependency>
+        
+        <dependency>
+            <groupId>glassfish</groupId>
+            <artifactId>javaee.jar</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${glassfish.home}/lib/javaee.jar</systemPath>
+        </dependency>		
 
 		<dependency>
 			<groupId>javax.mail</groupId>
@@ -31,11 +52,6 @@
 			<version>1.1.1</version>
 		</dependency>
 
-		<dependency>
-			<groupId>javaee</groupId>
-			<artifactId>javaee-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
 		<dependency>
 			<groupId>org.jboss.seam</groupId>
 			<artifactId>jboss-seam</artifactId>
