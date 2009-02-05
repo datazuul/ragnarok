@@ -16,6 +16,7 @@
 package com.myslek.webmail.impl;
 
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
@@ -76,12 +77,20 @@ public class DefaultMessageConverter implements MessageConverter {
 
 	public Message toMessage(MailMessage mailMessage, Session session)
 			throws MessageConversionException {
-		Message message = new MimeMessage(session);
+		Message message;
 		
-		getAttributesHandler().toAttributes(mailMessage, message);
-		getEnvelopeHandler().toEnvelope(mailMessage, message);
-		getContentHandlerManager().toPartContent(mailMessage, message, session);
-
-		return message;
+		try {
+			message = new MimeMessage(session);
+			getAttributesHandler().toAttributes(mailMessage, message);
+			getEnvelopeHandler().toEnvelope(mailMessage, message);
+			getContentHandlerManager().toPartContent(mailMessage, message,
+					session);
+			
+			message.saveChanges();
+			
+			return message;
+		} catch (MessagingException e) {
+			throw new MessageConversionException(e);
+		}
 	}
 }
