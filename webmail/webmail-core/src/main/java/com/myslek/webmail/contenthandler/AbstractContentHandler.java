@@ -13,8 +13,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.webmail.api;
+package com.myslek.webmail.contenthandler;
 
+import com.myslek.webmail.api.AttributesHandler;
+import com.myslek.webmail.api.ContentHandler;
+import com.myslek.webmail.api.EnvelopeHandler;
 import com.myslek.webmail.impl.DefaultAttributesHandler;
 import com.myslek.webmail.impl.DefaultEnvelopeHandler;
 

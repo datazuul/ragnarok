@@ -23,13 +23,13 @@ import javax.mail.MessagingException;
 import javax.mail.Part;
 import javax.mail.Session;
 
-import com.myslek.webmail.api.BlobContentHandler;
 import com.myslek.webmail.api.ContentHandler;
 import com.myslek.webmail.api.ContentHandlerManager;
-import com.myslek.webmail.api.MessageContentHandler;
 import com.myslek.webmail.api.MessageConversionException;
-import com.myslek.webmail.api.MultipartContentHandler;
-import com.myslek.webmail.api.TextContentHandler;
+import com.myslek.webmail.contenthandler.BlobContentHandler;
+import com.myslek.webmail.contenthandler.MessageContentHandler;
+import com.myslek.webmail.contenthandler.MultipartContentHandler;
+import com.myslek.webmail.contenthandler.TextContentHandler;
 import com.myslek.webmail.domain.MailPart;
 
 public class DefaultContentHandlerManager implements ContentHandlerManager {

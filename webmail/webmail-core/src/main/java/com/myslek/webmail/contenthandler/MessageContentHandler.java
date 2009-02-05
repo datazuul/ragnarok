@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.webmail.api;
+package com.myslek.webmail.contenthandler;
 
 import java.io.IOException;
 
@@ -23,6 +23,8 @@ import javax.mail.Part;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
+import com.myslek.webmail.api.ContentHandlerManager;
+import com.myslek.webmail.api.MessageConversionException;
 import com.myslek.webmail.domain.MailMessage;
 import com.myslek.webmail.domain.MailPart;
 
