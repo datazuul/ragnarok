@@ -74,6 +74,8 @@ public class MessageConverterTest extends TestCase {
 	
 	public static final String MESSAGE_RFC822_TYPE = "message/rfc822";
 	
+	public static final String MULTIPART_MIXED_TYPE = "multipart/mixed";
+	
 	public static final String IMAGE_FILE = "image.jpg";
 	public static final String IMAGE_TYPE = "image/jpeg";
 
@@ -213,6 +215,35 @@ public class MessageConverterTest extends TestCase {
 		Assert.assertNotNull("Message subject must not be null", message.getSubject());
 		Assert.assertEquals("Message subject should be: " + SUBJECT, SUBJECT, message.getSubject());
 	}
+	
+	public void testConvertToMultipartMessage() throws Exception {
+		MailMessage mailMessage = createMultipartMailMessage();
+		MailSession mailSession = createMailSession();
+		Message message = getMessageConverter().toMessage(mailMessage, mailSession.getSession());
+		
+		Assert.assertNotNull("Message must not be null", message);
+		Assert.assertTrue("Message contentType should be: " + MULTIPART_MIXED_TYPE, 
+				message.isMimeType(MULTIPART_MIXED_TYPE));
+		Assert.assertTrue("Message content should be Multipart", message.getContent() instanceof Multipart);
+		
+		Multipart multipart = (Multipart) message.getContent();
+		Assert.assertNotNull("Multipart must not be null", multipart);
+		Assert.assertEquals("Expected Multipart size: 2", 2, multipart.getCount());
+		
+		BodyPart part1 = multipart.getBodyPart(0);
+		Assert.assertNotNull("Part1 must not be null", part1);
+		Assert.assertTrue("Part1 contentType should be: " + TEXT_PLAIN_TYPE, 
+				part1.isMimeType(TEXT_PLAIN_TYPE));
+		Assert.assertEquals("Part1 content should be:" + TEXT_PLAIN_CONTENT, 
+				TEXT_PLAIN_CONTENT, (String) part1.getContent());
+		
+		BodyPart part2 = multipart.getBodyPart(1);
+		Assert.assertNotNull("Part2 must not be null", part1);
+		Assert.assertTrue("Part2 contentType should be: " + TEXT_HTML_TYPE, 
+				part2.isMimeType(TEXT_HTML_TYPE));
+		Assert.assertEquals("Part2 content should be:" + TEXT_HTML_CONTENT, 
+				TEXT_HTML_CONTENT, (String) part2.getContent());
+	}
 
 	//=================================================================
 
@@ -295,6 +326,43 @@ public class MessageConverterTest extends TestCase {
 		content.setText(TEXT_PLAIN_CONTENT);
 		mailMessage.setContent(content);
 		mailMessage.setContentType(TEXT_PLAIN_TYPE);
+		
+		return mailMessage;
+	}
+	
+	protected MailMessage createTextHtmlMailMessage() throws Exception {
+		MailMessage mailMessage = createMailMessage();
+		Content content = new Content();
+		content.setText(TEXT_HTML_CONTENT);
+		mailMessage.setContent(content);
+		mailMessage.setContentType(TEXT_HTML_TYPE);
+		
+		return mailMessage;
+	}
+	
+	protected MailMessage createMultipartMailMessage() throws Exception {
+		MailMessage mailMessage = createMailMessage();
+		mailMessage.setContentType(MULTIPART_MIXED_TYPE);
+		
+		MailPart part1 = new MailPart();
+		Content content1 = new Content();
+		content1.setText(TEXT_PLAIN_CONTENT);
+		part1.setContent(content1);
+		part1.setContentType(TEXT_PLAIN_TYPE);
+		
+		MailPart part2 = new MailPart();
+		Content content2 = new Content();
+		content2.setText(TEXT_HTML_CONTENT);
+		part2.setContent(content2);
+		part2.setContentType(TEXT_HTML_TYPE);
+		
+		MailPart multiPart = new MailPart();
+		multiPart.setContentType(MULTIPART_MIXED_TYPE);
+		multiPart.addPart(part1);
+		multiPart.addPart(part2);
+		
+		mailMessage.addPart(multiPart);
+		
 		
 		return mailMessage;
 	}
