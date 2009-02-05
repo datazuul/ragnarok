@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.webmail.api;
+package com.myslek.webmail.contenthandler;
 
 import java.io.IOException;
 
@@ -25,6 +25,8 @@ import javax.mail.Session;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
 
+import com.myslek.webmail.api.ContentHandlerManager;
+import com.myslek.webmail.api.MessageConversionException;
 import com.myslek.webmail.domain.MailPart;
 
 public class MultipartContentHandler extends AbstractContentHandler {
