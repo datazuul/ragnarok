@@ -84,7 +84,7 @@ public abstract class AbstractMailSession implements MailSession {
 			transport = getTransport(mailBox.getMailTransport());
 			Message message = getMessageConverter().toMessage(mailMessage,
 					getSession());
-			message.saveChanges();
+			//message.saveChanges();
 			transport.sendMessage(message, message.getAllRecipients());
 		} catch (MessagingException e) {
 			throw new MailSessionException(e);
