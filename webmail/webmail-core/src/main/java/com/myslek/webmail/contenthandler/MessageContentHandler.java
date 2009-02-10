@@ -63,6 +63,8 @@ public class MessageContentHandler extends AbstractContentHandler {
 			getEnvelopeHandler().toEnvelope(mailMessage, message);
 			contentHandlerManager.toPartContent(mailMessage, message, session);
 			
+			message.saveChanges();
+			
 			//TODO: if the contentType of the forward message is text/plain or text/html, 
 			//include the content of the forward message in the new message. Otherwise, 
 			//attach the forward message as an attachment.

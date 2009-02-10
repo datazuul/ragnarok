@@ -244,6 +244,41 @@ public class MessageConverterTest extends TestCase {
 		Assert.assertEquals("Part2 content should be:" + TEXT_HTML_CONTENT, 
 				TEXT_HTML_CONTENT, (String) part2.getContent());
 	}
+	
+	public void testConvertToSimpleForwardMessage() throws Exception {
+		MailMessage mailMessage = createSimpleForwardMailMessage();
+		MailSession mailSession = createMailSession();
+		Message message = getMessageConverter().toMessage(mailMessage, mailSession.getSession());
+		
+		Assert.assertNotNull("Message must not be null", message);
+		Assert.assertTrue("Message contentType should be: " + MULTIPART_MIXED_TYPE, 
+				message.isMimeType(MULTIPART_MIXED_TYPE));
+		Assert.assertTrue("Message content should be Multipart", message.getContent() instanceof Multipart);
+		
+		Multipart multipart = (Multipart) message.getContent();
+		Assert.assertNotNull("Multipart must not be null", multipart);
+		Assert.assertEquals("Expected Multipart size: 2", 2, multipart.getCount());
+		
+		BodyPart part1 = multipart.getBodyPart(0);
+		Assert.assertNotNull("Part1 must not be null", part1);
+		Assert.assertTrue("Part1 contentType should be: " + TEXT_PLAIN_TYPE, 
+				part1.isMimeType(TEXT_PLAIN_TYPE));
+		Assert.assertEquals("Part1 content should be:" + TEXT_PLAIN_CONTENT, 
+				TEXT_PLAIN_CONTENT, (String) part1.getContent());
+		
+		BodyPart part2 = multipart.getBodyPart(1);
+		Assert.assertNotNull("Part2 must not be null", part1);
+		Assert.assertTrue("Part2 contentType should be: " + MESSAGE_RFC822_TYPE, 
+				part2.isMimeType(MESSAGE_RFC822_TYPE));	
+		Assert.assertTrue("Part2 content should be of type javax.mail.Message", 
+				part2.getContent() instanceof Message);
+		Message forward = (Message) part2.getContent();
+		Assert.assertNotNull("Forward must not be null", forward);
+		Assert.assertTrue("Forward contentType should be: " + TEXT_HTML_TYPE, 
+				forward.isMimeType(TEXT_HTML_TYPE));
+		Assert.assertEquals("Forward content should be: " + TEXT_HTML_CONTENT, 
+				TEXT_HTML_CONTENT, (String) forward.getContent());
+	}
 
 	//=================================================================
 
@@ -363,6 +398,30 @@ public class MessageConverterTest extends TestCase {
 		
 		mailMessage.addPart(multiPart);
 		
+		
+		return mailMessage;
+	}
+	
+	protected MailMessage createSimpleForwardMailMessage() throws Exception {
+		MailMessage mailMessage = createMailMessage();
+		mailMessage.setContentType(MULTIPART_MIXED_TYPE);
+		
+		MailPart part1 = new MailPart();
+		Content content1 = new Content();
+		content1.setText(TEXT_PLAIN_CONTENT);
+		part1.setContent(content1);
+		part1.setContentType(TEXT_PLAIN_TYPE);
+		
+		MailPart part2 = new MailPart();
+		part2.setContentType(MESSAGE_RFC822_TYPE);
+		part2.addPart(createTextHtmlMailMessage());
+		
+		MailPart multiPart = new MailPart();
+		multiPart.setContentType(MULTIPART_MIXED_TYPE);
+		multiPart.addPart(part1);
+		multiPart.addPart(part2);
+		
+		mailMessage.addPart(multiPart);
 		
 		return mailMessage;
 	}
