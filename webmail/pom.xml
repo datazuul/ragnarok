@@ -5,9 +5,9 @@
 
 	<groupId>com.myslek.webmail</groupId>
 	<artifactId>webmail</artifactId>
-	<version>0.1-SNAPSHOT</version>
+	<version>0.9-SNAPSHOT</version>
 	<name>WebMail</name>
-	<url>http://www.myslek.com/webmail</url>
+	<url>http://code.google.com/p/ragnarok/</url>
 
 	<packaging>pom</packaging>
 
