@@ -15,7 +15,6 @@
  */
 package com.myslek.webmail.contenthandler;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -29,6 +28,7 @@ import com.myslek.webmail.api.ContentHandlerManager;
 import com.myslek.webmail.api.MessageConversionException;
 import com.myslek.webmail.domain.Content;
 import com.myslek.webmail.domain.MailPart;
+import com.myslek.webmail.util.IOUtils;
 
 public class BlobContentHandler extends AbstractContentHandler {
 
@@ -46,7 +46,7 @@ public class BlobContentHandler extends AbstractContentHandler {
 		try {
 			in = part.getInputStream();
 			Content content = new Content();
-			content.setData(getBytes(in));
+			content.setData(IOUtils.getBytes(in));
 			mailPart.setContent(content);
 			mailPart.setFileName(part.getFileName());
 		} catch (IOException e) {
@@ -75,16 +75,5 @@ public class BlobContentHandler extends AbstractContentHandler {
 		} catch (MessagingException e) {
 			throw new MessageConversionException(e);
 		}
-	}
-	
-	protected byte[] getBytes(InputStream in) throws IOException {
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		byte[] buffer = new byte[4 * 1024];
-		int len;
-		while ((len = in.read(buffer)) != -1) {
-			out.write(buffer, 0, len);
-		}
-		
-		return out.toByteArray();
 	}
 }
