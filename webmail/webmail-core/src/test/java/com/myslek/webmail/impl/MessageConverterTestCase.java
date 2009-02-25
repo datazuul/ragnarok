@@ -51,7 +51,7 @@ import com.myslek.webmail.util.IOUtils;
 /**
  * The Class MessageConverterTest.
  */
-public class MessageConverterTest extends TestCase {
+public class MessageConverterTestCase extends TestCase {
 
 	/** The mail session factory. */
 	private MailSessionFactory mailSessionFactory = new DefaultMailSessionFactory();

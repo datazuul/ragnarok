@@ -21,7 +21,7 @@ import junit.framework.TestCase;
 /**
  * The Class MailSessionTest.
  */
-public class MailSessionTest extends TestCase {
+public class MailSessionTestCase extends TestCase {
 	
 	/**
 	 * Test dummy.

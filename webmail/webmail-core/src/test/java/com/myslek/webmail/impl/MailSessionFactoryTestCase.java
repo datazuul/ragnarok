@@ -33,7 +33,7 @@ import com.myslek.webmail.domain.MailMessage;
 /**
  * The Class MailSessionFactoryTest.
  */
-public class MailSessionFactoryTest extends TestCase {
+public class MailSessionFactoryTestCase extends TestCase {
 
 	/** The mail session factory. */
 	private MailSessionFactory mailSessionFactory;
