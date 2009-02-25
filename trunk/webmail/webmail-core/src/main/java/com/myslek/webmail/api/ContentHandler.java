@@ -42,12 +42,12 @@ public interface ContentHandler {
 	 * 
 	 * @param part the part
 	 * @param mailPart the mail part
-	 * @param contentHandlerManager the content handler manager
+	 * @param manager the content handler manager
 	 * 
 	 * @throws MessageConversionException the message conversion exception
 	 */
 	public void fromPartContent(Part part, MailPart mailPart,
-			ContentHandlerManager contentHandlerManager)
+			ContentHandlerManager manager)
 			throws MessageConversionException;
 
 	/**
@@ -56,11 +56,11 @@ public interface ContentHandler {
 	 * @param mailPart the mail part
 	 * @param part the part
 	 * @param session the session
-	 * @param contentHandlerManager the content handler manager
+	 * @param manager the content handler manager
 	 * 
 	 * @throws MessageConversionException the message conversion exception
 	 */
 	public void toPartContent(MailPart mailPart, Part part,
-			Session session, ContentHandlerManager contentHandlerManager)
+			Session session, ContentHandlerManager manager)
 			throws MessageConversionException;
 }

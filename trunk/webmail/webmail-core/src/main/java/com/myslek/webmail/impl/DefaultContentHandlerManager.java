@@ -39,7 +39,7 @@ import com.myslek.webmail.domain.MailPart;
 public class DefaultContentHandlerManager implements ContentHandlerManager {
 	
 	/** The handlers. */
-	private Map<String, ContentHandler> handlers = new HashMap<String, ContentHandler>();
+	private final Map<String, ContentHandler> handlers = new HashMap<String, ContentHandler>();
 	
 	/** The Constant TEXT_TYPE_HANDLER. */
 	public static final String TEXT_TYPE_HANDLER = "TEXT";
@@ -57,10 +57,14 @@ public class DefaultContentHandlerManager implements ContentHandlerManager {
 	 * Instantiates a new default content handler manager.
 	 */
 	public DefaultContentHandlerManager() {
-		addContentHandler(TEXT_TYPE_HANDLER, new TextContentHandler());
-		addContentHandler(MESSAGE_TYPE_HANDLER, new MessageContentHandler());
-		addContentHandler(MULTIPART_TYPE_HANDLER, new MultipartContentHandler());
-		addContentHandler(BLOB_TYPE_HANDLER, new BlobContentHandler());
+		defaultContentHandlers();
+	}
+	
+	private void defaultContentHandlers() {
+		handlers.put(TEXT_TYPE_HANDLER, new TextContentHandler());
+		handlers.put(MESSAGE_TYPE_HANDLER, new MessageContentHandler());
+		handlers.put(MULTIPART_TYPE_HANDLER, new MultipartContentHandler());
+		handlers.put(BLOB_TYPE_HANDLER, new BlobContentHandler());
 	}
 	
 	/* (non-Javadoc)
@@ -68,7 +72,7 @@ public class DefaultContentHandlerManager implements ContentHandlerManager {
 	 */
 	public void addContentHandler(String contentType, ContentHandler handler) {
 		if (handler == null) {
-			throw new NullPointerException("ContentHadnler argument is null!");
+			throw new IllegalArgumentException("ContentHadnler argument is null!");
 		}
 		handlers.put(contentType, handler);
 	}

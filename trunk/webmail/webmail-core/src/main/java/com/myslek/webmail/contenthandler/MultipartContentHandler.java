@@ -46,7 +46,7 @@ public class MultipartContentHandler extends AbstractContentHandler {
 	 * @see com.myslek.webmail.api.ContentHandler#fromPartContent(javax.mail.Part, com.myslek.webmail.domain.MailPart, com.myslek.webmail.api.ContentHandlerManager)
 	 */
 	public void fromPartContent(Part part, MailPart mailPart,
-			ContentHandlerManager contentHandlerManager)
+			ContentHandlerManager manager)
 			throws MessageConversionException {
 		try {
 			Multipart multipart = (Multipart) part.getContent();
@@ -60,7 +60,7 @@ public class MultipartContentHandler extends AbstractContentHandler {
 				getAttributesHandler().fromAttributes(body, bodyPart);
 				multiPart.addPart(bodyPart);
 
-				contentHandlerManager.fromPartContent(body, bodyPart);
+				manager.fromPartContent(body, bodyPart);
 			}
 		} catch (IOException e) {
 			throw new MessageConversionException(e);
@@ -73,7 +73,7 @@ public class MultipartContentHandler extends AbstractContentHandler {
 	 * @see com.myslek.webmail.api.ContentHandler#toPartContent(com.myslek.webmail.domain.MailPart, javax.mail.Part, javax.mail.Session, com.myslek.webmail.api.ContentHandlerManager)
 	 */
 	public void toPartContent(MailPart mailPart, Part part,
-			Session session, ContentHandlerManager contentHandlerManager)
+			Session session, ContentHandlerManager manager)
 			throws MessageConversionException {
 		try {
 			Multipart multipart = new MimeMultipart();
@@ -83,7 +83,7 @@ public class MultipartContentHandler extends AbstractContentHandler {
 				BodyPart bodyPart = new MimeBodyPart();
 				
 				getAttributesHandler().toAttributes(body, bodyPart);
-				contentHandlerManager.toPartContent(body, bodyPart, session);
+				manager.toPartContent(body, bodyPart, session);
 
 				multipart.addBodyPart(bodyPart);
 			}

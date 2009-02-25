@@ -43,7 +43,7 @@ public class TextContentHandler extends AbstractContentHandler {
 	 * @see com.myslek.webmail.api.ContentHandler#fromPartContent(javax.mail.Part, com.myslek.webmail.domain.MailPart, com.myslek.webmail.api.ContentHandlerManager)
 	 */
 	public void fromPartContent(Part part, MailPart mailPart,
-			ContentHandlerManager contentHandlerManager)
+			ContentHandlerManager manager)
 			throws MessageConversionException {
 		try {
 			String text = (String) part.getContent();
@@ -61,7 +61,7 @@ public class TextContentHandler extends AbstractContentHandler {
 	 * @see com.myslek.webmail.api.ContentHandler#toPartContent(com.myslek.webmail.domain.MailPart, javax.mail.Part, javax.mail.Session, com.myslek.webmail.api.ContentHandlerManager)
 	 */
 	public void toPartContent(MailPart mailPart, Part part,
-			Session session, ContentHandlerManager contentHandlerManager)
+			Session session, ContentHandlerManager manager)
 			throws MessageConversionException {
 		try {
 			part.setContent((String) mailPart.getContent().getText(), mailPart
