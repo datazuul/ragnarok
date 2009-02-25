@@ -543,8 +543,9 @@ public class MessageConverterTest extends TestCase {
 	
 	protected MailSession createMailSession() throws Exception {
 		MailBox mailBox = createMailBox();
+		String mailStoreProtocol = mailBox.getMailStore().getProtocol();
 		MailSession session = getMailSessionFactory()
-				.createMailSession(mailBox);
+				.createMailSession(mailStoreProtocol);
 		return session;
 	}
 	
