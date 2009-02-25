@@ -18,9 +18,25 @@ package com.myslek.webmail.api;
 import com.myslek.webmail.domain.MailFolder;
 import com.myslek.webmail.domain.MailMessage;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface MessageFilterRule.
+ */
 public interface MessageFilterRule {
 	
+	/**
+	 * Matches.
+	 * 
+	 * @param mailMessage the mail message
+	 * 
+	 * @return true, if successful
+	 */
 	boolean matches(MailMessage mailMessage);
 	
+	/**
+	 * Gets the destination folder.
+	 * 
+	 * @return the destination folder
+	 */
 	MailFolder getDestinationFolder();
 }

@@ -17,36 +17,74 @@ package com.myslek.webmail.domain;
 
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MailMessageFilter.
+ */
 public class MailMessageFilter implements Serializable {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The id. */
 	private Long id;
+	
+	/** The mail box. */
 	private MailBox mailBox;
+	
+	/** The filtering rule. */
 	private String filteringRule;
 
+	/**
+	 * Gets the id.
+	 * 
+	 * @return the id
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * Sets the id.
+	 * 
+	 * @param id the new id
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * Gets the mail box.
+	 * 
+	 * @return the mail box
+	 */
 	public MailBox getMailBox() {
 		return mailBox;
 	}
 
+	/**
+	 * Sets the mail box.
+	 * 
+	 * @param mailBox the new mail box
+	 */
 	public void setMailBox(MailBox mailBox) {
 		this.mailBox = mailBox;
 	}
 
+	/**
+	 * Gets the filtering rule.
+	 * 
+	 * @return the filtering rule
+	 */
 	public String getFilteringRule() {
 		return filteringRule;
 	}
 
+	/**
+	 * Sets the filtering rule.
+	 * 
+	 * @param filteringRule the new filtering rule
+	 */
 	public void setFilteringRule(String filteringRule) {
 		this.filteringRule = filteringRule;
 	}

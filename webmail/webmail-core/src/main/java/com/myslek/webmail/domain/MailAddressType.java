@@ -15,6 +15,18 @@
  */
 package com.myslek.webmail.domain;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum MailAddressType.
+ */
 public enum MailAddressType {
-	FROM, TO, CC, BCC
+	
+	/** The FROM. */
+	FROM, 
+ /** The TO. */
+ TO, 
+ /** The CC. */
+ CC, 
+ /** The BCC. */
+ BCC
 }

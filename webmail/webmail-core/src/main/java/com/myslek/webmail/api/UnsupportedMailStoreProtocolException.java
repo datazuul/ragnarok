@@ -15,24 +15,46 @@
  */
 package com.myslek.webmail.api;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UnsupportedMailStoreProtocolException.
+ */
 public class UnsupportedMailStoreProtocolException extends SystemException {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Instantiates a new unsupported mail store protocol exception.
+	 */
 	public UnsupportedMailStoreProtocolException() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new unsupported mail store protocol exception.
+	 * 
+	 * @param message the message
+	 * @param cause the cause
+	 */
 	public UnsupportedMailStoreProtocolException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * Instantiates a new unsupported mail store protocol exception.
+	 * 
+	 * @param message the message
+	 */
 	public UnsupportedMailStoreProtocolException(String message) {
 		super(message);
 	}
 
+	/**
+	 * Instantiates a new unsupported mail store protocol exception.
+	 * 
+	 * @param cause the cause
+	 */
 	public UnsupportedMailStoreProtocolException(Throwable cause) {
 		super(cause);
 	}

@@ -19,9 +19,29 @@ import javax.mail.Message;
 
 import com.myslek.webmail.domain.MailMessage;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface EnvelopeHandler.
+ */
 public interface EnvelopeHandler {
 	
+	/**
+	 * From envelope.
+	 * 
+	 * @param message the message
+	 * @param mailMessage the mail message
+	 * 
+	 * @throws MessageConversionException the message conversion exception
+	 */
 	public void fromEnvelope(Message message, MailMessage mailMessage) throws MessageConversionException;
 	
+	/**
+	 * To envelope.
+	 * 
+	 * @param mailMessage the mail message
+	 * @param message the message
+	 * 
+	 * @throws MessageConversionException the message conversion exception
+	 */
 	public void toEnvelope(MailMessage mailMessage, Message message) throws MessageConversionException;
 }

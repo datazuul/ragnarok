@@ -18,12 +18,24 @@ package com.myslek.webmail.api;
 import javax.mail.Message;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class OrMessageFilter.
+ */
 public class OrMessageFilter extends CompositeMessageFilter {
 
+	/**
+	 * Instantiates a new or message filter.
+	 * 
+	 * @param filters the filters
+	 */
 	public OrMessageFilter(MessageFilter[] filters) {
 		super(filters);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.CompositeMessageFilter#accept(javax.mail.Message)
+	 */
 	@Override
 	public boolean accept(Message message) {
 		for (MessageFilter filter : filters) {

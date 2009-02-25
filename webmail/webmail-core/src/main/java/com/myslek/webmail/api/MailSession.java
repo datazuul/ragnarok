@@ -22,13 +22,41 @@ import javax.mail.Session;
 import com.myslek.webmail.domain.MailBox;
 import com.myslek.webmail.domain.MailMessage;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface MailSession.
+ */
 public interface MailSession {
 	
+	/**
+	 * Gets the session.
+	 * 
+	 * @return the session
+	 */
 	public Session getSession();
 
+	/**
+	 * Send message.
+	 * 
+	 * @param mailBox the mail box
+	 * @param mailMessage the mail message
+	 * 
+	 * @throws MailSessionException the mail session exception
+	 */
 	public void sendMessage(MailBox mailBox, MailMessage mailMessage)
 			throws MailSessionException;
 
+	/**
+	 * Fetch messages.
+	 * 
+	 * @param mailBox the mail box
+	 * @param uids the uids
+	 * @param filter the filter
+	 * 
+	 * @return the collection< mail message>
+	 * 
+	 * @throws MailSessionException the mail session exception
+	 */
 	public Collection<MailMessage> fetchMessages(MailBox mailBox, Collection<String> uids,
 			MessageFilter filter) throws MailSessionException;
 

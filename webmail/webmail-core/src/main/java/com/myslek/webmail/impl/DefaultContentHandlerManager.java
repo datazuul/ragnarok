@@ -32,15 +32,30 @@ import com.myslek.webmail.contenthandler.MultipartContentHandler;
 import com.myslek.webmail.contenthandler.TextContentHandler;
 import com.myslek.webmail.domain.MailPart;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DefaultContentHandlerManager.
+ */
 public class DefaultContentHandlerManager implements ContentHandlerManager {
 	
+	/** The handlers. */
 	private Map<String, ContentHandler> handlers = new HashMap<String, ContentHandler>();
 	
+	/** The Constant TEXT_TYPE_HANDLER. */
 	public static final String TEXT_TYPE_HANDLER = "TEXT";
+	
+	/** The Constant MESSAGE_TYPE_HANDLER. */
 	public static final String MESSAGE_TYPE_HANDLER = "MESSAGE";
+	
+	/** The Constant MULTIPART_TYPE_HANDLER. */
 	public static final String MULTIPART_TYPE_HANDLER = "MULTIPART";
+	
+	/** The Constant BLOB_TYPE_HANDLER. */
 	public static final String BLOB_TYPE_HANDLER = "BLOB";
 	
+	/**
+	 * Instantiates a new default content handler manager.
+	 */
 	public DefaultContentHandlerManager() {
 		addContentHandler(TEXT_TYPE_HANDLER, new TextContentHandler());
 		addContentHandler(MESSAGE_TYPE_HANDLER, new MessageContentHandler());
@@ -48,6 +63,9 @@ public class DefaultContentHandlerManager implements ContentHandlerManager {
 		addContentHandler(BLOB_TYPE_HANDLER, new BlobContentHandler());
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.ContentHandlerManager#addContentHandler(java.lang.String, com.myslek.webmail.api.ContentHandler)
+	 */
 	public void addContentHandler(String contentType, ContentHandler handler) {
 		if (handler == null) {
 			throw new NullPointerException("ContentHadnler argument is null!");
@@ -55,6 +73,9 @@ public class DefaultContentHandlerManager implements ContentHandlerManager {
 		handlers.put(contentType, handler);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.ContentHandlerManager#fromPartContent(javax.mail.Part, com.myslek.webmail.domain.MailPart)
+	 */
 	public void fromPartContent(Part part, MailPart mailPart)
 			throws MessageConversionException {
 		try {
@@ -72,6 +93,9 @@ public class DefaultContentHandlerManager implements ContentHandlerManager {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.ContentHandlerManager#toPartContent(com.myslek.webmail.domain.MailPart, javax.mail.Part, javax.mail.Session)
+	 */
 	public void toPartContent(MailPart mailPart, Part part, Session session)
 			throws MessageConversionException {
 		String contentType = mailPart.getContentType();
@@ -85,10 +109,20 @@ public class DefaultContentHandlerManager implements ContentHandlerManager {
 				"for 'com.myslek.webmail.domain.MailPart' content type [" + contentType + "]");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.ContentHandlerManager#getContentHandlers()
+	 */
 	public Collection<ContentHandler> getContentHandlers() {
 		return handlers.values();
 	}
 	
+	/**
+	 * Find content handler.
+	 * 
+	 * @param contentType the content type
+	 * 
+	 * @return the content handler
+	 */
 	protected ContentHandler findContentHandler(String contentType) {
 		return null;
 	}

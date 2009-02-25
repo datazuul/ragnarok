@@ -33,18 +33,34 @@ import com.myslek.webmail.domain.MailBox;
 import com.myslek.webmail.domain.MailMessage;
 import com.sun.mail.pop3.POP3Folder;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Pop3MailSession.
+ */
 public class Pop3MailSession extends AbstractMailSession {
 
+	/** The Constant DEFAULT_FOLDER. */
 	public static final String DEFAULT_FOLDER = "INBOX";
 
+	/**
+	 * Instantiates a new pop3 mail session.
+	 */
 	public Pop3MailSession() {
 		setMessageConverter(new DefaultMessageConverter());
 	}
 
+	/**
+	 * Instantiates a new pop3 mail session.
+	 * 
+	 * @param messageConverter the message converter
+	 */
 	public Pop3MailSession(MessageConverter messageConverter) {
 		setMessageConverter(messageConverter);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.MailSession#fetchMessages(com.myslek.webmail.domain.MailBox, java.util.Collection, com.myslek.webmail.api.MessageFilter)
+	 */
 	public Collection<MailMessage> fetchMessages(MailBox mailBox,
 			Collection<String> uids, MessageFilter filter)
 			throws MailSessionException {
@@ -101,6 +117,16 @@ public class Pop3MailSession extends AbstractMailSession {
 		return mailMessages;
 	}
 
+	/**
+	 * Checks if is new message.
+	 * 
+	 * @param uids the uids
+	 * @param uid the uid
+	 * 
+	 * @return true, if is new message
+	 * 
+	 * @throws MailSessionException the mail session exception
+	 */
 	private boolean isNewMessage(Collection<String> uids, String uid) throws MailSessionException {
 		return !uids.contains(uid);
 	}

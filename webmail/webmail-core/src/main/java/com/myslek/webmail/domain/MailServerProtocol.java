@@ -15,8 +15,18 @@
  */
 package com.myslek.webmail.domain;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum MailServerProtocol.
+ */
 public enum MailServerProtocol {
+	
+	/** The SMTP. */
 	SMTP,
+	
+	/** The POP. */
 	POP,
+	
+	/** The IMAP. */
 	IMAP
 }

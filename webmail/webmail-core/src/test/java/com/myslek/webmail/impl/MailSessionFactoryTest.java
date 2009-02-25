@@ -29,12 +29,23 @@ import com.myslek.webmail.api.MessageFilter;
 import com.myslek.webmail.domain.MailBox;
 import com.myslek.webmail.domain.MailMessage;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MailSessionFactoryTest.
+ */
 public class MailSessionFactoryTest extends TestCase {
 
+	/** The mail session factory. */
 	private MailSessionFactory mailSessionFactory;
 
+	/** The Constant POP3_STORE_PROTOCOL. */
 	public static final String POP3_STORE_PROTOCOL = "pop3";
 
+	/**
+	 * Test create mail session.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testCreateMailSession() throws Exception {
 		mailSessionFactory = new DefaultMailSessionFactory();
 		MailSession mailSession = mailSessionFactory

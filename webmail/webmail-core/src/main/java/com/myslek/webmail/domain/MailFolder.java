@@ -17,37 +17,74 @@ package com.myslek.webmail.domain;
 
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MailFolder.
+ */
 public class MailFolder implements Serializable {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
+	/** The id. */
 	private Long id;
+	
+	/** The token. */
 	private String token;
+	
+	/** The mail box. */
 	private MailBox mailBox;
 	
+	/**
+	 * Gets the id.
+	 * 
+	 * @return the id
+	 */
 	public Long getId() {
 		return id;
 	}
 	
+	/**
+	 * Sets the id.
+	 * 
+	 * @param id the new id
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 	
+	/**
+	 * Gets the token.
+	 * 
+	 * @return the token
+	 */
 	public String getToken() {
 		return token;
 	}
 
+	/**
+	 * Sets the token.
+	 * 
+	 * @param token the new token
+	 */
 	public void setToken(String token) {
 		this.token = token;
 	}
 
+	/**
+	 * Gets the mail box.
+	 * 
+	 * @return the mail box
+	 */
 	public MailBox getMailBox() {
 		return mailBox;
 	}
 	
+	/**
+	 * Sets the mail box.
+	 * 
+	 * @param mailBox the new mail box
+	 */
 	public void setMailBox(MailBox mailBox) {
 		this.mailBox = mailBox;
 	}

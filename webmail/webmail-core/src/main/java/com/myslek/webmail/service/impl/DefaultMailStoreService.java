@@ -23,13 +23,23 @@ import com.myslek.webmail.domain.MailBox;
 import com.myslek.webmail.domain.MailMessage;
 import com.myslek.webmail.service.MailStoreService;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DefaultMailStoreService.
+ */
 @Stateless
 public class DefaultMailStoreService implements MailStoreService {
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.service.MailStoreService#storeMessages(java.util.Collection)
+	 */
 	public void storeMessages(Collection<MailMessage> messages) {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.service.MailStoreService#getUids(com.myslek.webmail.domain.MailBox)
+	 */
 	public Collection<String> getUids(MailBox mailBox) {
 		return null;
 	}

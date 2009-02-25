@@ -20,14 +20,46 @@ import javax.mail.Session;
 
 import com.myslek.webmail.domain.MailPart;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface ContentHandler.
+ */
 public interface ContentHandler {
 	
+	/**
+	 * Accept.
+	 * 
+	 * @param contentType the content type
+	 * 
+	 * @return true, if successful
+	 * 
+	 * @throws MessageConversionException the message conversion exception
+	 */
 	public boolean accept(String contentType) throws MessageConversionException;
 
+	/**
+	 * From part content.
+	 * 
+	 * @param part the part
+	 * @param mailPart the mail part
+	 * @param contentHandlerManager the content handler manager
+	 * 
+	 * @throws MessageConversionException the message conversion exception
+	 */
 	public void fromPartContent(Part part, MailPart mailPart,
 			ContentHandlerManager contentHandlerManager)
 			throws MessageConversionException;
 
+	/**
+	 * To part content.
+	 * 
+	 * @param mailPart the mail part
+	 * @param part the part
+	 * @param session the session
+	 * @param contentHandlerManager the content handler manager
+	 * 
+	 * @throws MessageConversionException the message conversion exception
+	 */
 	public void toPartContent(MailPart mailPart, Part part,
 			Session session, ContentHandlerManager contentHandlerManager)
 			throws MessageConversionException;

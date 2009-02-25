@@ -17,8 +17,15 @@ package com.myslek.webmail.api;
 
 import javax.mail.Message;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TimestampMessageFilter.
+ */
 public class TimestampMessageFilter implements MessageFilter {
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.MessageFilter#accept(javax.mail.Message)
+	 */
 	public boolean accept(Message message) {
 		return false;
 	}

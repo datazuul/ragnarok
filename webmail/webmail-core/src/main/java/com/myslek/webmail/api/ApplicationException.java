@@ -15,25 +15,46 @@
  */
 package com.myslek.webmail.api;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ApplicationException.
+ */
 public class ApplicationException extends Exception {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Instantiates a new application exception.
+	 */
 	public ApplicationException() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new application exception.
+	 * 
+	 * @param message the message
+	 * @param cause the cause
+	 */
 	public ApplicationException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * Instantiates a new application exception.
+	 * 
+	 * @param message the message
+	 */
 	public ApplicationException(String message) {
 		super(message);
 	}
 
+	/**
+	 * Instantiates a new application exception.
+	 * 
+	 * @param cause the cause
+	 */
 	public ApplicationException(Throwable cause) {
 		super(cause);
 	}

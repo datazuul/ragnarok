@@ -20,9 +20,32 @@ import javax.mail.Session;
 
 import com.myslek.webmail.domain.MailMessage;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface MessageConverter.
+ */
 public interface MessageConverter {
 	
+	/**
+	 * From message.
+	 * 
+	 * @param message the message
+	 * 
+	 * @return the mail message
+	 * 
+	 * @throws MessageConversionException the message conversion exception
+	 */
 	public MailMessage fromMessage(Message message) throws MessageConversionException;
 	
+	/**
+	 * To message.
+	 * 
+	 * @param mailMessage the mail message
+	 * @param session the session
+	 * 
+	 * @return the message
+	 * 
+	 * @throws MessageConversionException the message conversion exception
+	 */
 	public Message toMessage(MailMessage mailMessage, Session session) throws MessageConversionException;
 }

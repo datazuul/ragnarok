@@ -19,9 +19,29 @@ import javax.mail.Part;
 
 import com.myslek.webmail.domain.MailPart;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface AttributesHandler.
+ */
 public interface AttributesHandler {
 	
+	/**
+	 * From attributes.
+	 * 
+	 * @param part the part
+	 * @param mailPart the mail part
+	 * 
+	 * @throws MessageConversionException the message conversion exception
+	 */
 	public void fromAttributes(Part part, MailPart mailPart) throws MessageConversionException;
 	
+	/**
+	 * To attributes.
+	 * 
+	 * @param mailPart the mail part
+	 * @param part the part
+	 * 
+	 * @throws MessageConversionException the message conversion exception
+	 */
 	public void toAttributes(MailPart mailPart, Part part) throws MessageConversionException;
 }

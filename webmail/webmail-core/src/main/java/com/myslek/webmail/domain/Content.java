@@ -17,27 +17,53 @@ package com.myslek.webmail.domain;
 
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Content.
+ */
 public class Content implements Serializable {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The text. */
 	private String text;
+	
+	/** The data. */
 	private byte[] data;
 	
+	/**
+	 * Gets the text.
+	 * 
+	 * @return the text
+	 */
 	public String getText() {
 		return text;
 	}
 	
+	/**
+	 * Sets the text.
+	 * 
+	 * @param text the new text
+	 */
 	public void setText(String text) {
 		this.text = text;
 	}
 	
+	/**
+	 * Gets the data.
+	 * 
+	 * @return the data
+	 */
 	public byte[] getData() {
 		return data;
 	}
 	
+	/**
+	 * Sets the data.
+	 * 
+	 * @param data the new data
+	 */
 	public void setData(byte[] data) {
 		this.data = data;
 	}

@@ -15,6 +15,14 @@
  */
 package com.myslek.webmail.domain;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum MailServerType.
+ */
 public enum MailServerType {
-	IN, OUT
+	
+	/** The IN. */
+	IN, 
+ /** The OUT. */
+ OUT
 }

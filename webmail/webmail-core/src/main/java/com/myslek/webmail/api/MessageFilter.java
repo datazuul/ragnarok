@@ -17,7 +17,18 @@ package com.myslek.webmail.api;
 
 import javax.mail.Message;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface MessageFilter.
+ */
 public interface MessageFilter {
 	
+	/**
+	 * Accept.
+	 * 
+	 * @param message the message
+	 * 
+	 * @return true, if successful
+	 */
 	public boolean accept(Message message);
 }

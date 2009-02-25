@@ -28,12 +28,22 @@ import com.myslek.webmail.api.MessageConversionException;
 import com.myslek.webmail.domain.MailMessage;
 import com.myslek.webmail.domain.MailPart;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MessageContentHandler.
+ */
 public class MessageContentHandler extends AbstractContentHandler {
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.ContentHandler#accept(java.lang.String)
+	 */
 	public boolean accept(String contentType) throws MessageConversionException {
 		return contentType.startsWith(MailPart.MESSAGE_TYPE_PREFIX);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.ContentHandler#fromPartContent(javax.mail.Part, com.myslek.webmail.domain.MailPart, com.myslek.webmail.api.ContentHandlerManager)
+	 */
 	public void fromPartContent(Part part, MailPart mailPart,
 			ContentHandlerManager contentHandlerManager)
 			throws MessageConversionException {
@@ -52,6 +62,9 @@ public class MessageContentHandler extends AbstractContentHandler {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.ContentHandler#toPartContent(com.myslek.webmail.domain.MailPart, javax.mail.Part, javax.mail.Session, com.myslek.webmail.api.ContentHandlerManager)
+	 */
 	public void toPartContent(MailPart mailPart, Part part,
 			Session session, ContentHandlerManager contentHandlerManager)
 			throws MessageConversionException {
