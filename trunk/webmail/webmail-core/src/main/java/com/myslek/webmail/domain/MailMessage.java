@@ -209,4 +209,26 @@ public class MailMessage extends MailPart {
 		}
 		return null;
 	}
+	
+	
+	
+	/**
+	 * Adds the recipient.
+	 * 
+	 * @param type the type
+	 * @param address the address
+	 */
+	public void addRecipient(RecipientType type, MailAddress address) {
+		switch (type) {
+		case TO:
+			to.add(address);
+			break;
+		case CC:
+			cc.add(address);
+			break;
+		case BCC:
+			bcc.add(address);
+			break;
+		}
+	}
 }
