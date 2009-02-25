@@ -50,13 +50,13 @@ public class BlobContentHandler extends AbstractContentHandler {
 	 * @see com.myslek.webmail.api.ContentHandler#fromPartContent(javax.mail.Part, com.myslek.webmail.domain.MailPart, com.myslek.webmail.api.ContentHandlerManager)
 	 */
 	public void fromPartContent(Part part, MailPart mailPart,
-			ContentHandlerManager contentHandlerManager)
+			ContentHandlerManager manager)
 			throws MessageConversionException {
-		InputStream in = null;
+		InputStream input = null;
 		try {
-			in = part.getInputStream();
+			input = part.getInputStream();
 			Content content = new Content();
-			content.setData(IOUtils.getBytes(in));
+			content.setData(IOUtils.getBytes(input));
 			mailPart.setContent(content);
 			mailPart.setFileName(part.getFileName());
 		} catch (IOException e) {
@@ -64,9 +64,9 @@ public class BlobContentHandler extends AbstractContentHandler {
 		} catch (MessagingException e) {
 			throw new MessageConversionException(e);
 		} finally {
-			if (in != null) {
+			if (input != null) {
 				try {
-					in.close();
+					input.close();
 				} catch (IOException e) {
 					throw new MessageConversionException(e);
 				}
@@ -78,12 +78,12 @@ public class BlobContentHandler extends AbstractContentHandler {
 	 * @see com.myslek.webmail.api.ContentHandler#toPartContent(com.myslek.webmail.domain.MailPart, javax.mail.Part, javax.mail.Session, com.myslek.webmail.api.ContentHandlerManager)
 	 */
 	public void toPartContent(MailPart mailPart, Part part,
-			Session session, ContentHandlerManager contentHandlerManager)
+			Session session, ContentHandlerManager manager)
 			throws MessageConversionException {
 		try {
-			ByteArrayDataSource ds = new ByteArrayDataSource(
+			ByteArrayDataSource dataSource = new ByteArrayDataSource(
 					mailPart.getContent().getData(), mailPart.getContentType());
-			part.setDataHandler(new DataHandler(ds));
+			part.setDataHandler(new DataHandler(dataSource));
 			part.setFileName(mailPart.getFileName());
 		} catch (MessagingException e) {
 			throw new MessageConversionException(e);

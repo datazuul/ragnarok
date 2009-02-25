@@ -45,7 +45,7 @@ public class MessageContentHandler extends AbstractContentHandler {
 	 * @see com.myslek.webmail.api.ContentHandler#fromPartContent(javax.mail.Part, com.myslek.webmail.domain.MailPart, com.myslek.webmail.api.ContentHandlerManager)
 	 */
 	public void fromPartContent(Part part, MailPart mailPart,
-			ContentHandlerManager contentHandlerManager)
+			ContentHandlerManager manager)
 			throws MessageConversionException {
 		try {
 			Message message = (Message) part.getContent();
@@ -54,7 +54,7 @@ public class MessageContentHandler extends AbstractContentHandler {
 
 			getAttributesHandler().fromAttributes(message, mailMessage);
 			getEnvelopeHandler().fromEnvelope(message, mailMessage);
-			contentHandlerManager.fromPartContent(message, mailMessage);
+			manager.fromPartContent(message, mailMessage);
 		} catch (IOException e) {
 			throw new MessageConversionException(e);
 		} catch (MessagingException e) {
@@ -66,7 +66,7 @@ public class MessageContentHandler extends AbstractContentHandler {
 	 * @see com.myslek.webmail.api.ContentHandler#toPartContent(com.myslek.webmail.domain.MailPart, javax.mail.Part, javax.mail.Session, com.myslek.webmail.api.ContentHandlerManager)
 	 */
 	public void toPartContent(MailPart mailPart, Part part,
-			Session session, ContentHandlerManager contentHandlerManager)
+			Session session, ContentHandlerManager manager)
 			throws MessageConversionException {
 		try {
 			Message message = new MimeMessage(session);
@@ -74,7 +74,7 @@ public class MessageContentHandler extends AbstractContentHandler {
 			
 			getAttributesHandler().toAttributes(mailMessage, message);
 			getEnvelopeHandler().toEnvelope(mailMessage, message);
-			contentHandlerManager.toPartContent(mailMessage, message, session);
+			manager.toPartContent(mailMessage, message, session);
 			
 			message.saveChanges();
 			
