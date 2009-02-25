@@ -15,25 +15,46 @@
  */
 package com.myslek.webmail.api;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MailSessionException.
+ */
 public class MailSessionException extends SystemException {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Instantiates a new mail session exception.
+	 */
 	public MailSessionException() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new mail session exception.
+	 * 
+	 * @param message the message
+	 * @param cause the cause
+	 */
 	public MailSessionException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * Instantiates a new mail session exception.
+	 * 
+	 * @param message the message
+	 */
 	public MailSessionException(String message) {
 		super(message);
 	}
 
+	/**
+	 * Instantiates a new mail session exception.
+	 * 
+	 * @param cause the cause
+	 */
 	public MailSessionException(Throwable cause) {
 		super(cause);
 	}

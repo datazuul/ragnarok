@@ -27,43 +27,88 @@ import com.myslek.webmail.api.MessageConversionException;
 import com.myslek.webmail.api.MessageConverter;
 import com.myslek.webmail.domain.MailMessage;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DefaultMessageConverter.
+ */
 public class DefaultMessageConverter implements MessageConverter {
 
+	/** The attributes handler. */
 	private AttributesHandler attributesHandler;
+	
+	/** The envelope handler. */
 	private EnvelopeHandler envelopeHandler;
+	
+	/** The content handler manager. */
 	private ContentHandlerManager contentHandlerManager;
 
+	/**
+	 * Instantiates a new default message converter.
+	 */
 	public DefaultMessageConverter() {
 		this.attributesHandler = new DefaultAttributesHandler();
 		this.envelopeHandler = new DefaultEnvelopeHandler();
 		this.contentHandlerManager = new DefaultContentHandlerManager();
 	}
 
+	/**
+	 * Gets the envelope handler.
+	 * 
+	 * @return the envelope handler
+	 */
 	public EnvelopeHandler getEnvelopeHandler() {
 		return envelopeHandler;
 	}
 
+	/**
+	 * Sets the envelope handler.
+	 * 
+	 * @param envelopeHandler the new envelope handler
+	 */
 	public void setEnvelopeHandler(EnvelopeHandler envelopeHandler) {
 		this.envelopeHandler = envelopeHandler;
 	}
 
+	/**
+	 * Gets the content handler manager.
+	 * 
+	 * @return the content handler manager
+	 */
 	public ContentHandlerManager getContentHandlerManager() {
 		return contentHandlerManager;
 	}
 
+	/**
+	 * Sets the content handler manager.
+	 * 
+	 * @param contentHandlerManager the new content handler manager
+	 */
 	public void setContentHandlerManager(
 			ContentHandlerManager contentHandlerManager) {
 		this.contentHandlerManager = contentHandlerManager;
 	}
 
+	/**
+	 * Gets the attributes handler.
+	 * 
+	 * @return the attributes handler
+	 */
 	public AttributesHandler getAttributesHandler() {
 		return attributesHandler;
 	}
 
+	/**
+	 * Sets the attributes handler.
+	 * 
+	 * @param attributesHandler the new attributes handler
+	 */
 	public void setAttributesHandler(AttributesHandler attributesHandler) {
 		this.attributesHandler = attributesHandler;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.MessageConverter#fromMessage(javax.mail.Message)
+	 */
 	public MailMessage fromMessage(Message message)
 			throws MessageConversionException {
 		MailMessage mailMessage = new MailMessage();
@@ -75,6 +120,9 @@ public class DefaultMessageConverter implements MessageConverter {
 		return mailMessage;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.MessageConverter#toMessage(com.myslek.webmail.domain.MailMessage, javax.mail.Session)
+	 */
 	public Message toMessage(MailMessage mailMessage, Session session)
 			throws MessageConversionException {
 		Message message;

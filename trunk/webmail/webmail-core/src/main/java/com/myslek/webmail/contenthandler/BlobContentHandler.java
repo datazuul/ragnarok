@@ -30,8 +30,15 @@ import com.myslek.webmail.domain.Content;
 import com.myslek.webmail.domain.MailPart;
 import com.myslek.webmail.util.IOUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BlobContentHandler.
+ */
 public class BlobContentHandler extends AbstractContentHandler {
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.ContentHandler#accept(java.lang.String)
+	 */
 	public boolean accept(String contentType) throws MessageConversionException {
 		return contentType.startsWith(MailPart.IMAGE_TYPE_PREFIX)
 				|| contentType.startsWith(MailPart.VIDEO_TYPE_PREFIX)
@@ -39,6 +46,9 @@ public class BlobContentHandler extends AbstractContentHandler {
 				|| contentType.startsWith(MailPart.AUDIO_TYPE_PREFIX);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.ContentHandler#fromPartContent(javax.mail.Part, com.myslek.webmail.domain.MailPart, com.myslek.webmail.api.ContentHandlerManager)
+	 */
 	public void fromPartContent(Part part, MailPart mailPart,
 			ContentHandlerManager contentHandlerManager)
 			throws MessageConversionException {
@@ -64,6 +74,9 @@ public class BlobContentHandler extends AbstractContentHandler {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.ContentHandler#toPartContent(com.myslek.webmail.domain.MailPart, javax.mail.Part, javax.mail.Session, com.myslek.webmail.api.ContentHandlerManager)
+	 */
 	public void toPartContent(MailPart mailPart, Part part,
 			Session session, ContentHandlerManager contentHandlerManager)
 			throws MessageConversionException {

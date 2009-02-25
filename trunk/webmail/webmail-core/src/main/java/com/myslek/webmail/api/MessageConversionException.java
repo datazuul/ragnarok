@@ -15,25 +15,46 @@
  */
 package com.myslek.webmail.api;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MessageConversionException.
+ */
 public class MessageConversionException extends SystemException {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Instantiates a new message conversion exception.
+	 */
 	public MessageConversionException() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new message conversion exception.
+	 * 
+	 * @param message the message
+	 * @param cause the cause
+	 */
 	public MessageConversionException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * Instantiates a new message conversion exception.
+	 * 
+	 * @param message the message
+	 */
 	public MessageConversionException(String message) {
 		super(message);
 	}
 
+	/**
+	 * Instantiates a new message conversion exception.
+	 * 
+	 * @param cause the cause
+	 */
 	public MessageConversionException(Throwable cause) {
 		super(cause);
 	}

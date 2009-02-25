@@ -22,21 +22,40 @@ import com.myslek.webmail.api.MailSession;
 import com.myslek.webmail.api.MailSessionFactory;
 import com.myslek.webmail.api.UnsupportedMailStoreProtocolException;
 
+// TODO: Auto-generated Javadoc
+/**
+ * A factory for creating DefaultMailSession objects.
+ */
 public class DefaultMailSessionFactory implements MailSessionFactory {
 
+	/** The mail session types. */
 	private Map<String, MailSession> mailSessionTypes = new HashMap<String, MailSession>();
 
+	/** The Constant POP3_STORE_PROTOCOL. */
 	public static final String POP3_STORE_PROTOCOL = "pop3";
+	
+	/** The Constant IMAP_STORE_PROTOCOL. */
 	public static final String IMAP_STORE_PROTOCOL = "imap";
 
+	/**
+	 * Instantiates a new default mail session factory.
+	 */
 	public DefaultMailSessionFactory() {
 		mailSessionTypes.put(POP3_STORE_PROTOCOL, new Pop3MailSession());
 	}
 	
+	/**
+	 * Instantiates a new default mail session factory.
+	 * 
+	 * @param mailSessionTypes the mail session types
+	 */
 	public DefaultMailSessionFactory(Map<String, MailSession> mailSessionTypes) {
 		this.mailSessionTypes = mailSessionTypes;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.MailSessionFactory#createMailSession(java.lang.String)
+	 */
 	public MailSession createMailSession(String mailStoreProtocol)
 			throws UnsupportedMailStoreProtocolException {
 		MailSession mailSession = mailSessionTypes.get(mailStoreProtocol);

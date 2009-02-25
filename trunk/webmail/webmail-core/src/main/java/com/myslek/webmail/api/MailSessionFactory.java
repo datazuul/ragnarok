@@ -15,8 +15,21 @@
  */
 package com.myslek.webmail.api;
 
+// TODO: Auto-generated Javadoc
+/**
+ * A factory for creating MailSession objects.
+ */
 public interface MailSessionFactory {
 
+	/**
+	 * Creates a new MailSession object.
+	 * 
+	 * @param mailStoreProtocol the mail store protocol
+	 * 
+	 * @return the mail session
+	 * 
+	 * @throws UnsupportedMailStoreProtocolException the unsupported mail store protocol exception
+	 */
 	MailSession createMailSession(String mailStoreProtocol)
 			throws UnsupportedMailStoreProtocolException;
 }

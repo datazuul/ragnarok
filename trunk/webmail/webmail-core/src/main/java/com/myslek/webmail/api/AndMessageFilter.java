@@ -17,12 +17,24 @@ package com.myslek.webmail.api;
 
 import javax.mail.Message;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AndMessageFilter.
+ */
 public class AndMessageFilter extends CompositeMessageFilter {
 
+	/**
+	 * Instantiates a new and message filter.
+	 * 
+	 * @param filters the filters
+	 */
 	public AndMessageFilter(MessageFilter[] filters) {
 		super(filters);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.CompositeMessageFilter#accept(javax.mail.Message)
+	 */
 	@Override
 	public boolean accept(Message message) {
 		for (MessageFilter filter : filters) {

@@ -15,7 +15,14 @@
  */
 package com.myslek.webmail.domain;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum MailMessagePartType.
+ */
 public enum MailMessagePartType {
 	
-	TEXT, BINARY, MESSAGE
+	/** The TEXT. */
+	TEXT, /** The BINARY. */
+ BINARY, /** The MESSAGE. */
+ MESSAGE
 }

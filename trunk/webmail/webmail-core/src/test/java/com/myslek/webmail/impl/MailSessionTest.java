@@ -17,8 +17,17 @@ package com.myslek.webmail.impl;
 
 import junit.framework.TestCase;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MailSessionTest.
+ */
 public class MailSessionTest extends TestCase {
 	
+	/**
+	 * Test dummy.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testDummy() throws Exception {
 		
 	}

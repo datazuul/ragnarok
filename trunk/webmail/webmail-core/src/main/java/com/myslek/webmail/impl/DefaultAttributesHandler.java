@@ -26,8 +26,15 @@ import com.myslek.webmail.api.MessageConversionException;
 import com.myslek.webmail.domain.MailHeader;
 import com.myslek.webmail.domain.MailPart;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DefaultAttributesHandler.
+ */
 public class DefaultAttributesHandler implements AttributesHandler {
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.AttributesHandler#fromAttributes(javax.mail.Part, com.myslek.webmail.domain.MailPart)
+	 */
 	public void fromAttributes(Part part, MailPart mailPart)
 			throws MessageConversionException {
 		try {
@@ -42,6 +49,9 @@ public class DefaultAttributesHandler implements AttributesHandler {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.AttributesHandler#toAttributes(com.myslek.webmail.domain.MailPart, javax.mail.Part)
+	 */
 	public void toAttributes(MailPart mailPart, Part part)
 			throws MessageConversionException {
 		try {
@@ -53,6 +63,14 @@ public class DefaultAttributesHandler implements AttributesHandler {
 		}
 	}
 
+	/**
+	 * From headers.
+	 * 
+	 * @param part the part
+	 * @param mailPart the mail part
+	 * 
+	 * @throws MessageConversionException the message conversion exception
+	 */
 	protected void fromHeaders(Part part, MailPart mailPart)
 			throws MessageConversionException {
 		try {
@@ -69,6 +87,14 @@ public class DefaultAttributesHandler implements AttributesHandler {
 		}
 	}
 
+	/**
+	 * To headers.
+	 * 
+	 * @param mailPart the mail part
+	 * @param part the part
+	 * 
+	 * @throws MessageConversionException the message conversion exception
+	 */
 	protected void toHeaders(MailPart mailPart, Part part)
 			throws MessageConversionException {
 		try {

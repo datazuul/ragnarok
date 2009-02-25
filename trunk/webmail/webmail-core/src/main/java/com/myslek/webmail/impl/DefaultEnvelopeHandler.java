@@ -22,8 +22,15 @@ import com.myslek.webmail.api.EnvelopeHandler;
 import com.myslek.webmail.api.MessageConversionException;
 import com.myslek.webmail.domain.MailMessage;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DefaultEnvelopeHandler.
+ */
 public class DefaultEnvelopeHandler implements EnvelopeHandler {
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.EnvelopeHandler#fromEnvelope(javax.mail.Message, com.myslek.webmail.domain.MailMessage)
+	 */
 	public void fromEnvelope(Message message, MailMessage mailMessage)
 			throws MessageConversionException {
 		try {
@@ -35,6 +42,9 @@ public class DefaultEnvelopeHandler implements EnvelopeHandler {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.EnvelopeHandler#toEnvelope(com.myslek.webmail.domain.MailMessage, javax.mail.Message)
+	 */
 	public void toEnvelope(MailMessage mailMessage, Message message)
 			throws MessageConversionException {
 		try {

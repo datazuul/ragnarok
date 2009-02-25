@@ -17,11 +17,13 @@ package com.myslek.webmail.domain;
 
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MailMessageFlag.
+ */
 public class MailMessageFlag implements Serializable {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	

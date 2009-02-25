@@ -26,19 +26,37 @@ import com.myslek.webmail.domain.MailBox;
 import com.myslek.webmail.domain.MailMessage;
 import com.myslek.webmail.service.MailSessionService;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DefaultMailSessionService.
+ */
 @Stateless
 public class DefaultMailSessionService implements MailSessionService {
 
+	/** The mail session factory. */
 	private MailSessionFactory mailSessionFactory;
 
+	/**
+	 * Gets the mail session factory.
+	 * 
+	 * @return the mail session factory
+	 */
 	public MailSessionFactory getMailSessionFactory() {
 		return mailSessionFactory;
 	}
 
+	/**
+	 * Sets the mail session factory.
+	 * 
+	 * @param mailSessionFactory the new mail session factory
+	 */
 	public void setMailSessionFactory(MailSessionFactory mailSessionFactory) {
 		this.mailSessionFactory = mailSessionFactory;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.service.MailSessionService#fetchMessages(com.myslek.webmail.domain.MailBox, java.util.Collection, com.myslek.webmail.api.MessageFilter)
+	 */
 	public Collection<MailMessage> fetchMessages(MailBox mailBox,
 			Collection<String> uids, MessageFilter filter) {
 		MailSession mailSession = getMailSessionFactory().createMailSession(
