@@ -42,7 +42,7 @@ public class DefaultMailSessionService implements MailSessionService {
 	public Collection<MailMessage> fetchMessages(MailBox mailBox,
 			Collection<String> uids, MessageFilter filter) {
 		MailSession mailSession = getMailSessionFactory().createMailSession(
-				mailBox);
+				mailBox.getMailStore().getProtocol());
 
 		Collection<MailMessage> messages = mailSession.fetchMessages(mailBox,
 				uids, filter);

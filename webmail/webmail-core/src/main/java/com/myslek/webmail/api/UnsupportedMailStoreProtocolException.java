@@ -15,8 +15,25 @@
  */
 package com.myslek.webmail.api;
 
-public interface MailSessionFactory {
+public class UnsupportedMailStoreProtocolException extends SystemException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-	MailSession createMailSession(String mailStoreProtocol)
-			throws UnsupportedMailStoreProtocolException;
+	public UnsupportedMailStoreProtocolException() {
+		super();
+	}
+
+	public UnsupportedMailStoreProtocolException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public UnsupportedMailStoreProtocolException(String message) {
+		super(message);
+	}
+
+	public UnsupportedMailStoreProtocolException(Throwable cause) {
+		super(cause);
+	}
 }
