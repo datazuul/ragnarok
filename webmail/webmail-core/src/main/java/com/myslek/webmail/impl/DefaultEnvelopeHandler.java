@@ -15,11 +15,19 @@
  */
 package com.myslek.webmail.impl;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Collections;
+import java.util.List;
+
+import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Message.RecipientType;
+import javax.mail.internet.InternetAddress;
 
 import com.myslek.webmail.api.EnvelopeHandler;
 import com.myslek.webmail.api.MessageConversionException;
+import com.myslek.webmail.domain.MailAddress;
 import com.myslek.webmail.domain.MailMessage;
 
 // TODO: Auto-generated Javadoc
@@ -35,8 +43,9 @@ public class DefaultEnvelopeHandler implements EnvelopeHandler {
 			throws MessageConversionException {
 		try {
 			mailMessage.setSubject(message.getSubject());
-			//TODO: 1. copy all message recipients
-			//TODO: 2. copy all message headers (message.getAllHeaders())
+			
+			//copy all recipients
+			fromRecipients(message, mailMessage);
 		} catch (MessagingException e) {
 			throw new MessageConversionException(e);
 		}
@@ -49,8 +58,58 @@ public class DefaultEnvelopeHandler implements EnvelopeHandler {
 			throws MessageConversionException {
 		try {
 			message.setSubject(mailMessage.getSubject());
+			
+			//Copy all recipients
+			toRecipients(RecipientType.TO, mailMessage, message);
+			toRecipients(RecipientType.CC, mailMessage, message);
+			toRecipients(RecipientType.BCC, mailMessage, message);
 		} catch (MessagingException e) {
 			throw new MessageConversionException(e);
+		}
+	}
+	
+	/**
+	 * From recipients.
+	 * 
+	 * @param message the message
+	 * @param mailMessage the mail message
+	 * 
+	 * @throws MessageConversionException the message conversion exception
+	 */
+	protected void fromRecipients(Message message, MailMessage mailMessage)
+			throws MessageConversionException {
+		//TODO: implement me
+	}
+
+	/**
+	 * To recipients.
+	 * 
+	 * @param mailMessage the mail message
+	 * @param message the message
+	 * @param type the type
+	 * 
+	 * @throws MessageConversionException the message conversion exception
+	 */
+	protected void toRecipients(RecipientType type, MailMessage mailMessage, Message message)
+			throws MessageConversionException {
+		List<MailAddress> recipients = Collections.EMPTY_LIST;
+		if (type == RecipientType.TO) {
+			recipients = mailMessage.getTo();
+		} else if (type == RecipientType.CC ) {
+			recipients = mailMessage.getCc();
+		} else if (type == RecipientType.BCC ) {
+			recipients = mailMessage.getBcc();
+		}
+		
+		for (MailAddress address : recipients) {
+			try {
+				Address addr = new InternetAddress(address.getAddress(), address.getPersonal());
+				message.addRecipient(type, addr);
+			} catch (UnsupportedEncodingException e) {
+				throw new MessageConversionException(e);
+			} catch (MessagingException e) {
+				throw new MessageConversionException(e);
+			}
 		}
 	}
 

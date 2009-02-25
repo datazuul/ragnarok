@@ -15,20 +15,39 @@
  */
 package com.myslek.webmail.impl;
 
-import junit.framework.TestCase;
+import java.util.List;
+
+import javax.mail.Message;
+
+import junit.framework.Assert;
+
+import org.jvnet.mock_javamail.Mailbox;
+
+import com.myslek.webmail.api.MailSession;
+import com.myslek.webmail.domain.MailBox;
+import com.myslek.webmail.domain.MailMessage;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class MailSessionTest.
  */
-public class MailSessionTestCase extends TestCase {
+public class MailSessionTestCase extends AbstractMailTestCase {
+
 	
 	/**
-	 * Test dummy.
+	 * Test send message.
 	 * 
 	 * @throws Exception the exception
 	 */
-	public void testDummy() throws Exception {
+	public void testSendMessage() throws Exception {
+		MailBox mailBox = createMailBox();
+		MailSession mailSession = createMailSession();
+		MailMessage mailMessage = createTextPlainMailMessage();
 		
+		
+		mailSession.sendMessage(mailBox, mailMessage);
+		List<Message> inbox = Mailbox.get(TO.getAddress());
+		Assert.assertNotNull("Inbox must not be null", inbox);
+		Assert.assertEquals("Expected inbox size: 1", 1, inbox.size());
 	}
 }
