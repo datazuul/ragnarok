@@ -20,24 +20,31 @@ import java.util.Map;
 
 import com.myslek.webmail.api.MailSession;
 import com.myslek.webmail.api.MailSessionFactory;
-import com.myslek.webmail.domain.MailBox;
+import com.myslek.webmail.api.UnsupportedMailStoreProtocolException;
 
 public class DefaultMailSessionFactory implements MailSessionFactory {
-	
-	private Map<String, MailSession> storeToSession = new HashMap<String, MailSession>();
-	
-	public static final String POP3_STORE = "pop3";
-	public static final String IMAP_STORE = "imap";
-	
+
+	private Map<String, MailSession> mailSessionTypes = new HashMap<String, MailSession>();
+
+	public static final String POP3_STORE_PROTOCOL = "pop3";
+	public static final String IMAP_STORE_PROTOCOL = "imap";
+
 	public DefaultMailSessionFactory() {
-		storeToSession.put(POP3_STORE, new Pop3MailSession());
+		mailSessionTypes.put(POP3_STORE_PROTOCOL, new Pop3MailSession());
+	}
+	
+	public DefaultMailSessionFactory(Map<String, MailSession> mailSessionTypes) {
+		this.mailSessionTypes = mailSessionTypes;
 	}
 
-	public MailSession createMailSession(MailBox mailBox) {
-		MailSession session = storeToSession.get(mailBox.getMailStore().getProtocol());
-		if (session == null) {
-			//throw exception -> unsupported mail store
+	public MailSession createMailSession(String mailStoreProtocol)
+			throws UnsupportedMailStoreProtocolException {
+		MailSession mailSession = mailSessionTypes.get(mailStoreProtocol);
+		if (mailSession == null) {
+			throw new UnsupportedMailStoreProtocolException(
+					"Unsupported mail store protocol [" + mailStoreProtocol
+							+ "]");
 		}
-		return session;
+		return mailSession;
 	}
 }
