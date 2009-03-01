@@ -11,13 +11,14 @@
 
 	<packaging>pom</packaging>
 
+	<!-- Additional repositories -->
 	<repositories>
 		<repository>
 			<id>java.net.legacy</id>
 			<url>http://download.java.net/maven/1</url>
 			<layout>legacy</layout>
 		</repository>
-		
+
 		<repository>
 			<id>java.net</id>
 			<url>http://download.java.net/maven/2</url>
@@ -30,12 +31,12 @@
 	</repositories>
 
 	<pluginRepositories>
-        	<pluginRepository>
-            		<id>maven.java.net</id>
-            		<name>Java.net Maven2 Repository</name>
-            		<url>http://download.java.net/maven/2</url>
-        	</pluginRepository>
-    	</pluginRepositories>
+		<pluginRepository>
+			<id>maven.java.net</id>
+			<name>Java.net Maven2 Repository</name>
+			<url>http://download.java.net/maven/2</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<modules>
 		<module>ragnarok-application</module>
@@ -45,9 +46,7 @@
 
 	<dependencyManagement>
 		<dependencies>
-
 			<!-- JavaEE API-->
-
 			<dependency>
 				<groupId>javaee</groupId>
 				<artifactId>javaee-api</artifactId>
@@ -55,7 +54,6 @@
 			</dependency>
 
 			<!-- JBoss SEAM -->
-
 			<dependency>
 				<groupId>org.jboss.seam</groupId>
 				<artifactId>jboss-seam</artifactId>
@@ -97,9 +95,18 @@
 				<artifactId>commons-beanutils</artifactId>
 				<version>1.7.0</version>
 			</dependency>
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4.1</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.activation</groupId>
+				<artifactId>activation</artifactId>
+				<version>1.1.1</version>
+			</dependency>
 
 			<!-- Richfaces -->
-
 			<dependency>
 				<groupId>org.richfaces.ui</groupId>
 				<artifactId>richfaces-ui</artifactId>
@@ -107,22 +114,33 @@
 			</dependency>
 
 			<!-- Test dependencies -->
-
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>3.8.1</version>
 			</dependency>
-
+			<dependency>
+				<groupId>org.jmock</groupId>
+				<artifactId>jmock-junit3</artifactId>
+				<version>2.5.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jmock</groupId>
+				<artifactId>jmock-legacy</artifactId>
+				<version>2.5.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jvnet.mock-javamail</groupId>
+				<artifactId>mock-javamail</artifactId>
+				<version>1.7</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 
 	<build>
-
 		<pluginManagement>
 			<plugins>
-
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
@@ -152,14 +170,12 @@
 						</execution>
 					</executions>
 				</plugin>
-
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
 				</plugin>
 
 				<!--- Plugins used in other modules -->
-
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-ear-plugin</artifactId>
@@ -175,18 +191,11 @@
 					<artifactId>maven-ejb-plugin</artifactId>
 					<version>2.1</version>
 				</plugin>
-
 			</plugins>
 		</pluginManagement>
-
+		
 		<plugins>
-			<!--
-				plugin> <groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-clover-plugin</artifactId> <configuration>
-				<jdk>1.5</jdk> </configuration> <executions> <execution>
-				<phase>pre-site</phase> <goals> <goal>instrument</goal> </goals>
-				</execution> </executions> </plugin
-			-->
+			<!-- Plugins -->
 		</plugins>
 
 	</build>
@@ -208,10 +217,35 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
 			</plugin>
-			<!--
-				plugin> <groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-clover-plugin</artifactId> </plugin
-			-->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<configuration>
+					<rulesets>
+						<ruleset>/rulesets/basic.xml</ruleset>
+						<ruleset>/rulesets/imports.xml</ruleset>
+						<ruleset>/rulesets/unusedcode.xml</ruleset>
+						<ruleset>/rulesets/design.xml</ruleset>
+						<ruleset>/rulesets/naming.xml</ruleset>
+						<ruleset>/rulesets/codesize.xml</ruleset>
+						<ruleset>/rulesets/coupling.xml</ruleset>
+						<ruleset>/rulesets/strictexception.xml</ruleset>
+					</rulesets>
+					<sourceEncoding>utf-8</sourceEncoding>
+					<minimumTokens>100</minimumTokens>
+					<targetJdk>1.5</targetJdk>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</reporting>
 
