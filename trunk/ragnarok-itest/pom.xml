@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.myslek.ragnarok</groupId>
+		<artifactId>ragnarok</artifactId>
+		<version>0.9-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ragnarok-itest</artifactId>
+	<name>Ragnarok Integration Test</name>
+
+	<!-- GlassFish AppServer home directory -->
+	<properties>
+		<glassfish.home>c:/Users/rafal/dev/glassfish</glassfish.home>
+	</properties>
+
+
+	<dependencies>
+		<!-- internal project dependencies -->
+		<dependency>
+			<groupId>com.myslek.ragnarok</groupId>
+			<artifactId>ragnarok-core</artifactId>
+			<version>${pom.version}</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>com.myslek.ragnarok</groupId>
+			<artifactId>ragnarok-web</artifactId>
+			<version>${pom.version}</version>
+			<type>war</type>
+		</dependency>
+
+		<!-- system dependencies-->
+		<dependency>
+			<groupId>glassfish</groupId>
+			<artifactId>appserv-rt.jar</artifactId>
+			<version>LATEST</version>
+			<scope>system</scope>
+			<systemPath>${glassfish.home}/lib/appserv-rt.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>glassfish</groupId>
+			<artifactId>javaee.jar</artifactId>
+			<version>LATEST</version>
+			<scope>system</scope>
+			<systemPath>${glassfish.home}/lib/javaee.jar</systemPath>
+		</dependency>
+
+		<!-- javamail dependencies -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+		</dependency>
+
+		<!-- jboss seam dependencies -->
+		<dependency>
+			<groupId>org.jboss.seam</groupId>
+			<artifactId>jboss-seam</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- hibernate dependencies -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- test dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jmock</groupId>
+			<artifactId>jmock-junit3</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jmock</groupId>
+			<artifactId>jmock-legacy</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jvnet.mock-javamail</groupId>
+			<artifactId>mock-javamail</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<testSourceDirectory>src/itest/java</testSourceDirectory>
+		<testResources>
+			<testResource>
+				<directory>src/itest/resources</directory>
+			</testResource>
+		</testResources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>itest</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<configuration>
+									<skipTests>false</skipTests>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+</project>
