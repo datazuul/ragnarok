@@ -69,6 +69,9 @@ public class Pop3MailSession extends AbstractMailSession {
 		Collection<MailMessage> mailMessages = new ArrayList<MailMessage>();
 		try {
 			store = getStore(mailBox.getMailStore());
+			if (!(store.getFolder(DEFAULT_FOLDER) instanceof POP3Folder)) {
+				throw new MailSessionException("POP3Folder is not supported by your javamail provider.");
+			}
 			folder = (POP3Folder) store.getFolder(DEFAULT_FOLDER);
 			folder.open(Folder.READ_ONLY);
 
