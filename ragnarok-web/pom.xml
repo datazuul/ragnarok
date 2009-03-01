@@ -5,13 +5,13 @@
   <modelVersion>4.0.0</modelVersion>
   
   <parent>
-    <groupId>com.myslek.webmail</groupId>
-    <artifactId>webmail</artifactId>
+    <groupId>com.myslek.ragnarok</groupId>
+    <artifactId>ragnarok</artifactId>
     <version>0.9-SNAPSHOT</version>
   </parent>
   
-  <artifactId>webmail-web</artifactId>
-  <name>WebMail Web</name>
+  <artifactId>ragnarok-web</artifactId>
+  <name>Ragnarok Web</name>
   <packaging>war</packaging>
   
   <dependencies>
@@ -19,8 +19,8 @@
     <!-- webmail dependencies-->
 
     <dependency>
-      <groupId>com.myslek.webmail</groupId>
-      <artifactId>webmail-core</artifactId>
+      <groupId>com.myslek.ragnarok</groupId>
+      <artifactId>ragnarok-core</artifactId>
       <version>${pom.version}</version>
       <scope>provided</scope>
       <type>ejb</type>

@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.myslek.webmail</groupId>
-	<artifactId>webmail</artifactId>
+	<groupId>com.myslek.ragnarok</groupId>
+	<artifactId>ragnarok</artifactId>
 	<version>0.9-SNAPSHOT</version>
-	<name>WebMail</name>
+	<name>Ragnarok</name>
 	<url>http://code.google.com/p/ragnarok/</url>
 
 	<packaging>pom</packaging>
@@ -38,9 +38,9 @@
     	</pluginRepositories>
 
 	<modules>
-		<module>webmail-application</module>
-		<module>webmail-core</module>
-		<module>webmail-web</module>
+		<module>ragnarok-application</module>
+		<module>ragnarok-core</module>
+		<module>ragnarok-web</module>
 	</modules>
 
 	<dependencyManagement>
