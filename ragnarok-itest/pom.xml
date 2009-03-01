@@ -81,25 +81,6 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.jmock</groupId>
-			<artifactId>jmock-junit3</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jmock</groupId>
-			<artifactId>jmock-legacy</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jvnet.mock-javamail</groupId>
-			<artifactId>mock-javamail</artifactId>
-			<scope>test</scope>
-		</dependency>
-
 	</dependencies>
 
 	<build>
