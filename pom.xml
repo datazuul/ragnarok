@@ -42,6 +42,7 @@
 		<module>ragnarok-application</module>
 		<module>ragnarok-core</module>
 		<module>ragnarok-web</module>
+		<module>ragnarok-itest</module>
 	</modules>
 
 	<dependencyManagement>
