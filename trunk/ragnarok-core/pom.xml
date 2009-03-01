@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.myslek.webmail</groupId>
-		<artifactId>webmail</artifactId>
+		<groupId>com.myslek.ragnarok</groupId>
+		<artifactId>ragnarok</artifactId>
 		<version>0.9-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>webmail-core</artifactId>
-	<name>WebMail Core</name>
+	<artifactId>ragnarok-core</artifactId>
+	<name>Ragnarok Core</name>
 	<packaging>ejb</packaging>
 	
 	<properties>
@@ -103,7 +103,7 @@
 					<ejbVersion>3.0</ejbVersion>
 					<generateClient>true</generateClient>
 					<clientIncludes>
-						<clientInclude>com/myslek/webmail/api/**</clientInclude>
+						<clientInclude>com/myslek/ragnarok/api/**</clientInclude>
 					</clientIncludes>
 				</configuration>
 			</plugin>
