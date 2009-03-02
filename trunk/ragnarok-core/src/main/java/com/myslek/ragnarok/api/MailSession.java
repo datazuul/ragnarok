@@ -52,12 +52,12 @@ public interface MailSession {
 	 * @param mailBox the mail box
 	 * @param uids the uids
 	 * @param filter the filter
-	 * 
+	 * @param expunge TODO
 	 * @return the collection< mail message>
 	 * 
 	 * @throws MailSessionException the mail session exception
 	 */
 	public Collection<MailMessage> fetchMessages(MailBox mailBox, Collection<String> uids,
-			MessageFilter filter) throws MailSessionException;
+			MessageFilter filter, boolean expunge) throws MailSessionException;
 
 }

@@ -36,74 +36,107 @@ import com.myslek.ragnarok.domain.MailMessage;
  */
 public class DefaultEnvelopeHandler implements EnvelopeHandler {
 
-	/* (non-Javadoc)
-	 * @see com.myslek.webmail.api.EnvelopeHandler#fromEnvelope(javax.mail.Message, com.myslek.webmail.domain.MailMessage)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.myslek.webmail.api.EnvelopeHandler#fromEnvelope(javax.mail.Message,
+	 * com.myslek.webmail.domain.MailMessage)
 	 */
 	public void fromEnvelope(Message message, MailMessage mailMessage)
 			throws MessageConversionException {
 		try {
-			mailMessage.setSubject(message.getSubject());
-			
-			//copy all recipients
+			//TODO: copy all from addresses
+			// Copy from
+			InternetAddress[] from = (InternetAddress[]) message.getFrom();
+			MailAddress mailFrom = new MailAddress(from[0].getAddress(),
+					from[0].getPersonal());
+			mailMessage.setFrom(mailFrom);
+
+			// Copy all recipients
 			fromRecipients(message, mailMessage);
+
+			// Copy subject
+			mailMessage.setSubject(message.getSubject());
 		} catch (MessagingException e) {
 			throw new MessageConversionException(e);
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.myslek.webmail.api.EnvelopeHandler#toEnvelope(com.myslek.webmail.domain.MailMessage, javax.mail.Message)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.myslek.webmail.api.EnvelopeHandler#toEnvelope(com.myslek.webmail.
+	 * domain.MailMessage, javax.mail.Message)
 	 */
 	public void toEnvelope(MailMessage mailMessage, Message message)
 			throws MessageConversionException {
 		try {
-			message.setSubject(mailMessage.getSubject());
-			
-			//Copy all recipients
+			// Copy from
+			MailAddress mailFrom = mailMessage.getFrom();
+			Address from = new InternetAddress(mailFrom.getAddress(), mailFrom
+					.getPersonal());
+			message.setFrom(from);
+
+			// Copy all recipients
 			toRecipients(RecipientType.TO, mailMessage, message);
 			toRecipients(RecipientType.CC, mailMessage, message);
 			toRecipients(RecipientType.BCC, mailMessage, message);
+
+			// Copy subject
+			message.setSubject(mailMessage.getSubject());
+		} catch (UnsupportedEncodingException e) {
+			throw new MessageConversionException(e);
 		} catch (MessagingException e) {
 			throw new MessageConversionException(e);
 		}
 	}
-	
+
 	/**
 	 * From recipients.
 	 * 
-	 * @param message the message
-	 * @param mailMessage the mail message
+	 * @param message
+	 *            the message
+	 * @param mailMessage
+	 *            the mail message
 	 * 
-	 * @throws MessageConversionException the message conversion exception
+	 * @throws MessageConversionException
+	 *             the message conversion exception
 	 */
 	protected void fromRecipients(Message message, MailMessage mailMessage)
 			throws MessageConversionException {
-		//TODO: implement me
+		// TODO: implement me
 	}
 
 	/**
 	 * To recipients.
 	 * 
-	 * @param mailMessage the mail message
-	 * @param message the message
-	 * @param type the type
+	 * @param mailMessage
+	 *            the mail message
+	 * @param message
+	 *            the message
+	 * @param type
+	 *            the type
 	 * 
-	 * @throws MessageConversionException the message conversion exception
+	 * @throws MessageConversionException
+	 *             the message conversion exception
 	 */
-	protected void toRecipients(RecipientType type, MailMessage mailMessage, Message message)
-			throws MessageConversionException {
+	protected void toRecipients(RecipientType type, MailMessage mailMessage,
+			Message message) throws MessageConversionException {
 		List<MailAddress> recipients = Collections.EMPTY_LIST;
 		if (type == RecipientType.TO) {
 			recipients = mailMessage.getTo();
-		} else if (type == RecipientType.CC ) {
+		} else if (type == RecipientType.CC) {
 			recipients = mailMessage.getCc();
-		} else if (type == RecipientType.BCC ) {
+		} else if (type == RecipientType.BCC) {
 			recipients = mailMessage.getBcc();
 		}
-		
+
 		for (MailAddress address : recipients) {
 			try {
-				Address addr = new InternetAddress(address.getAddress(), address.getPersonal());
+				Address addr = new InternetAddress(address.getAddress(),
+						address.getPersonal());
 				message.addRecipient(type, addr);
 			} catch (UnsupportedEncodingException e) {
 				throw new MessageConversionException(e);

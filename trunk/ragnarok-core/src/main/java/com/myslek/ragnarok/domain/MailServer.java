@@ -26,6 +26,15 @@ public class MailServer implements Serializable {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
+	/** The Constant SMTP_PROTOCOL. */
+	public static final String SMTP_PROTOCOL = "smtp";
+	
+	/** The Constant POP3_PROTOCOL. */
+	public static final String POP3_PROTOCOL = "pop3";
+	
+	/** The Constant IMAP_PROTOCOL. */
+	public static final String IMAP_PROTOCOL = "imap";
+	
 	/** The id. */
 	private Long id;
 	
