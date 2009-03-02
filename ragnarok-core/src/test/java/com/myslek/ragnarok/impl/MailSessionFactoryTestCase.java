@@ -28,7 +28,6 @@ import com.myslek.ragnarok.api.MailSessionFactory;
 import com.myslek.ragnarok.api.MessageFilter;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailMessage;
-import com.myslek.ragnarok.impl.DefaultMailSessionFactory;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -58,7 +57,7 @@ public class MailSessionFactoryTestCase extends TestCase {
 class MockMailSession implements MailSession {
 
 	public Collection<MailMessage> fetchMessages(MailBox mailBox,
-			Collection<String> uids, MessageFilter filter)
+			Collection<String> uids, MessageFilter filter, boolean expunge)
 			throws MailSessionException {
 		return null;
 	}

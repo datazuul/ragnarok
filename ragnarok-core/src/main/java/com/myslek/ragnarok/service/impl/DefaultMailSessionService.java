@@ -63,7 +63,7 @@ public class DefaultMailSessionService implements MailSessionService {
 				mailBox.getMailStore().getProtocol());
 
 		Collection<MailMessage> messages = mailSession.fetchMessages(mailBox,
-				uids, filter);
+				uids, filter, false);
 		return messages;
 	}
 }
