@@ -16,6 +16,7 @@
 package com.myslek.ragnarok.impl;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.mail.Session;
 
@@ -56,7 +57,7 @@ public class MailSessionFactoryTestCase extends TestCase {
 
 class MockMailSession implements MailSession {
 
-	public Collection<MailMessage> fetchMessages(MailBox mailBox,
+	public List<MailMessage> fetchMessages(MailBox mailBox,
 			Collection<String> uids, MessageFilter filter, boolean expunge)
 			throws MailSessionException {
 		return null;

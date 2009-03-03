@@ -16,6 +16,7 @@
 package com.myslek.ragnarok.api;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.mail.Session;
 
@@ -57,7 +58,7 @@ public interface MailSession {
 	 * 
 	 * @throws MailSessionException the mail session exception
 	 */
-	public Collection<MailMessage> fetchMessages(MailBox mailBox, Collection<String> uids,
+	public List<MailMessage> fetchMessages(MailBox mailBox, Collection<String> uids,
 			MessageFilter filter, boolean expunge) throws MailSessionException;
 
 }

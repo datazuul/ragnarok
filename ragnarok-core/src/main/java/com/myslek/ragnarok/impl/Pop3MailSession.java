@@ -17,6 +17,7 @@ package com.myslek.ragnarok.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.mail.FetchProfile;
 import javax.mail.Flags;
@@ -67,11 +68,11 @@ public class Pop3MailSession extends AbstractMailSession {
 	 * com.myslek.webmail.api.MailSession#fetchMessages(com.myslek.webmail.domain
 	 * .MailBox, java.util.Collection, com.myslek.webmail.api.MessageFilter)
 	 */
-	public Collection<MailMessage> fetchMessages(MailBox mailBox, Collection<String> uids, MessageFilter filter,
+	public List<MailMessage> fetchMessages(MailBox mailBox, Collection<String> uids, MessageFilter filter,
 			boolean expunge) throws MailSessionException {
 		Store store = null;
 		POP3Folder folder = null;
-		Collection<MailMessage> mailMessages = new ArrayList<MailMessage>();
+		List<MailMessage> mailMessages = new ArrayList<MailMessage>();
 		try {
 			store = getStore(mailBox.getMailStore());
 			if (!(store.getFolder(DEFAULT_FOLDER) instanceof POP3Folder)) {
