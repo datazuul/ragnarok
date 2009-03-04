@@ -15,20 +15,11 @@
  */
 package com.myslek.ragnarok.impl;
 
-import java.util.Collection;
-import java.util.List;
-
-import javax.mail.Session;
-
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import com.myslek.ragnarok.api.MailSession;
-import com.myslek.ragnarok.api.MailSessionException;
 import com.myslek.ragnarok.api.MailSessionFactory;
-import com.myslek.ragnarok.api.MessageFilter;
-import com.myslek.ragnarok.domain.MailBox;
-import com.myslek.ragnarok.domain.MailMessage;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -52,22 +43,5 @@ public class MailSessionFactoryTestCase extends TestCase {
 		MailSession mailSession = mailSessionFactory
 				.createMailSession(POP3_STORE_PROTOCOL);
 		Assert.assertNotNull("MailSession must not be null", mailSession);
-	}
-}
-
-class MockMailSession implements MailSession {
-
-	public List<MailMessage> fetchMessages(MailBox mailBox,
-			Collection<String> uids, MessageFilter filter, boolean expunge)
-			throws MailSessionException {
-		return null;
-	}
-
-	public Session getSession() {
-		return null;
-	}
-
-	public void sendMessage(MailBox mailBox, MailMessage mailMessage)
-			throws MailSessionException {
 	}
 }
