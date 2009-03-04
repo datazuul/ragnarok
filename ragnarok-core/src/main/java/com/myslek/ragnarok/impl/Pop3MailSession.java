@@ -55,7 +55,8 @@ public class Pop3MailSession extends AbstractMailSession {
 	/**
 	 * Instantiates a new pop3 mail session.
 	 * 
-	 * @param messageConverter the message converter
+	 * @param messageConverter
+	 *            the message converter
 	 */
 	public Pop3MailSession(MessageConverter messageConverter) {
 		setMessageConverter(messageConverter);
@@ -68,24 +69,21 @@ public class Pop3MailSession extends AbstractMailSession {
 	 * com.myslek.webmail.api.MailSession#fetchMessages(com.myslek.webmail.domain
 	 * .MailBox, java.util.Collection, com.myslek.webmail.api.MessageFilter)
 	 */
-	public List<MailMessage> fetchMessages(MailBox mailBox, Collection<String> uids, MessageFilter filter,
-			boolean expunge) throws MailSessionException {
+	public List<MailMessage> fetchMessages(MailBox mailBox, Collection<String> uids,
+			MessageFilter filter, boolean expunge) throws MailSessionException {
 		Store store = null;
 		POP3Folder folder = null;
 		List<MailMessage> mailMessages = new ArrayList<MailMessage>();
 		try {
 			store = getStore(mailBox.getMailStore());
 			if (!(store.getFolder(DEFAULT_FOLDER) instanceof POP3Folder)) {
-				throw new MailSessionException("POP3Folder is not supported by your javamail provider.");
+				throw new MailSessionException(
+						"POP3Folder is not supported by your javamail provider.");
 			}
 			folder = (POP3Folder) store.getFolder(DEFAULT_FOLDER);
 			folder.open(Folder.READ_WRITE);
 
-			FetchProfile profile = new FetchProfile();
-			profile.add(UIDFolder.FetchProfileItem.UID);
-
-			Message[] messages = folder.getMessages();
-			folder.fetch(messages, profile);
+			Message[] messages = prefetchMessages(folder);
 
 			for (int i = 0; i < messages.length; i++) {
 				String uid = folder.getUID(messages[i]);
@@ -93,7 +91,10 @@ public class Pop3MailSession extends AbstractMailSession {
 					Message message = folder.getMessage(i + 1);
 					if (filter == null || filter.accept(message)) {
 						mailMessages.add(convertMessage(message, uid, mailBox.getInbox()));
-						expungeMessage(message, expunge);
+
+						if (expunge) {
+							message.setFlag(Flags.Flag.DELETED, true);
+						}
 					}
 				}
 			}
@@ -123,40 +124,87 @@ public class Pop3MailSession extends AbstractMailSession {
 		return mailMessages;
 	}
 
-	
+	private Message[] prefetchMessages(Folder folder) throws MailSessionException {
+		try {
+			FetchProfile profile = new FetchProfile();
+			profile.add(UIDFolder.FetchProfileItem.UID);
+
+			Message[] messages = folder.getMessages();
+			folder.fetch(messages, profile);
+
+			return messages;
+		} catch (MessagingException e) {
+			throw new MailSessionException(e);
+		}
+	}
+
 	/**
 	 * Convert message.
 	 * 
-	 * @param message the message
-	 * @param uid the uid
-	 * @param inbox the inbox
+	 * @param message
+	 *            the message
+	 * @param uid
+	 *            the uid
+	 * @param inbox
+	 *            the inbox
 	 * 
 	 * @return the mail message
 	 * 
-	 * @throws MailSessionException the mail session exception
+	 * @throws MailSessionException
+	 *             the mail session exception
 	 */
-	private MailMessage convertMessage(Message message, String uid, MailFolder inbox) throws MailSessionException {
+	private MailMessage convertMessage(Message message, String uid, MailFolder inbox)
+			throws MailSessionException {
 		MailMessage mailMessage = getMessageConverter().fromMessage(message);
 		mailMessage.setUid(uid);
 		mailMessage.setFolder(inbox);
 
 		return mailMessage;
 	}
-	
-	/**
-	 * Expunge message.
-	 * 
-	 * @param message the message
-	 * @param expunge the expunge
-	 * 
-	 * @throws MailSessionException the mail session exception
-	 */
-	private void expungeMessage(Message message, boolean expunge) throws MailSessionException {
-		if (expunge) {
-			try {
-				message.setFlag(Flags.Flag.DELETED, true);
-			} catch (MessagingException e) {
-				throw new MailSessionException(e);
+
+	public void expungeMessages(MailBox mailBox, Collection<String> uids)
+			throws MailSessionException {
+		Store store = null;
+		POP3Folder folder = null;
+		try {
+			store = getStore(mailBox.getMailStore());
+			if (!(store.getFolder(DEFAULT_FOLDER) instanceof POP3Folder)) {
+				throw new MailSessionException(
+						"POP3Folder is not supported by your javamail provider.");
+			}
+			folder = (POP3Folder) store.getFolder(DEFAULT_FOLDER);
+			folder.open(Folder.READ_WRITE);
+
+			Message[] messages = prefetchMessages(folder);
+			
+			for (int i = 0; i < messages.length; i++) {
+				String uid = folder.getUID(messages[i]);
+				if (uids == null || uids.isEmpty() || uids.contains(uid)) {
+					Message message = folder.getMessage(i + 1);
+					message.setFlag(Flags.Flag.DELETED, true);
+				}
+			}
+		} catch (MessagingException e) {
+			throw new MailSessionException(e);
+		} finally {
+			if (folder != null) {
+				try {
+					folder.close(true);
+				} catch (MessagingException e) {
+					// Note that the service is closed even if this method
+					// terminates abnormally by throwing a MessagingException
+					// TODO: log the exception with 'warn' severity
+				}
+			}
+
+			if (store != null) {
+				try {
+					store.close();
+				} catch (MessagingException e) {
+					// Note that the service is closed even if this method
+					// terminates abnormally by throwing a MessagingException
+					// TODO: log the exception with 'warn' severity
+				}
 			}
 		}
 	}
@@ -164,12 +212,15 @@ public class Pop3MailSession extends AbstractMailSession {
 	/**
 	 * Checks if is new message.
 	 * 
-	 * @param uids the uids
-	 * @param uid the uid
+	 * @param uids
+	 *            the uids
+	 * @param uid
+	 *            the uid
 	 * 
 	 * @return true, if is new message
 	 * 
-	 * @throws MailSessionException the mail session exception
+	 * @throws MailSessionException
+	 *             the mail session exception
 	 */
 	private boolean isNewMessage(Collection<String> uids, String uid) throws MailSessionException {
 		return !uids.contains(uid);

@@ -181,7 +181,7 @@ public class MailSessionIntegrationTestCase extends TestCase {
 				.getSubject());
 
 		// cleanup mailbox
-		mailSession.fetchMessages(mailBox, Collections.EMPTY_LIST, null, true);
+		mailSession.expungeMessages(mailBox, null);
 	}
 
 	/**

@@ -28,7 +28,7 @@ import com.myslek.ragnarok.domain.MailMessage;
  * The Interface MailSession.
  */
 public interface MailSession {
-	
+
 	/**
 	 * Gets the session.
 	 * 
@@ -39,26 +39,47 @@ public interface MailSession {
 	/**
 	 * Send message.
 	 * 
-	 * @param mailBox the mail box
-	 * @param mailMessage the mail message
+	 * @param mailBox
+	 *            the mail box
+	 * @param mailMessage
+	 *            the mail message
 	 * 
-	 * @throws MailSessionException the mail session exception
+	 * @throws MailSessionException
+	 *             the mail session exception
 	 */
-	public void sendMessage(MailBox mailBox, MailMessage mailMessage)
-			throws MailSessionException;
+	public void sendMessage(MailBox mailBox, MailMessage mailMessage) throws MailSessionException;
 
 	/**
 	 * Fetch messages.
 	 * 
-	 * @param mailBox the mail box
-	 * @param uids the uids
-	 * @param filter the filter
-	 * @param expunge TODO
+	 * @param mailBox
+	 *            the mail box
+	 * @param uids
+	 *            the uids
+	 * @param filter
+	 *            the filter
+	 * @param expunge
+	 *            TODO
+	 * 
 	 * @return the collection< mail message>
 	 * 
-	 * @throws MailSessionException the mail session exception
+	 * @throws MailSessionException
+	 *             the mail session exception
 	 */
 	public List<MailMessage> fetchMessages(MailBox mailBox, Collection<String> uids,
 			MessageFilter filter, boolean expunge) throws MailSessionException;
 
+	/**
+	 * Expunge messages.
+	 * 
+	 * @param mailBox
+	 *            the mail box
+	 * @param uids
+	 *            the uids
+	 * 
+	 * @throws MailSessionException
+	 *             the mail session exception
+	 */
+	public void expungeMessages(MailBox mailBox, Collection<String> uids)
+			throws MailSessionException;
 }
