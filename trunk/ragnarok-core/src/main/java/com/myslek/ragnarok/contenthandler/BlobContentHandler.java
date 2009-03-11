@@ -26,7 +26,6 @@ import javax.mail.util.ByteArrayDataSource;
 
 import com.myslek.ragnarok.api.ContentHandlerManager;
 import com.myslek.ragnarok.api.MessageConversionException;
-import com.myslek.ragnarok.domain.Content;
 import com.myslek.ragnarok.domain.MailPart;
 import com.myslek.ragnarok.util.IOUtils;
 
@@ -55,9 +54,8 @@ public class BlobContentHandler extends AbstractContentHandler {
 		InputStream input = null;
 		try {
 			input = part.getInputStream();
-			Content content = new Content();
-			content.setData(IOUtils.getBytes(input));
-			mailPart.setContent(content);
+			byte[] data = IOUtils.getBytes(input);
+			mailPart.setData(data);
 			mailPart.setFileName(part.getFileName());
 		} catch (IOException e) {
 			throw new MessageConversionException(e);
@@ -82,7 +80,7 @@ public class BlobContentHandler extends AbstractContentHandler {
 			throws MessageConversionException {
 		try {
 			ByteArrayDataSource dataSource = new ByteArrayDataSource(
-					mailPart.getContent().getData(), mailPart.getContentType());
+					mailPart.getData(), mailPart.getContentType());
 			part.setDataHandler(new DataHandler(dataSource));
 			part.setFileName(mailPart.getFileName());
 		} catch (MessagingException e) {

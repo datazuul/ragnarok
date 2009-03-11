@@ -31,8 +31,11 @@ public class MailPart implements Serializable {
 	/** The id. */
 	private Long id;
 	
-	/** The content. */
-	private Content content;
+	/** The text. */
+	private String text;
+	
+	/** The data. */
+	private byte[] data;
 	
 	/** The content type. */
 	private String contentType;
@@ -107,21 +110,39 @@ public class MailPart implements Serializable {
 	}
 
 	/**
-	 * Gets the content.
+	 * Gets the text.
 	 * 
-	 * @return the content
+	 * @return the text
 	 */
-	public Content getContent() {
-		return content;
+	public String getText() {
+		return text;
 	}
 
 	/**
-	 * Sets the content.
+	 * Sets the text.
 	 * 
-	 * @param content the new content
+	 * @param text the new text
 	 */
-	public void setContent(Content content) {
-		this.content = content;
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	/**
+	 * Gets the data.
+	 * 
+	 * @return the data
+	 */
+	public byte[] getData() {
+		return data;
+	}
+
+	/**
+	 * Sets the data.
+	 * 
+	 * @param data the new data
+	 */
+	public void setData(byte[] data) {
+		this.data = data;
 	}
 
 	/**
