@@ -23,7 +23,6 @@ import javax.mail.Session;
 
 import com.myslek.ragnarok.api.ContentHandlerManager;
 import com.myslek.ragnarok.api.MessageConversionException;
-import com.myslek.ragnarok.domain.Content;
 import com.myslek.ragnarok.domain.MailPart;
 
 // TODO: Auto-generated Javadoc
@@ -47,9 +46,7 @@ public class TextContentHandler extends AbstractContentHandler {
 			throws MessageConversionException {
 		try {
 			String text = (String) part.getContent();
-			Content content = new Content();
-			content.setText(text);
-			mailPart.setContent(content);
+			mailPart.setText(text);
 		} catch (IOException e) {
 			throw new MessageConversionException(e);
 		} catch (MessagingException e) {
@@ -64,7 +61,7 @@ public class TextContentHandler extends AbstractContentHandler {
 			Session session, ContentHandlerManager manager)
 			throws MessageConversionException {
 		try {
-			part.setContent((String) mailPart.getContent().getText(), mailPart
+			part.setContent(mailPart.getText(), mailPart
 					.getContentType());
 		} catch (MessagingException e) {
 			throw new MessageConversionException(e);

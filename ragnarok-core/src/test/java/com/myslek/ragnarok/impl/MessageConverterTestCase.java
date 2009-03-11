@@ -45,8 +45,8 @@ public class MessageConverterTestCase extends AbstractMailTestCase {
 		Assert.assertEquals(message.getContentType(), mailMessage.getContentType());
 		Assert.assertEquals(message.getSubject(), mailMessage.getSubject());
 		Assert.assertEquals(SUBJECT, mailMessage.getSubject());
-		Assert.assertEquals((String) message.getContent(), (String) mailMessage.getContent().getText());
-		Assert.assertEquals(TEXT_PLAIN_CONTENT, (String) mailMessage.getContent().getText());
+		Assert.assertEquals((String) message.getContent(), mailMessage.getText());
+		Assert.assertEquals(TEXT_PLAIN_CONTENT, mailMessage.getText());
 	}
 
 	/**
@@ -77,13 +77,13 @@ public class MessageConverterTestCase extends AbstractMailTestCase {
 		Assert.assertEquals("Expected contentType of 1st part of the MailMessage multiPart is: "
 						+ TEXT_PLAIN_TYPE, TEXT_PLAIN_TYPE, part1.getContentType());
 		Assert.assertEquals("Expected content of the 1st part of the MailMessage multiPart is: "
-						+ TEXT_PLAIN_CONTENT, TEXT_PLAIN_CONTENT, (String) part1.getContent().getText());
+						+ TEXT_PLAIN_CONTENT, TEXT_PLAIN_CONTENT, part1.getText());
 		MailPart part2 = multiPart.getParts().get(1);
 		Assert.assertNotNull("Second part of the MailMessage multiPart must not be null", part2);
 		Assert.assertEquals("Expected contentType of the 2nd part of the MailMessage multiPart is: "
 						+ TEXT_HTML_TYPE, TEXT_HTML_TYPE, part2.getContentType());
 		Assert.assertEquals("Expected content of the 2nd part of the MailMessage multiPart is: "
-						+ TEXT_HTML_CONTENT, TEXT_HTML_CONTENT, (String) part2.getContent().getText());
+						+ TEXT_HTML_CONTENT, TEXT_HTML_CONTENT, part2.getText());
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class MessageConverterTestCase extends AbstractMailTestCase {
 		Assert.assertNotNull("Part1 object must not be null", part1);
 		Assert.assertTrue("Expected contentType of part1 object is: text/plain", part1.isMimeType("text/plain"));
 		Assert.assertEquals("Expected content of part1 object is: " + TEXT_PLAIN_CONTENT, TEXT_PLAIN_CONTENT, 
-				part1.getContent().getText());
+				part1.getText());
 		
 		MailPart part2 = multiPart.getParts().get(1);
 		Assert.assertNotNull("Part2 object must not be null", part2);
@@ -123,7 +123,7 @@ public class MessageConverterTestCase extends AbstractMailTestCase {
 		Assert.assertTrue("Expected contentType of the part2_1 object is: text/html", 
 				part2_1.isMimeType("text/html"));
 		Assert.assertEquals("Expected content of part2_1 object is: " + TEXT_HTML_CONTENT, TEXT_HTML_CONTENT, 
-				part2_1.getContent().getText());
+				part2_1.getText());
 	}
 	
 	/**
@@ -147,14 +147,14 @@ public class MessageConverterTestCase extends AbstractMailTestCase {
 		Assert.assertNotNull("Part1 must not be null", part1);
 		Assert.assertTrue("Part1 contentType should be: text/plain", part1.isMimeType("text/plain"));
 		Assert.assertEquals("Part1 content should be: " + TEXT_PLAIN_CONTENT, 
-				TEXT_PLAIN_CONTENT, part1.getContent().getText());
+				TEXT_PLAIN_CONTENT, part1.getText());
 		
 		MailPart part2 = multiPart.getParts().get(1);
 		Assert.assertNotNull("Part2 must not be null", part2);
 		Assert.assertTrue("Part2 contentType should be: image/jpeg", part2.isMimeType("image/jpeg"));
 		Assert.assertEquals("Part2 filename should be: image.jpeg", IMAGE_FILE, part2.getFileName());
 		Assert.assertEquals("Part2 content.getData().length == getImageBytes().length", 
-				getImageBytes().length, part2.getContent().getData().length);
+				getImageBytes().length, part2.getData().length);
 	}
 	
 	/**

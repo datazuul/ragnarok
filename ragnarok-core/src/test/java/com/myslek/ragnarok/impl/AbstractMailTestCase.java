@@ -31,19 +31,16 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
 
+import junit.framework.TestCase;
+
 import com.myslek.ragnarok.api.MailSession;
 import com.myslek.ragnarok.api.MailSessionFactory;
 import com.myslek.ragnarok.api.MessageConverter;
-import com.myslek.ragnarok.domain.Content;
 import com.myslek.ragnarok.domain.MailAddress;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.domain.MailPart;
 import com.myslek.ragnarok.domain.MailServer;
-import com.myslek.ragnarok.impl.DefaultMailSessionFactory;
-import com.myslek.ragnarok.impl.DefaultMessageConverter;
-
-import junit.framework.TestCase;
 
 
 // TODO: Auto-generated Javadoc
@@ -261,9 +258,7 @@ public abstract class AbstractMailTestCase extends TestCase {
 	 */
 	protected MailMessage createTextPlainMailMessage() throws Exception {
 		MailMessage mailMessage = createMailMessage();
-		Content content = new Content();
-		content.setText(TEXT_PLAIN_CONTENT);
-		mailMessage.setContent(content);
+		mailMessage.setText(TEXT_PLAIN_CONTENT);
 		mailMessage.setContentType(TEXT_PLAIN_TYPE);
 		
 		return mailMessage;
@@ -278,9 +273,7 @@ public abstract class AbstractMailTestCase extends TestCase {
 	 */
 	protected MailMessage createTextHtmlMailMessage() throws Exception {
 		MailMessage mailMessage = createMailMessage();
-		Content content = new Content();
-		content.setText(TEXT_HTML_CONTENT);
-		mailMessage.setContent(content);
+		mailMessage.setText(TEXT_HTML_CONTENT);
 		mailMessage.setContentType(TEXT_HTML_TYPE);
 		
 		return mailMessage;
@@ -298,15 +291,11 @@ public abstract class AbstractMailTestCase extends TestCase {
 		mailMessage.setContentType(MULTIPART_MIXED_TYPE);
 		
 		MailPart part1 = new MailPart();
-		Content content1 = new Content();
-		content1.setText(TEXT_PLAIN_CONTENT);
-		part1.setContent(content1);
+		part1.setText(TEXT_PLAIN_CONTENT);
 		part1.setContentType(TEXT_PLAIN_TYPE);
 		
 		MailPart part2 = new MailPart();
-		Content content2 = new Content();
-		content2.setText(TEXT_HTML_CONTENT);
-		part2.setContent(content2);
+		part2.setText(TEXT_HTML_CONTENT);
 		part2.setContentType(TEXT_HTML_TYPE);
 		
 		MailPart multiPart = new MailPart();
@@ -332,9 +321,7 @@ public abstract class AbstractMailTestCase extends TestCase {
 		mailMessage.setContentType(MULTIPART_MIXED_TYPE);
 		
 		MailPart part1 = new MailPart();
-		Content content1 = new Content();
-		content1.setText(TEXT_PLAIN_CONTENT);
-		part1.setContent(content1);
+		part1.setText(TEXT_PLAIN_CONTENT);
 		part1.setContentType(TEXT_PLAIN_TYPE);
 		
 		MailPart part2 = new MailPart();
@@ -363,18 +350,14 @@ public abstract class AbstractMailTestCase extends TestCase {
 		mailMessage.setContentType(MULTIPART_MIXED_TYPE);
 		
 		MailPart part1 = new MailPart();
-		Content content1 = new Content();
-		content1.setText(TEXT_PLAIN_CONTENT);
-		part1.setContent(content1);
+		part1.setText(TEXT_PLAIN_CONTENT);
 		part1.setContentType(TEXT_PLAIN_TYPE);
 		
 		MailPart part2 = new MailPart();
-		Content content2 = new Content();
 		part2.setContentType(IMAGE_TYPE);
 		part2.setFileName(IMAGE_FILE);
 		part2.setDisposition(Part.ATTACHMENT);
-		content2.setData(getImageBytes());
-		part2.setContent(content2);
+		part2.setData(getImageBytes());
 		
 		MailPart multiPart = new MailPart();
 		multiPart.setContentType(MULTIPART_MIXED_TYPE);
