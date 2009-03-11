@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.impl;
+package com.myslek.ragnarok.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,10 +27,10 @@ import javax.mail.MessagingException;
 import javax.mail.Store;
 import javax.mail.UIDFolder;
 
-import com.myslek.ragnarok.api.AbstractMailSession;
-import com.myslek.ragnarok.api.MailSessionException;
-import com.myslek.ragnarok.api.MessageConverter;
-import com.myslek.ragnarok.api.MessageFilter;
+import com.myslek.ragnarok.core.AbstractMailSession;
+import com.myslek.ragnarok.core.MailSessionException;
+import com.myslek.ragnarok.core.MessageConverter;
+import com.myslek.ragnarok.core.MessageFilter;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailMessage;

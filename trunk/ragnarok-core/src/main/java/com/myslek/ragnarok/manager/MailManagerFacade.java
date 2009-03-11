@@ -2,7 +2,7 @@ package com.myslek.ragnarok.manager;
 
 import javax.ejb.Local;
 
-import com.myslek.ragnarok.api.MessageFilter;
+import com.myslek.ragnarok.core.MessageFilter;
 import com.myslek.ragnarok.domain.MailBox;
 
 

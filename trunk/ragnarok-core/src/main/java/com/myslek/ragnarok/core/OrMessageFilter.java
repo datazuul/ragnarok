@@ -13,35 +13,36 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.api;
+package com.myslek.ragnarok.core;
 
-import javax.mail.Part;
+import javax.mail.Message;
 
-import com.myslek.ragnarok.domain.MailPart;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Interface AttributesHandler.
+ * The Class OrMessageFilter.
  */
-public interface AttributesHandler {
-	
+public class OrMessageFilter extends CompositeMessageFilter {
+
 	/**
-	 * From attributes.
+	 * Instantiates a new or message filter.
 	 * 
-	 * @param part the part
-	 * @param mailPart the mail part
-	 * 
-	 * @throws MessageConversionException the message conversion exception
+	 * @param filters the filters
 	 */
-	public void fromAttributes(Part part, MailPart mailPart) throws MessageConversionException;
-	
-	/**
-	 * To attributes.
-	 * 
-	 * @param mailPart the mail part
-	 * @param part the part
-	 * 
-	 * @throws MessageConversionException the message conversion exception
+	public OrMessageFilter(MessageFilter[] filters) {
+		super(filters);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.CompositeMessageFilter#accept(javax.mail.Message)
 	 */
-	public void toAttributes(MailPart mailPart, Part part) throws MessageConversionException;
+	@Override
+	public boolean accept(Message message) {
+		for (MessageFilter filter : filters) {
+			if (filter.accept(message)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

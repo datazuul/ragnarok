@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.api;
+package com.myslek.ragnarok.core;
 
 import java.util.Properties;
 

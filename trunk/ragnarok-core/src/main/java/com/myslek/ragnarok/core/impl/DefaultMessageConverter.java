@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.impl;
+package com.myslek.ragnarok.core.impl;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
-import com.myslek.ragnarok.api.AttributesHandler;
-import com.myslek.ragnarok.api.ContentHandlerManager;
-import com.myslek.ragnarok.api.EnvelopeHandler;
-import com.myslek.ragnarok.api.MessageConversionException;
-import com.myslek.ragnarok.api.MessageConverter;
+import com.myslek.ragnarok.core.AttributesHandler;
+import com.myslek.ragnarok.core.ContentHandlerManager;
+import com.myslek.ragnarok.core.EnvelopeHandler;
+import com.myslek.ragnarok.core.MessageConversionException;
+import com.myslek.ragnarok.core.MessageConverter;
 import com.myslek.ragnarok.domain.MailMessage;
 
 // TODO: Auto-generated Javadoc

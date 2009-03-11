@@ -13,30 +13,37 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.api;
+package com.myslek.ragnarok.core;
 
-import com.myslek.ragnarok.domain.MailFolder;
-import com.myslek.ragnarok.domain.MailMessage;
+import javax.mail.Message;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Interface MessageFilterRule.
+ * The Class CompositeMessageFilter.
  */
-public interface MessageFilterRule {
+public class CompositeMessageFilter implements MessageFilter {
+	
+	/** The filters. */
+	protected MessageFilter[] filters = new MessageFilter[0];
 	
 	/**
-	 * Matches.
+	 * Instantiates a new composite message filter.
 	 * 
-	 * @param mailMessage the mail message
-	 * 
-	 * @return true, if successful
+	 * @param filters the filters
 	 */
-	boolean matches(MailMessage mailMessage);
-	
-	/**
-	 * Gets the destination folder.
-	 * 
-	 * @return the destination folder
+	public CompositeMessageFilter(MessageFilter[] filters) {
+		this.filters = filters;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.MessageFilter#accept(javax.mail.Message)
 	 */
-	MailFolder getDestinationFolder();
+	public boolean accept(Message message) {
+		for (MessageFilter filter : filters) {
+			if (!(filter.accept(message))) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
