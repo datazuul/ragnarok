@@ -1,4 +1,4 @@
-package com.myslek.ragnarok.service;
+package com.myslek.ragnarok.manager;
 
 import java.util.Collection;
 
@@ -7,12 +7,8 @@ import javax.ejb.Local;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailMessage;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Interface MailStoreService.
- */
 @Local
-public interface MailStoreService {
+public interface MailStoreManager {
 	
 	/**
 	 * Store messages.

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.service.impl;
+package com.myslek.ragnarok.manager.impl;
 
 import java.util.Collection;
 
@@ -21,25 +21,15 @@ import javax.ejb.Stateless;
 
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailMessage;
-import com.myslek.ragnarok.service.MailStoreService;
+import com.myslek.ragnarok.manager.MailStoreManager;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class DefaultMailStoreService.
- */
 @Stateless
-public class DefaultMailStoreService implements MailStoreService {
+public class MailStoreManagerBean implements MailStoreManager {
 
-	/* (non-Javadoc)
-	 * @see com.myslek.webmail.service.MailStoreService#storeMessages(java.util.Collection)
-	 */
 	public void storeMessages(Collection<MailMessage> messages) {
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see com.myslek.webmail.service.MailStoreService#getUids(com.myslek.webmail.domain.MailBox)
-	 */
 	public Collection<String> getUids(MailBox mailBox) {
 		return null;
 	}

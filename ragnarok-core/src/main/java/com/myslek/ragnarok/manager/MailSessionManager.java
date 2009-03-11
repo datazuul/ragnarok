@@ -1,4 +1,4 @@
-package com.myslek.ragnarok.service;
+package com.myslek.ragnarok.manager;
 
 import java.util.Collection;
 
@@ -8,12 +8,8 @@ import com.myslek.ragnarok.api.MessageFilter;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailMessage;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Interface MailSessionService.
- */
 @Local
-public interface MailSessionService {
+public interface MailSessionManager {
 	
 	/**
 	 * Fetch messages.
