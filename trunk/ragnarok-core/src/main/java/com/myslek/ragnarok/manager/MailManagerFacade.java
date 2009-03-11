@@ -1,4 +1,4 @@
-package com.myslek.ragnarok.service;
+package com.myslek.ragnarok.manager;
 
 import javax.ejb.Local;
 
@@ -12,7 +12,7 @@ import com.myslek.ragnarok.domain.MailBox;
  * (i.e. connectivity, storage)
  */
 @Local
-public interface MailServiceFacade {
+public interface MailManagerFacade {
 	
 	/**
 	 * Fetch and store messages.
