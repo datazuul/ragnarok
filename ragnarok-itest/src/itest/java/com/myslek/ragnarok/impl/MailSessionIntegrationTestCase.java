@@ -27,7 +27,6 @@ import junit.framework.TestCase;
 
 import com.myslek.ragnarok.api.MailSession;
 import com.myslek.ragnarok.api.MailSessionFactory;
-import com.myslek.ragnarok.domain.Content;
 import com.myslek.ragnarok.domain.MailAddress;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailMessage;
@@ -265,9 +264,7 @@ public class MailSessionIntegrationTestCase extends TestCase {
 				.getProperty("mailbox.address"), mailbox.getProperty("mailbox.personal")));
 
 		mailMessage.setSubject(mailbox.getProperty("mailbox.subject"));
-		Content content = new Content();
-		content.setText(TEXT_PLAIN_CONTENT);
-		mailMessage.setContent(content);
+		mailMessage.setText(TEXT_PLAIN_CONTENT);
 
 		return mailMessage;
 	}
@@ -292,9 +289,7 @@ public class MailSessionIntegrationTestCase extends TestCase {
 		mailMessage.addRecipient(RecipientType.TO, to);
 		mailMessage.setSubject(subject);
 
-		Content content = new Content();
-		content.setText(TEXT_PLAIN_CONTENT);
-		mailMessage.setContent(content);
+		mailMessage.setText(TEXT_PLAIN_CONTENT);
 
 		return mailMessage;
 	}
