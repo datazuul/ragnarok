@@ -13,49 +13,49 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.api;
+package com.myslek.ragnarok.core;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class MailSessionException.
+ * The Class MessageConversionException.
  */
-public class MailSessionException extends SystemException {
+public class MessageConversionException extends SystemException {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Instantiates a new mail session exception.
+	 * Instantiates a new message conversion exception.
 	 */
-	public MailSessionException() {
+	public MessageConversionException() {
 		super();
 	}
 
 	/**
-	 * Instantiates a new mail session exception.
+	 * Instantiates a new message conversion exception.
 	 * 
 	 * @param message the message
 	 * @param cause the cause
 	 */
-	public MailSessionException(String message, Throwable cause) {
+	public MessageConversionException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
 	/**
-	 * Instantiates a new mail session exception.
+	 * Instantiates a new message conversion exception.
 	 * 
 	 * @param message the message
 	 */
-	public MailSessionException(String message) {
+	public MessageConversionException(String message) {
 		super(message);
 	}
 
 	/**
-	 * Instantiates a new mail session exception.
+	 * Instantiates a new message conversion exception.
 	 * 
 	 * @param cause the cause
 	 */
-	public MailSessionException(Throwable cause) {
+	public MessageConversionException(Throwable cause) {
 		super(cause);
 	}
 }

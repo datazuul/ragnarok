@@ -18,8 +18,9 @@ package com.myslek.ragnarok.impl;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import com.myslek.ragnarok.api.MailSession;
-import com.myslek.ragnarok.api.MailSessionFactory;
+import com.myslek.ragnarok.core.MailSession;
+import com.myslek.ragnarok.core.MailSessionFactory;
+import com.myslek.ragnarok.core.impl.DefaultMailSessionFactory;
 
 // TODO: Auto-generated Javadoc
 /**

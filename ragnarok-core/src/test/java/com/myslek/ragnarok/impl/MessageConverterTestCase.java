@@ -21,7 +21,7 @@ import javax.mail.Multipart;
 
 import junit.framework.Assert;
 
-import com.myslek.ragnarok.api.MailSession;
+import com.myslek.ragnarok.core.MailSession;
 import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.domain.MailPart;
 import com.myslek.ragnarok.util.IOUtils;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.impl;
+package com.myslek.ragnarok.core.impl;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -23,13 +23,13 @@ import javax.mail.MessagingException;
 import javax.mail.Part;
 import javax.mail.Session;
 
-import com.myslek.ragnarok.api.ContentHandler;
-import com.myslek.ragnarok.api.ContentHandlerManager;
-import com.myslek.ragnarok.api.MessageConversionException;
 import com.myslek.ragnarok.contenthandler.BlobContentHandler;
 import com.myslek.ragnarok.contenthandler.MessageContentHandler;
 import com.myslek.ragnarok.contenthandler.MultipartContentHandler;
 import com.myslek.ragnarok.contenthandler.TextContentHandler;
+import com.myslek.ragnarok.core.ContentHandler;
+import com.myslek.ragnarok.core.ContentHandlerManager;
+import com.myslek.ragnarok.core.MessageConversionException;
 import com.myslek.ragnarok.domain.MailPart;
 
 // TODO: Auto-generated Javadoc

@@ -25,8 +25,8 @@ import javax.mail.Session;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
 
-import com.myslek.ragnarok.api.ContentHandlerManager;
-import com.myslek.ragnarok.api.MessageConversionException;
+import com.myslek.ragnarok.core.ContentHandlerManager;
+import com.myslek.ragnarok.core.MessageConversionException;
 import com.myslek.ragnarok.domain.MailPart;
 
 // TODO: Auto-generated Javadoc

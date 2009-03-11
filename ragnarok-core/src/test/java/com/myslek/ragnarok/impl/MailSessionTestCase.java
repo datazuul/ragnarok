@@ -23,7 +23,7 @@ import junit.framework.Assert;
 
 import org.jvnet.mock_javamail.Mailbox;
 
-import com.myslek.ragnarok.api.MailSession;
+import com.myslek.ragnarok.core.MailSession;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailMessage;
 

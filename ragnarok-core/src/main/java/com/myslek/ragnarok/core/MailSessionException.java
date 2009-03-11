@@ -13,49 +13,49 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.api;
+package com.myslek.ragnarok.core;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class SystemException.
+ * The Class MailSessionException.
  */
-public class SystemException extends RuntimeException {
+public class MailSessionException extends SystemException {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Instantiates a new system exception.
+	 * Instantiates a new mail session exception.
 	 */
-	public SystemException() {
+	public MailSessionException() {
 		super();
 	}
 
 	/**
-	 * Instantiates a new system exception.
+	 * Instantiates a new mail session exception.
 	 * 
 	 * @param message the message
 	 * @param cause the cause
 	 */
-	public SystemException(String message, Throwable cause) {
+	public MailSessionException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
 	/**
-	 * Instantiates a new system exception.
+	 * Instantiates a new mail session exception.
 	 * 
 	 * @param message the message
 	 */
-	public SystemException(String message) {
+	public MailSessionException(String message) {
 		super(message);
 	}
 
 	/**
-	 * Instantiates a new system exception.
+	 * Instantiates a new mail session exception.
 	 * 
 	 * @param cause the cause
 	 */
-	public SystemException(Throwable cause) {
+	public MailSessionException(Throwable cause) {
 		super(cause);
 	}
 }

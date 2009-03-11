@@ -19,10 +19,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-// TODO: Auto-generated Javadoc
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * The Class MailUser.
  */
+@Entity
+@Table(name="MAIL_USER")
 public class MailUser implements Serializable {
 
 	/** The Constant serialVersionUID. */
@@ -30,9 +36,6 @@ public class MailUser implements Serializable {
 	
 	/** The id. */
 	private Long id;
-	
-	/** The token. */
-	private String token;
 	
 	/** The username. */
 	private String username;
@@ -48,6 +51,8 @@ public class MailUser implements Serializable {
 	 * 
 	 * @return the id
 	 */
+	@Id
+	@Column(name="ID")
 	public Long getId() {
 		return id;
 	}
@@ -60,30 +65,13 @@ public class MailUser implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	/**
-	 * Gets the token.
-	 * 
-	 * @return the token
-	 */
-	public String getToken() {
-		return token;
-	}
-
-	/**
-	 * Sets the token.
-	 * 
-	 * @param token the new token
-	 */
-	public void setToken(String token) {
-		this.token = token;
-	}
 
 	/**
 	 * Gets the username.
 	 * 
 	 * @return the username
 	 */
+	@Column(name="USERNAME")
 	public String getUsername() {
 		return username;
 	}
@@ -102,6 +90,7 @@ public class MailUser implements Serializable {
 	 * 
 	 * @return the password
 	 */
+	@Column(name="PASSWORD")
 	public String getPassword() {
 		return password;
 	}
