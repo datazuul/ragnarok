@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.core.impl;
+package com.myslek.ragnarok.mail.impl;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Collections;
@@ -25,10 +25,10 @@ import javax.mail.MessagingException;
 import javax.mail.Message.RecipientType;
 import javax.mail.internet.InternetAddress;
 
-import com.myslek.ragnarok.core.EnvelopeHandler;
-import com.myslek.ragnarok.core.MessageConversionException;
 import com.myslek.ragnarok.domain.MailAddress;
 import com.myslek.ragnarok.domain.MailMessage;
+import com.myslek.ragnarok.mail.EnvelopeHandler;
+import com.myslek.ragnarok.mail.MessageConversionException;
 
 // TODO: Auto-generated Javadoc
 /**

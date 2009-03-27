@@ -13,49 +13,49 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.core;
+package com.myslek.ragnarok.mail;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class MailSessionException.
+ * The Class UnsupportedMailStoreProtocolException.
  */
-public class MailSessionException extends SystemException {
-
+public class UnsupportedMailStoreProtocolException extends SystemException {
+	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Instantiates a new mail session exception.
+	 * Instantiates a new unsupported mail store protocol exception.
 	 */
-	public MailSessionException() {
+	public UnsupportedMailStoreProtocolException() {
 		super();
 	}
 
 	/**
-	 * Instantiates a new mail session exception.
+	 * Instantiates a new unsupported mail store protocol exception.
 	 * 
 	 * @param message the message
 	 * @param cause the cause
 	 */
-	public MailSessionException(String message, Throwable cause) {
+	public UnsupportedMailStoreProtocolException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
 	/**
-	 * Instantiates a new mail session exception.
+	 * Instantiates a new unsupported mail store protocol exception.
 	 * 
 	 * @param message the message
 	 */
-	public MailSessionException(String message) {
+	public UnsupportedMailStoreProtocolException(String message) {
 		super(message);
 	}
 
 	/**
-	 * Instantiates a new mail session exception.
+	 * Instantiates a new unsupported mail store protocol exception.
 	 * 
 	 * @param cause the cause
 	 */
-	public MailSessionException(Throwable cause) {
+	public UnsupportedMailStoreProtocolException(Throwable cause) {
 		super(cause);
 	}
 }

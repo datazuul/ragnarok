@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.core;
+package com.myslek.ragnarok.mail;
+
+import java.util.Collection;
 
 import javax.mail.Part;
 import javax.mail.Session;
@@ -22,32 +24,34 @@ import com.myslek.ragnarok.domain.MailPart;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Interface ContentHandler.
+ * The Interface ContentHandlerManager.
  */
-public interface ContentHandler {
-	
+public interface ContentHandlerManager {
+
 	/**
-	 * Accept.
+	 * Adds the content handler.
 	 * 
 	 * @param contentType the content type
-	 * 
-	 * @return true, if successful
-	 * 
-	 * @throws MessageConversionException the message conversion exception
+	 * @param handler the handler
 	 */
-	public boolean accept(String contentType) throws MessageConversionException;
+	public void addContentHandler(String contentType, ContentHandler handler);
+
+	/**
+	 * Gets the content handlers.
+	 * 
+	 * @return the content handlers
+	 */
+	public Collection<ContentHandler> getContentHandlers();
 
 	/**
 	 * From part content.
 	 * 
 	 * @param part the part
 	 * @param mailPart the mail part
-	 * @param manager the content handler manager
 	 * 
 	 * @throws MessageConversionException the message conversion exception
 	 */
-	public void fromPartContent(Part part, MailPart mailPart,
-			ContentHandlerManager manager)
+	public void fromPartContent(Part part, MailPart mailPart)
 			throws MessageConversionException;
 
 	/**
@@ -56,11 +60,9 @@ public interface ContentHandler {
 	 * @param mailPart the mail part
 	 * @param part the part
 	 * @param session the session
-	 * @param manager the content handler manager
 	 * 
 	 * @throws MessageConversionException the message conversion exception
 	 */
-	public void toPartContent(MailPart mailPart, Part part,
-			Session session, ContentHandlerManager manager)
+	public void toPartContent(MailPart mailPart, Part part, Session session)
 			throws MessageConversionException;
 }

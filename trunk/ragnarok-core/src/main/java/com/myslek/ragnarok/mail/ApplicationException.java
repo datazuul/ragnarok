@@ -13,49 +13,49 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.core;
+package com.myslek.ragnarok.mail;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class SystemException.
+ * The Class ApplicationException.
  */
-public class SystemException extends RuntimeException {
+public class ApplicationException extends Exception {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Instantiates a new system exception.
+	 * Instantiates a new application exception.
 	 */
-	public SystemException() {
+	public ApplicationException() {
 		super();
 	}
 
 	/**
-	 * Instantiates a new system exception.
+	 * Instantiates a new application exception.
 	 * 
 	 * @param message the message
 	 * @param cause the cause
 	 */
-	public SystemException(String message, Throwable cause) {
+	public ApplicationException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
 	/**
-	 * Instantiates a new system exception.
+	 * Instantiates a new application exception.
 	 * 
 	 * @param message the message
 	 */
-	public SystemException(String message) {
+	public ApplicationException(String message) {
 		super(message);
 	}
 
 	/**
-	 * Instantiates a new system exception.
+	 * Instantiates a new application exception.
 	 * 
 	 * @param cause the cause
 	 */
-	public SystemException(Throwable cause) {
+	public ApplicationException(Throwable cause) {
 		super(cause);
 	}
 }

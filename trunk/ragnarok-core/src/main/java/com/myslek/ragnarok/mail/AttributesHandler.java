@@ -13,23 +13,35 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.core;
+package com.myslek.ragnarok.mail;
+
+import javax.mail.Part;
+
+import com.myslek.ragnarok.domain.MailPart;
 
 // TODO: Auto-generated Javadoc
 /**
- * A factory for creating MailSession objects.
+ * The Interface AttributesHandler.
  */
-public interface MailSessionFactory {
-
+public interface AttributesHandler {
+	
 	/**
-	 * Creates a new MailSession object.
+	 * From attributes.
 	 * 
-	 * @param mailStoreProtocol the mail store protocol
+	 * @param part the part
+	 * @param mailPart the mail part
 	 * 
-	 * @return the mail session
-	 * 
-	 * @throws UnsupportedMailStoreProtocolException the unsupported mail store protocol exception
+	 * @throws MessageConversionException the message conversion exception
 	 */
-	MailSession createMailSession(String mailStoreProtocol)
-			throws UnsupportedMailStoreProtocolException;
+	public void fromAttributes(Part part, MailPart mailPart) throws MessageConversionException;
+	
+	/**
+	 * To attributes.
+	 * 
+	 * @param mailPart the mail part
+	 * @param part the part
+	 * 
+	 * @throws MessageConversionException the message conversion exception
+	 */
+	public void toAttributes(MailPart mailPart, Part part) throws MessageConversionException;
 }

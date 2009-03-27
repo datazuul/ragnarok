@@ -13,35 +13,54 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.core;
+package com.myslek.ragnarok.mail;
 
 import javax.mail.Part;
+import javax.mail.Session;
 
 import com.myslek.ragnarok.domain.MailPart;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Interface AttributesHandler.
+ * The Interface ContentHandler.
  */
-public interface AttributesHandler {
+public interface ContentHandler {
 	
 	/**
-	 * From attributes.
+	 * Accept.
 	 * 
-	 * @param part the part
-	 * @param mailPart the mail part
+	 * @param contentType the content type
+	 * 
+	 * @return true, if successful
 	 * 
 	 * @throws MessageConversionException the message conversion exception
 	 */
-	public void fromAttributes(Part part, MailPart mailPart) throws MessageConversionException;
-	
+	public boolean accept(String contentType) throws MessageConversionException;
+
 	/**
-	 * To attributes.
+	 * From part content.
 	 * 
-	 * @param mailPart the mail part
 	 * @param part the part
+	 * @param mailPart the mail part
+	 * @param manager the content handler manager
 	 * 
 	 * @throws MessageConversionException the message conversion exception
 	 */
-	public void toAttributes(MailPart mailPart, Part part) throws MessageConversionException;
+	public void fromPartContent(Part part, MailPart mailPart,
+			ContentHandlerManager manager)
+			throws MessageConversionException;
+
+	/**
+	 * To part content.
+	 * 
+	 * @param mailPart the mail part
+	 * @param part the part
+	 * @param session the session
+	 * @param manager the content handler manager
+	 * 
+	 * @throws MessageConversionException the message conversion exception
+	 */
+	public void toPartContent(MailPart mailPart, Part part,
+			Session session, ContentHandlerManager manager)
+			throws MessageConversionException;
 }

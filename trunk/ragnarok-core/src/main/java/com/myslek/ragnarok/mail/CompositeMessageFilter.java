@@ -13,35 +13,37 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.core;
+package com.myslek.ragnarok.mail;
 
 import javax.mail.Message;
 
-import com.myslek.ragnarok.domain.MailMessage;
-
 // TODO: Auto-generated Javadoc
 /**
- * The Interface EnvelopeHandler.
+ * The Class CompositeMessageFilter.
  */
-public interface EnvelopeHandler {
+public class CompositeMessageFilter implements MessageFilter {
+	
+	/** The filters. */
+	protected MessageFilter[] filters = new MessageFilter[0];
 	
 	/**
-	 * From envelope.
+	 * Instantiates a new composite message filter.
 	 * 
-	 * @param message the message
-	 * @param mailMessage the mail message
-	 * 
-	 * @throws MessageConversionException the message conversion exception
+	 * @param filters the filters
 	 */
-	public void fromEnvelope(Message message, MailMessage mailMessage) throws MessageConversionException;
-	
-	/**
-	 * To envelope.
-	 * 
-	 * @param mailMessage the mail message
-	 * @param message the message
-	 * 
-	 * @throws MessageConversionException the message conversion exception
+	public CompositeMessageFilter(MessageFilter[] filters) {
+		this.filters = filters;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.MessageFilter#accept(javax.mail.Message)
 	 */
-	public void toEnvelope(MailMessage mailMessage, Message message) throws MessageConversionException;
+	public boolean accept(Message message) {
+		for (MessageFilter filter : filters) {
+			if (!(filter.accept(message))) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

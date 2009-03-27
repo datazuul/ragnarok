@@ -21,6 +21,7 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -51,7 +52,7 @@ public class MailUser implements Serializable {
 	 * 
 	 * @return the id
 	 */
-	@Id
+	@Id @GeneratedValue
 	@Column(name="ID")
 	public Long getId() {
 		return id;

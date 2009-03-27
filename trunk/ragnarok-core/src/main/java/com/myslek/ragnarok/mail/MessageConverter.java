@@ -13,30 +13,39 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.core;
+package com.myslek.ragnarok.mail;
 
-import com.myslek.ragnarok.domain.MailFolder;
+import javax.mail.Message;
+import javax.mail.Session;
+
 import com.myslek.ragnarok.domain.MailMessage;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Interface MessageFilterRule.
+ * The Interface MessageConverter.
  */
-public interface MessageFilterRule {
+public interface MessageConverter {
 	
 	/**
-	 * Matches.
+	 * From message.
+	 * 
+	 * @param message the message
+	 * 
+	 * @return the mail message
+	 * 
+	 * @throws MessageConversionException the message conversion exception
+	 */
+	public MailMessage fromMessage(Message message) throws MessageConversionException;
+	
+	/**
+	 * To message.
 	 * 
 	 * @param mailMessage the mail message
+	 * @param session the session
 	 * 
-	 * @return true, if successful
-	 */
-	boolean matches(MailMessage mailMessage);
-	
-	/**
-	 * Gets the destination folder.
+	 * @return the message
 	 * 
-	 * @return the destination folder
+	 * @throws MessageConversionException the message conversion exception
 	 */
-	MailFolder getDestinationFolder();
+	public Message toMessage(MailMessage mailMessage, Session session) throws MessageConversionException;
 }

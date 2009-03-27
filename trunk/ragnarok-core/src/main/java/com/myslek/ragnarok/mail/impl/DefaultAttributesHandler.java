@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.core.impl;
+package com.myslek.ragnarok.mail.impl;
 
 import java.util.Enumeration;
 
@@ -21,10 +21,10 @@ import javax.mail.Header;
 import javax.mail.MessagingException;
 import javax.mail.Part;
 
-import com.myslek.ragnarok.core.AttributesHandler;
-import com.myslek.ragnarok.core.MessageConversionException;
 import com.myslek.ragnarok.domain.MailHeader;
 import com.myslek.ragnarok.domain.MailPart;
+import com.myslek.ragnarok.mail.AttributesHandler;
+import com.myslek.ragnarok.mail.MessageConversionException;
 
 // TODO: Auto-generated Javadoc
 /**

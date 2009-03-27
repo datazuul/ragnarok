@@ -15,11 +15,11 @@
  */
 package com.myslek.ragnarok.contenthandler;
 
-import com.myslek.ragnarok.core.AttributesHandler;
-import com.myslek.ragnarok.core.ContentHandler;
-import com.myslek.ragnarok.core.EnvelopeHandler;
-import com.myslek.ragnarok.core.impl.DefaultAttributesHandler;
-import com.myslek.ragnarok.core.impl.DefaultEnvelopeHandler;
+import com.myslek.ragnarok.mail.AttributesHandler;
+import com.myslek.ragnarok.mail.ContentHandler;
+import com.myslek.ragnarok.mail.EnvelopeHandler;
+import com.myslek.ragnarok.mail.impl.DefaultAttributesHandler;
+import com.myslek.ragnarok.mail.impl.DefaultEnvelopeHandler;
 
 // TODO: Auto-generated Javadoc
 /**
