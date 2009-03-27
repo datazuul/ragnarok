@@ -15,17 +15,18 @@
  */
 package com.myslek.ragnarok.domain;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The Enum RecipientType.
  */
 public enum RecipientType {
-	
+
 	/** The TO. */
-	TO, 
- /** The CC. */
- CC, 
- /** The BCC. */
- BCC
+	TO,
+	/** The CC. */
+	CC,
+	/** The BCC. */
+	BCC,
+	/** The FROM. */
+	FROM
 }

@@ -15,6 +15,8 @@
  */
 package com.myslek.ragnarok.mail;
 
+import com.myslek.ragnarok.domain.MailServerProtocol;
+
 // TODO: Auto-generated Javadoc
 /**
  * A factory for creating MailSession objects.
@@ -30,6 +32,6 @@ public interface MailSessionFactory {
 	 * 
 	 * @throws UnsupportedMailStoreProtocolException the unsupported mail store protocol exception
 	 */
-	MailSession createMailSession(String mailStoreProtocol)
+	MailSession createMailSession(MailServerProtocol mailStoreProtocol)
 			throws UnsupportedMailStoreProtocolException;
 }

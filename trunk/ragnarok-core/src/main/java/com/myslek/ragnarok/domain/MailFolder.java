@@ -17,10 +17,17 @@ package com.myslek.ragnarok.domain;
 
 import java.io.Serializable;
 
-// TODO: Auto-generated Javadoc
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * The Class MailFolder.
  */
+@Entity
+@Table(name="RAG_FOLDER")
 public class MailFolder implements Serializable {
 
 	/** The Constant serialVersionUID. */
@@ -29,17 +36,17 @@ public class MailFolder implements Serializable {
 	/** The id. */
 	private Long id;
 	
-	/** The token. */
-	private String token;
+	private String name;
 	
-	/** The mail box. */
-	private MailBox mailBox;
+	private boolean inbox;
 	
 	/**
 	 * Gets the id.
 	 * 
 	 * @return the id
 	 */
+	@Id @GeneratedValue
+	@Column(name="ID")
 	public Long getId() {
 		return id;
 	}
@@ -52,40 +59,22 @@ public class MailFolder implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	/**
-	 * Gets the token.
-	 * 
-	 * @return the token
-	 */
-	public String getToken() {
-		return token;
+
+	@Column(name="FOLDER_NAME", nullable=false)
+	public String getName() {
+		return name;
 	}
 
-	/**
-	 * Sets the token.
-	 * 
-	 * @param token the new token
-	 */
-	public void setToken(String token) {
-		this.token = token;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	/**
-	 * Gets the mail box.
-	 * 
-	 * @return the mail box
-	 */
-	public MailBox getMailBox() {
-		return mailBox;
+	@Column(name="INBOX")
+	public boolean isInbox() {
+		return inbox;
 	}
-	
-	/**
-	 * Sets the mail box.
-	 * 
-	 * @param mailBox the new mail box
-	 */
-	public void setMailBox(MailBox mailBox) {
-		this.mailBox = mailBox;
+
+	public void setInbox(boolean inbox) {
+		this.inbox = inbox;
 	}
 }

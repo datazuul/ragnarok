@@ -19,10 +19,25 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-// TODO: Auto-generated Javadoc
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.myslek.ragnarok.mail.contenthandler.MailboxConfigurationException;
+
 /**
  * The Class MailBox.
  */
+@Entity
+@Table(name = "RAG_MAILBOX")
 public class MailBox implements Serializable {
 
 	/** The Constant serialVersionUID. */
@@ -30,31 +45,27 @@ public class MailBox implements Serializable {
 
 	/** The id. */
 	private Long id;
-	
-	/** The mail user. */
-	private MailUser mailUser;
-	
+
 	/** The mail store. */
 	private MailServer mailStore;
-	
+
 	/** The mail transport. */
 	private MailServer mailTransport;
-	
+
 	/** The default mail box. */
 	private boolean defaultMailBox;
-	
+
 	/** The folders. */
 	private Collection<MailFolder> folders = new ArrayList<MailFolder>();
-	
-	/** The message filters. */
-	private Collection<MailMessageFilter> messageFilters = 
-		new ArrayList<MailMessageFilter>();
 
 	/**
 	 * Gets the id.
 	 * 
 	 * @return the id
 	 */
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
 	public Long getId() {
 		return id;
 	}
@@ -62,28 +73,11 @@ public class MailBox implements Serializable {
 	/**
 	 * Sets the id.
 	 * 
-	 * @param id the new id
+	 * @param id
+	 *            the new id
 	 */
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	/**
-	 * Gets the mail user.
-	 * 
-	 * @return the mail user
-	 */
-	public MailUser getMailUser() {
-		return mailUser;
-	}
-
-	/**
-	 * Sets the mail user.
-	 * 
-	 * @param mailUser the new mail user
-	 */
-	public void setMailUser(MailUser mailUser) {
-		this.mailUser = mailUser;
 	}
 
 	/**
@@ -91,6 +85,8 @@ public class MailBox implements Serializable {
 	 * 
 	 * @return the mail store
 	 */
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "IN_SERVER_ID")
 	public MailServer getMailStore() {
 		return mailStore;
 	}
@@ -98,7 +94,8 @@ public class MailBox implements Serializable {
 	/**
 	 * Sets the mail store.
 	 * 
-	 * @param mailStore the new mail store
+	 * @param mailStore
+	 *            the new mail store
 	 */
 	public void setMailStore(MailServer mailStore) {
 		this.mailStore = mailStore;
@@ -109,6 +106,8 @@ public class MailBox implements Serializable {
 	 * 
 	 * @return the mail transport
 	 */
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "OUT_SERVER_ID")
 	public MailServer getMailTransport() {
 		return mailTransport;
 	}
@@ -116,7 +115,8 @@ public class MailBox implements Serializable {
 	/**
 	 * Sets the mail transport.
 	 * 
-	 * @param mailTransport the new mail transport
+	 * @param mailTransport
+	 *            the new mail transport
 	 */
 	public void setMailTransport(MailServer mailTransport) {
 		this.mailTransport = mailTransport;
@@ -127,6 +127,7 @@ public class MailBox implements Serializable {
 	 * 
 	 * @return true, if is default mail box
 	 */
+	@Column(name = "DEFAULT_MAILBOX")
 	public boolean isDefaultMailBox() {
 		return defaultMailBox;
 	}
@@ -134,7 +135,8 @@ public class MailBox implements Serializable {
 	/**
 	 * Sets the default mail box.
 	 * 
-	 * @param defaultMailBox the new default mail box
+	 * @param defaultMailBox
+	 *            the new default mail box
 	 */
 	public void setDefaultMailBox(boolean defaultMailBox) {
 		this.defaultMailBox = defaultMailBox;
@@ -152,37 +154,33 @@ public class MailBox implements Serializable {
 	/**
 	 * Sets the folders.
 	 * 
-	 * @param folders the new folders
+	 * @param folders
+	 *            the new folders
 	 */
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "MAILBOX_ID")
 	public void setFolders(Collection<MailFolder> folders) {
 		this.folders = folders;
 	}
 
-	/**
-	 * Gets the message filters.
-	 * 
-	 * @return the message filters
-	 */
-	public Collection<MailMessageFilter> getMessageFilters() {
-		return messageFilters;
+	public void addFolder(MailFolder folder) {
+		this.folders.add(folder);
 	}
 
-	/**
-	 * Sets the message filters.
-	 * 
-	 * @param messageFilters the new message filters
-	 */
-	public void setMessageFilters(Collection<MailMessageFilter> messageFilters) {
-		this.messageFilters = messageFilters;
-	}
-	
-	//TODO: implement me!
 	/**
 	 * Gets the inbox.
 	 * 
 	 * @return the inbox
 	 */
+	@Transient
 	public MailFolder getInbox() {
-		return null;
+		for (MailFolder folder : folders) {
+			if (folder.isInbox()) {
+				return folder;
+			}
+		}
+		throw new MailboxConfigurationException("Unable to find 'inbox' folder for mailbox ["
+				+ mailStore.getProtocol() + "://" + mailStore.getUsername() + "@"
+				+ mailStore.getHostname() + "]");
 	}
 }

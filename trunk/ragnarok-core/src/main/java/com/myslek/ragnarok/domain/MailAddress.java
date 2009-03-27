@@ -127,4 +127,14 @@ public class MailAddress implements Serializable {
 	public void setType(MailAddressType type) {
 		this.type = type;
 	}
+
+	@Override
+	public String toString() {
+		StringBuffer ret = new StringBuffer();
+		if (personal != null && personal.trim().length() > 0) {
+			ret.append(personal + " ");
+		}
+		ret.append("<" + address + ">");
+		return ret.toString();
+	}
 }

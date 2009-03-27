@@ -25,8 +25,13 @@ public enum MailServerProtocol {
 	SMTP,
 	
 	/** The POP. */
-	POP,
+	POP3,
 	
 	/** The IMAP. */
-	IMAP
+	IMAP;
+
+	@Override
+	public String toString() {
+		return this.name().toLowerCase();
+	}
 }

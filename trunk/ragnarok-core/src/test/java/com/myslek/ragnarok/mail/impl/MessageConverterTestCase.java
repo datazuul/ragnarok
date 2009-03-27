@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.impl;
+package com.myslek.ragnarok.mail.impl;
 
 import javax.mail.BodyPart;
 import javax.mail.Message;

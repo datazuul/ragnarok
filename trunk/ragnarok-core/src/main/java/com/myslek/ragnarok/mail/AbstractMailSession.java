@@ -27,7 +27,6 @@ import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.domain.MailServer;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The Class AbstractMailSession.
@@ -49,13 +48,16 @@ public abstract class AbstractMailSession implements MailSession {
 	/**
 	 * Sets the message converter.
 	 * 
-	 * @param messageConverter the new message converter
+	 * @param messageConverter
+	 *            the new message converter
 	 */
 	public void setMessageConverter(MessageConverter messageConverter) {
 		this.messageConverter = messageConverter;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.myslek.webmail.api.MailSession#getSession()
 	 */
 	public Session getSession() throws MailSessionException {
@@ -66,16 +68,18 @@ public abstract class AbstractMailSession implements MailSession {
 	/**
 	 * Gets the store.
 	 * 
-	 * @param mailServer the mail server
+	 * @param mailServer
+	 *            the mail server
 	 * 
 	 * @return the store
 	 * 
-	 * @throws MailSessionException the mail session exception
+	 * @throws MailSessionException
+	 *             the mail session exception
 	 */
 	protected Store getStore(MailServer mailServer) throws MailSessionException {
 		try {
-			Store store = getSession().getStore(mailServer.getProtocol());
-			store.connect(mailServer.getHost(), mailServer.getUsername(),
+			Store store = getSession().getStore(mailServer.getProtocol().toString());
+			store.connect(mailServer.getHostname(), mailServer.getUsername(),
 					decipherPassword(mailServer.getPassword()));
 
 			return store;
@@ -87,18 +91,18 @@ public abstract class AbstractMailSession implements MailSession {
 	/**
 	 * Gets the transport.
 	 * 
-	 * @param mailServer the mail server
+	 * @param mailServer
+	 *            the mail server
 	 * 
 	 * @return the transport
 	 * 
-	 * @throws MailSessionException the mail session exception
+	 * @throws MailSessionException
+	 *             the mail session exception
 	 */
-	protected Transport getTransport(MailServer mailServer)
-			throws MailSessionException {
+	protected Transport getTransport(MailServer mailServer) throws MailSessionException {
 		try {
-			Transport transport = getSession().getTransport(
-					mailServer.getProtocol());
-			transport.connect(mailServer.getHost(), mailServer.getUsername(),
+			Transport transport = getSession().getTransport(mailServer.getProtocol().toString());
+			transport.connect(mailServer.getHostname(), mailServer.getUsername(),
 					decipherPassword(mailServer.getPassword()));
 			return transport;
 		} catch (MessagingException e) {
@@ -109,7 +113,8 @@ public abstract class AbstractMailSession implements MailSession {
 	/**
 	 * Decipher password.
 	 * 
-	 * @param password the password
+	 * @param password
+	 *            the password
 	 * 
 	 * @return the string
 	 */
@@ -126,17 +131,19 @@ public abstract class AbstractMailSession implements MailSession {
 		return new Properties();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.myslek.webmail.api.MailSession#sendMessage(com.myslek.webmail.domain.MailBox, com.myslek.webmail.domain.MailMessage)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.myslek.webmail.api.MailSession#sendMessage(com.myslek.webmail.domain
+	 * .MailBox, com.myslek.webmail.domain.MailMessage)
 	 */
-	public void sendMessage(MailBox mailBox, MailMessage mailMessage)
-			throws MailSessionException {
+	public void sendMessage(MailBox mailBox, MailMessage mailMessage) throws MailSessionException {
 		Transport transport = null;
 		try {
 			transport = getTransport(mailBox.getMailTransport());
-			Message message = getMessageConverter().toMessage(mailMessage,
-					getSession());
-			//message.saveChanges();
+			Message message = getMessageConverter().toMessage(mailMessage, getSession());
+			// message.saveChanges();
 			transport.sendMessage(message, message.getAllRecipients());
 		} catch (MessagingException e) {
 			throw new MailSessionException(e);

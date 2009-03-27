@@ -20,13 +20,13 @@ package com.myslek.ragnarok.domain;
  * The Enum MailAddressType.
  */
 public enum MailAddressType {
-	
+
 	/** The FROM. */
-	FROM, 
- /** The TO. */
- TO, 
- /** The CC. */
- CC, 
- /** The BCC. */
- BCC
+	FROM,
+	/** The TO. */
+	TO,
+	/** The CC. */
+	CC,
+	/** The BCC. */
+	BCC
 }

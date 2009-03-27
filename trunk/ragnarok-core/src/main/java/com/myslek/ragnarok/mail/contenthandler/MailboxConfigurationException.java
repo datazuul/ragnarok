@@ -13,16 +13,29 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.domain;
+package com.myslek.ragnarok.mail.contenthandler;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Enum MailServerType.
- */
-public enum MailServerType {
-	
-	/** The IN. */
-	IN, 
- /** The OUT. */
- OUT
+import com.myslek.ragnarok.mail.SystemException;
+
+public class MailboxConfigurationException extends SystemException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public MailboxConfigurationException() {
+		super();
+	}
+
+	public MailboxConfigurationException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public MailboxConfigurationException(String message) {
+		super(message);
+	}
+
+	public MailboxConfigurationException(Throwable cause) {
+		super(cause);
+	}
 }

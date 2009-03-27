@@ -18,6 +18,7 @@ package com.myslek.ragnarok.mail.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.myslek.ragnarok.domain.MailServerProtocol;
 import com.myslek.ragnarok.mail.MailSession;
 import com.myslek.ragnarok.mail.MailSessionFactory;
 import com.myslek.ragnarok.mail.UnsupportedMailStoreProtocolException;
@@ -29,40 +30,38 @@ import com.myslek.ragnarok.mail.UnsupportedMailStoreProtocolException;
 public class DefaultMailSessionFactory implements MailSessionFactory {
 
 	/** The mail session types. */
-	private Map<String, MailSession> mailSessionTypes = new HashMap<String, MailSession>();
-
-	/** The Constant POP3_STORE_PROTOCOL. */
-	public static final String POP3_STORE_PROTOCOL = "pop3";
-	
-	/** The Constant IMAP_STORE_PROTOCOL. */
-	public static final String IMAP_STORE_PROTOCOL = "imap";
+	private Map<MailServerProtocol, MailSession> mailSessionTypes = new HashMap<MailServerProtocol, MailSession>();
 
 	/**
 	 * Instantiates a new default mail session factory.
 	 */
 	public DefaultMailSessionFactory() {
-		mailSessionTypes.put(POP3_STORE_PROTOCOL, new Pop3MailSession());
+		mailSessionTypes.put(MailServerProtocol.POP3, new Pop3MailSession());
 	}
-	
+
 	/**
 	 * Instantiates a new default mail session factory.
 	 * 
-	 * @param mailSessionTypes the mail session types
+	 * @param mailSessionTypes
+	 *            the mail session types
 	 */
-	public DefaultMailSessionFactory(Map<String, MailSession> mailSessionTypes) {
+	public DefaultMailSessionFactory(Map<MailServerProtocol, MailSession> mailSessionTypes) {
 		this.mailSessionTypes = mailSessionTypes;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.myslek.webmail.api.MailSessionFactory#createMailSession(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.myslek.webmail.api.MailSessionFactory#createMailSession(java.lang
+	 * .String)
 	 */
-	public MailSession createMailSession(String mailStoreProtocol)
+	public MailSession createMailSession(MailServerProtocol mailStoreProtocol)
 			throws UnsupportedMailStoreProtocolException {
 		MailSession mailSession = mailSessionTypes.get(mailStoreProtocol);
 		if (mailSession == null) {
-			throw new UnsupportedMailStoreProtocolException(
-					"Unsupported mail store protocol [" + mailStoreProtocol
-							+ "]");
+			throw new UnsupportedMailStoreProtocolException("Unsupported mail store protocol ["
+					+ mailStoreProtocol + "]");
 		}
 		return mailSession;
 	}
