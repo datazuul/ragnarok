@@ -25,14 +25,14 @@ import java.util.Properties;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import com.myslek.ragnarok.core.MailSession;
-import com.myslek.ragnarok.core.MailSessionFactory;
-import com.myslek.ragnarok.core.impl.DefaultMailSessionFactory;
 import com.myslek.ragnarok.domain.MailAddress;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.domain.MailServer;
 import com.myslek.ragnarok.domain.RecipientType;
+import com.myslek.ragnarok.mail.MailSession;
+import com.myslek.ragnarok.mail.MailSessionFactory;
+import com.myslek.ragnarok.mail.impl.DefaultMailSessionFactory;
 
 // TODO: Auto-generated Javadoc
 /**

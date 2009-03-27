@@ -33,16 +33,16 @@ import javax.mail.util.ByteArrayDataSource;
 
 import junit.framework.TestCase;
 
-import com.myslek.ragnarok.core.MailSession;
-import com.myslek.ragnarok.core.MailSessionFactory;
-import com.myslek.ragnarok.core.MessageConverter;
-import com.myslek.ragnarok.core.impl.DefaultMailSessionFactory;
-import com.myslek.ragnarok.core.impl.DefaultMessageConverter;
 import com.myslek.ragnarok.domain.MailAddress;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.domain.MailPart;
 import com.myslek.ragnarok.domain.MailServer;
+import com.myslek.ragnarok.mail.MailSession;
+import com.myslek.ragnarok.mail.MailSessionFactory;
+import com.myslek.ragnarok.mail.MessageConverter;
+import com.myslek.ragnarok.mail.impl.DefaultMailSessionFactory;
+import com.myslek.ragnarok.mail.impl.DefaultMessageConverter;
 
 
 // TODO: Auto-generated Javadoc

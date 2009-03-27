@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.core.impl;
+package com.myslek.ragnarok.mail.impl;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -27,10 +27,10 @@ import com.myslek.ragnarok.contenthandler.BlobContentHandler;
 import com.myslek.ragnarok.contenthandler.MessageContentHandler;
 import com.myslek.ragnarok.contenthandler.MultipartContentHandler;
 import com.myslek.ragnarok.contenthandler.TextContentHandler;
-import com.myslek.ragnarok.core.ContentHandler;
-import com.myslek.ragnarok.core.ContentHandlerManager;
-import com.myslek.ragnarok.core.MessageConversionException;
 import com.myslek.ragnarok.domain.MailPart;
+import com.myslek.ragnarok.mail.ContentHandler;
+import com.myslek.ragnarok.mail.ContentHandlerManager;
+import com.myslek.ragnarok.mail.MessageConversionException;
 
 // TODO: Auto-generated Javadoc
 /**

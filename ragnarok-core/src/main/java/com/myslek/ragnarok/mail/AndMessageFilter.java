@@ -13,22 +13,35 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.core;
+package com.myslek.ragnarok.mail;
 
 import javax.mail.Message;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Interface MessageFilter.
+ * The Class AndMessageFilter.
  */
-public interface MessageFilter {
-	
+public class AndMessageFilter extends CompositeMessageFilter {
+
 	/**
-	 * Accept.
+	 * Instantiates a new and message filter.
 	 * 
-	 * @param message the message
-	 * 
-	 * @return true, if successful
+	 * @param filters the filters
 	 */
-	public boolean accept(Message message);
+	public AndMessageFilter(MessageFilter[] filters) {
+		super(filters);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.myslek.webmail.api.CompositeMessageFilter#accept(javax.mail.Message)
+	 */
+	@Override
+	public boolean accept(Message message) {
+		for (MessageFilter filter : filters) {
+			if (!filter.accept(message)) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

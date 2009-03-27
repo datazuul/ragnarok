@@ -13,39 +13,35 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.core;
+package com.myslek.ragnarok.mail;
 
 import javax.mail.Message;
-import javax.mail.Session;
 
 import com.myslek.ragnarok.domain.MailMessage;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Interface MessageConverter.
+ * The Interface EnvelopeHandler.
  */
-public interface MessageConverter {
+public interface EnvelopeHandler {
 	
 	/**
-	 * From message.
+	 * From envelope.
 	 * 
 	 * @param message the message
-	 * 
-	 * @return the mail message
+	 * @param mailMessage the mail message
 	 * 
 	 * @throws MessageConversionException the message conversion exception
 	 */
-	public MailMessage fromMessage(Message message) throws MessageConversionException;
+	public void fromEnvelope(Message message, MailMessage mailMessage) throws MessageConversionException;
 	
 	/**
-	 * To message.
+	 * To envelope.
 	 * 
 	 * @param mailMessage the mail message
-	 * @param session the session
-	 * 
-	 * @return the message
+	 * @param message the message
 	 * 
 	 * @throws MessageConversionException the message conversion exception
 	 */
-	public Message toMessage(MailMessage mailMessage, Session session) throws MessageConversionException;
+	public void toEnvelope(MailMessage mailMessage, Message message) throws MessageConversionException;
 }

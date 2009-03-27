@@ -19,11 +19,11 @@ import java.util.Collection;
 
 import javax.ejb.Stateless;
 
-import com.myslek.ragnarok.core.MailSession;
-import com.myslek.ragnarok.core.MailSessionFactory;
-import com.myslek.ragnarok.core.MessageFilter;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailMessage;
+import com.myslek.ragnarok.mail.MailSession;
+import com.myslek.ragnarok.mail.MailSessionFactory;
+import com.myslek.ragnarok.mail.MessageFilter;
 import com.myslek.ragnarok.manager.MailSessionManager;
 
 @Stateless

@@ -4,9 +4,9 @@ import java.util.Collection;
 
 import javax.ejb.Local;
 
-import com.myslek.ragnarok.core.MessageFilter;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailMessage;
+import com.myslek.ragnarok.mail.MessageFilter;
 
 @Local
 public interface MailSessionManager {

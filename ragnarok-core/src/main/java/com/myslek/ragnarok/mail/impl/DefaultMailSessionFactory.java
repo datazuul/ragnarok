@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.core.impl;
+package com.myslek.ragnarok.mail.impl;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.myslek.ragnarok.core.MailSession;
-import com.myslek.ragnarok.core.MailSessionFactory;
-import com.myslek.ragnarok.core.UnsupportedMailStoreProtocolException;
+import com.myslek.ragnarok.mail.MailSession;
+import com.myslek.ragnarok.mail.MailSessionFactory;
+import com.myslek.ragnarok.mail.UnsupportedMailStoreProtocolException;
 
 // TODO: Auto-generated Javadoc
 /**

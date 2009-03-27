@@ -13,21 +13,8 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.core;
+package com.myslek.ragnarok.persistence;
 
-import javax.mail.Message;
-
-// TODO: Auto-generated Javadoc
-/**
- * The Class TimestampMessageFilter.
- */
-public class TimestampMessageFilter implements MessageFilter {
-
-	/* (non-Javadoc)
-	 * @see com.myslek.webmail.api.MessageFilter#accept(javax.mail.Message)
-	 */
-	public boolean accept(Message message) {
-		return false;
-	}
+public interface MailStoreDao {
 
 }

@@ -2,8 +2,8 @@ package com.myslek.ragnarok.manager;
 
 import javax.ejb.Local;
 
-import com.myslek.ragnarok.core.MessageFilter;
 import com.myslek.ragnarok.domain.MailBox;
+import com.myslek.ragnarok.mail.MessageFilter;
 
 
 // TODO: Auto-generated Javadoc
