@@ -70,7 +70,7 @@ public class MailSessionIntegrationTestCase extends TestCase {
 	/** The Constant IMAGE_TYPE. */
 	public static final String IMAGE_TYPE = "image/jpeg";
 	
-	private static final long SLEEP_TIME = 1000L;
+	private static final long SLEEP_TIME = 3000L;
 
 	static {
 		try {
