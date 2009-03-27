@@ -13,36 +13,41 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.impl;
+package com.myslek.ragnarok.mail.impl;
+
+import java.util.List;
+
+import javax.mail.Message;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 
+import org.jvnet.mock_javamail.Mailbox;
+
+import com.myslek.ragnarok.domain.MailBox;
+import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.mail.MailSession;
-import com.myslek.ragnarok.mail.MailSessionFactory;
-import com.myslek.ragnarok.mail.impl.DefaultMailSessionFactory;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class MailSessionFactoryTest.
+ * The Class MailSessionTest.
  */
-public class MailSessionFactoryTestCase extends TestCase {
+public class MailSessionTestCase extends AbstractMailTestCase {
 
-	/** The mail session factory. */
-	private MailSessionFactory mailSessionFactory;
-
-	/** The Constant POP3_STORE_PROTOCOL. */
-	public static final String POP3_STORE_PROTOCOL = "pop3";
-
+	
 	/**
-	 * Test create mail session.
+	 * Test send message.
 	 * 
 	 * @throws Exception the exception
 	 */
-	public void testCreateMailSession() throws Exception {
-		mailSessionFactory = new DefaultMailSessionFactory();
-		MailSession mailSession = mailSessionFactory
-				.createMailSession(POP3_STORE_PROTOCOL);
-		Assert.assertNotNull("MailSession must not be null", mailSession);
+	public void testSendMessage() throws Exception {
+		MailBox mailBox = createMailBox();
+		MailSession mailSession = createMailSession();
+		MailMessage mailMessage = createTextPlainMailMessage();
+		
+		
+		mailSession.sendMessage(mailBox, mailMessage);
+		List<Message> inbox = Mailbox.get(TO.getAddress());
+		Assert.assertNotNull("Inbox must not be null", inbox);
+		Assert.assertEquals("Expected inbox size: 1", 1, inbox.size());
 	}
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.impl;
+package com.myslek.ragnarok.mail.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,8 +27,10 @@ import junit.framework.TestCase;
 
 import com.myslek.ragnarok.domain.MailAddress;
 import com.myslek.ragnarok.domain.MailBox;
+import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.domain.MailServer;
+import com.myslek.ragnarok.domain.MailServerProtocol;
 import com.myslek.ragnarok.domain.RecipientType;
 import com.myslek.ragnarok.mail.MailSession;
 import com.myslek.ragnarok.mail.MailSessionFactory;
@@ -69,7 +71,7 @@ public class MailSessionIntegrationTestCase extends TestCase {
 
 	/** The Constant IMAGE_TYPE. */
 	public static final String IMAGE_TYPE = "image/jpeg";
-	
+
 	private static final long SLEEP_TIME = 3000L;
 
 	static {
@@ -85,7 +87,8 @@ public class MailSessionIntegrationTestCase extends TestCase {
 	/**
 	 * Test send message.
 	 * 
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	public void testSendMessage() throws Exception {
 		MailBox mailBox = createMailBox(mailbox.getProperty("mailbox.host"), mailbox
@@ -113,7 +116,8 @@ public class MailSessionIntegrationTestCase extends TestCase {
 	/**
 	 * Test fetch messages.
 	 * 
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	public void testFetchMessages() throws Exception {
 		MailBox mailBox = createMailBox(mailbox.getProperty("mailbox.host"), mailbox
@@ -141,7 +145,8 @@ public class MailSessionIntegrationTestCase extends TestCase {
 	/**
 	 * Test fetch new messages.
 	 * 
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	public void testFetchNewMessages() throws Exception {
 		MailBox mailBox = createMailBox(mailbox.getProperty("mailbox.host"), mailbox
@@ -189,24 +194,25 @@ public class MailSessionIntegrationTestCase extends TestCase {
 	 * 
 	 * @return the mail box
 	 * 
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	protected MailBox createMailBox() throws Exception {
 		MailBox mailBox = new MailBox();
 
 		// smtp server
 		MailServer smtp = new MailServer();
-		smtp.setHost(mailbox.getProperty("mailbox.host"));
+		smtp.setHostname(mailbox.getProperty("mailbox.host"));
 		smtp.setUsername(mailbox.getProperty("mailbox.user"));
 		smtp.setPassword(mailbox.getProperty("mailbox.password"));
-		smtp.setProtocol(MailServer.SMTP_PROTOCOL);
+		smtp.setProtocol(MailServerProtocol.SMTP);
 
 		// pop3 server
 		MailServer pop3 = new MailServer();
-		pop3.setHost(mailbox.getProperty("mailbox.host"));
+		pop3.setHostname(mailbox.getProperty("mailbox.host"));
 		pop3.setUsername(mailbox.getProperty("mailbox.user"));
 		pop3.setPassword(mailbox.getProperty("mailbox.password"));
-		pop3.setProtocol(MailServer.POP3_PROTOCOL);
+		pop3.setProtocol(MailServerProtocol.POP3);
 
 		mailBox.setMailTransport(smtp);
 		mailBox.setMailStore(pop3);
@@ -217,33 +223,44 @@ public class MailSessionIntegrationTestCase extends TestCase {
 	/**
 	 * Creates the mail box.
 	 * 
-	 * @param host the host
-	 * @param user the user
-	 * @param password the password
+	 * @param host
+	 *            the host
+	 * @param user
+	 *            the user
+	 * @param password
+	 *            the password
 	 * 
 	 * @return the mail box
 	 * 
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	protected MailBox createMailBox(String host, String user, String password) throws Exception {
 		MailBox mailBox = new MailBox();
 
 		// smtp server
 		MailServer smtp = new MailServer();
-		smtp.setHost(mailbox.getProperty("mailbox.host"));
+		smtp.setHostname(mailbox.getProperty("mailbox.host"));
 		smtp.setUsername(mailbox.getProperty("mailbox.user"));
 		smtp.setPassword(mailbox.getProperty("mailbox.password"));
-		smtp.setProtocol(MailServer.SMTP_PROTOCOL);
+		smtp.setProtocol(MailServerProtocol.SMTP);
 
 		// pop3 server
 		MailServer pop3 = new MailServer();
-		pop3.setHost(host);
+		pop3.setHostname(host);
 		pop3.setUsername(user);
 		pop3.setPassword(password);
-		pop3.setProtocol(MailServer.POP3_PROTOCOL);
+		pop3.setProtocol(MailServerProtocol.POP3);
 
 		mailBox.setMailTransport(smtp);
 		mailBox.setMailStore(pop3);
+		
+		// inbox
+		MailFolder inbox = new MailFolder();
+		inbox.setName("INBOX");
+		inbox.setInbox(true);
+		
+		mailBox.addFolder(inbox);
 
 		return mailBox;
 	}
@@ -253,7 +270,8 @@ public class MailSessionIntegrationTestCase extends TestCase {
 	 * 
 	 * @return the mail message
 	 * 
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	protected MailMessage createMailMessage() throws Exception {
 		MailMessage mailMessage = new MailMessage();
@@ -273,13 +291,17 @@ public class MailSessionIntegrationTestCase extends TestCase {
 	/**
 	 * Creates the text plain mail message.
 	 * 
-	 * @param from the from
-	 * @param to the to
-	 * @param subject the subject
+	 * @param from
+	 *            the from
+	 * @param to
+	 *            the to
+	 * @param subject
+	 *            the subject
 	 * 
 	 * @return the mail message
 	 * 
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	protected MailMessage createTextPlainMailMessage(MailAddress from, MailAddress to,
 			String subject) throws Exception {
@@ -300,12 +322,13 @@ public class MailSessionIntegrationTestCase extends TestCase {
 	 * 
 	 * @return the mail session
 	 * 
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	protected MailSession createMailSession() throws Exception {
 		MailBox mailBox = createMailBox();
-		String mailStoreProtocol = mailBox.getMailStore().getProtocol();
-		MailSession session = getMailSessionFactory().createMailSession(mailStoreProtocol);
+		MailSession session = getMailSessionFactory().createMailSession(
+				mailBox.getMailStore().getProtocol());
 		return session;
 	}
 
@@ -321,7 +344,8 @@ public class MailSessionIntegrationTestCase extends TestCase {
 	/**
 	 * Sets the mail session factory.
 	 * 
-	 * @param mailSessionFactory the new mail session factory
+	 * @param mailSessionFactory
+	 *            the new mail session factory
 	 */
 	public void setMailSessionFactory(MailSessionFactory mailSessionFactory) {
 		this.mailSessionFactory = mailSessionFactory;

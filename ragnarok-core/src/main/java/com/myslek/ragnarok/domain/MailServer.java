@@ -17,189 +17,128 @@ package com.myslek.ragnarok.domain;
 
 import java.io.Serializable;
 
-// TODO: Auto-generated Javadoc
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * The Class MailServer.
  */
+@Entity
+@Table(name = "RAG_SERVER")
 public class MailServer implements Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	
-	/** The Constant SMTP_PROTOCOL. */
-	public static final String SMTP_PROTOCOL = "smtp";
-	
-	/** The Constant POP3_PROTOCOL. */
-	public static final String POP3_PROTOCOL = "pop3";
-	
-	/** The Constant IMAP_PROTOCOL. */
-	public static final String IMAP_PROTOCOL = "imap";
-	
+
 	/** The id. */
 	private Long id;
-	
-	/** The mail box. */
-	private MailBox mailBox;
-	
+
 	/** The username. */
 	private String username;
-	
+
 	/** The password. */
 	private String password;
-	
+
 	/** The host. */
-	private String host;
-	
+	private String hostname;
+
 	/** The protocol. */
-	private String protocol;
-	
-	/** The default folder. */
-	private String defaultFolder;
-	
-	/** The type. */
-	private MailServerType type;
-	
+	private MailServerProtocol protocol;
+
 	/**
 	 * Gets the id.
 	 * 
 	 * @return the id
 	 */
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
 	public Long getId() {
 		return id;
 	}
-	
+
 	/**
 	 * Sets the id.
 	 * 
-	 * @param id the new id
+	 * @param id
+	 *            the new id
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	/**
-	 * Gets the mail box.
-	 * 
-	 * @return the mail box
-	 */
-	public MailBox getMailBox() {
-		return mailBox;
-	}
-	
-	/**
-	 * Sets the mail box.
-	 * 
-	 * @param mailBox the new mail box
-	 */
-	public void setMailBox(MailBox mailBox) {
-		this.mailBox = mailBox;
-	}
-	
+
 	/**
 	 * Gets the username.
 	 * 
 	 * @return the username
 	 */
+	@Column(name = "USERNAME", nullable = false)
 	public String getUsername() {
 		return username;
 	}
-	
+
 	/**
 	 * Sets the username.
 	 * 
-	 * @param username the new username
+	 * @param username
+	 *            the new username
 	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
 	/**
 	 * Gets the password.
 	 * 
 	 * @return the password
 	 */
+	@Column(name = "PASSWORD", nullable = false)
 	public String getPassword() {
 		return password;
 	}
-	
+
 	/**
 	 * Sets the password.
 	 * 
-	 * @param password the new password
+	 * @param password
+	 *            the new password
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	/**
 	 * Gets the host.
 	 * 
 	 * @return the host
 	 */
-	public String getHost() {
-		return host;
+	@Column(name = "HOSTNAME")
+	public String getHostname() {
+		return hostname;
 	}
-	
+
 	/**
 	 * Sets the host.
 	 * 
-	 * @param host the new host
+	 * @param hostname
+	 *            the new host
 	 */
-	public void setHost(String host) {
-		this.host = host;
+	public void setHostname(String hostname) {
+		this.hostname = hostname;
 	}
-	
-	/**
-	 * Gets the protocol.
-	 * 
-	 * @return the protocol
-	 */
-	public String getProtocol() {
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "PROTOCOL", nullable = false)
+	public MailServerProtocol getProtocol() {
 		return protocol;
 	}
-	
-	/**
-	 * Sets the protocol.
-	 * 
-	 * @param protocol the new protocol
-	 */
-	public void setProtocol(String protocol) {
+
+	public void setProtocol(MailServerProtocol protocol) {
 		this.protocol = protocol;
-	}
-	
-	/**
-	 * Gets the default folder.
-	 * 
-	 * @return the default folder
-	 */
-	public String getDefaultFolder() {
-		return defaultFolder;
-	}
-	
-	/**
-	 * Sets the default folder.
-	 * 
-	 * @param defaultFolder the new default folder
-	 */
-	public void setDefaultFolder(String defaultFolder) {
-		this.defaultFolder = defaultFolder;
-	}
-	
-	/**
-	 * Gets the type.
-	 * 
-	 * @return the type
-	 */
-	public MailServerType getType() {
-		return type;
-	}
-	
-	/**
-	 * Sets the type.
-	 * 
-	 * @param type the new type
-	 */
-	public void setType(MailServerType type) {
-		this.type = type;
 	}
 }

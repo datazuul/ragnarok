@@ -18,10 +18,18 @@ package com.myslek.ragnarok.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
 /**
  * The Class MailMessage.
  */
+@Entity
+@DiscriminatorValue("MESSAGE")
 public class MailMessage extends MailPart {
 	
 	/** The Constant serialVersionUID. */
@@ -53,6 +61,7 @@ public class MailMessage extends MailPart {
 	 * 
 	 * @return the uid
 	 */
+	@Column(name="MESSAGE_UID", length=100)
 	public String getUid() {
 		return uid;
 	}
@@ -66,20 +75,10 @@ public class MailMessage extends MailPart {
 		this.uid = uid;
 	}
 
-	/**
-	 * Gets the from.
-	 * 
-	 * @return the from
-	 */
 	public MailAddress getFrom() {
 		return from;
 	}
 
-	/**
-	 * Sets the from.
-	 * 
-	 * @param from the new from
-	 */
 	public void setFrom(MailAddress from) {
 		this.from = from;
 	}
@@ -143,6 +142,7 @@ public class MailMessage extends MailPart {
 	 * 
 	 * @return the subject
 	 */
+	@Column(name="SUBJECT", length=250)
 	public String getSubject() {
 		return subject;
 	}
@@ -161,6 +161,8 @@ public class MailMessage extends MailPart {
 	 * 
 	 * @return the folder
 	 */
+	@ManyToOne
+	@JoinColumn(name="FOLDER_ID")
 	public MailFolder getFolder() {
 		return folder;
 	}
@@ -181,6 +183,7 @@ public class MailMessage extends MailPart {
 	 * 
 	 * @return the mail header by name
 	 */
+	@Transient
 	public MailHeader getMailHeaderByName(String name) {
 		for (MailHeader header : getHeaders()) {
 			if (header.getName().equals(name)) {
@@ -198,6 +201,7 @@ public class MailMessage extends MailPart {
 	 * 
 	 * @return the mail part by header value
 	 */
+	@Transient
 	public MailPart getMailPartByHeaderValue(String name, String value) {
 		for (MailPart part : getParts()) {
 			for (MailHeader header : part.getHeaders()) {
