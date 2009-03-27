@@ -13,29 +13,36 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.contenthandler;
+package com.myslek.ragnarok.mail.contenthandler;
 
 import java.io.IOException;
+import java.io.InputStream;
 
+import javax.activation.DataHandler;
 import javax.mail.MessagingException;
 import javax.mail.Part;
 import javax.mail.Session;
+import javax.mail.util.ByteArrayDataSource;
 
 import com.myslek.ragnarok.domain.MailPart;
 import com.myslek.ragnarok.mail.ContentHandlerManager;
 import com.myslek.ragnarok.mail.MessageConversionException;
+import com.myslek.ragnarok.util.IOUtils;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class TextContentHandler.
+ * The Class BlobContentHandler.
  */
-public class TextContentHandler extends AbstractContentHandler {
+public class BlobContentHandler extends AbstractContentHandler {
 
 	/* (non-Javadoc)
 	 * @see com.myslek.webmail.api.ContentHandler#accept(java.lang.String)
 	 */
 	public boolean accept(String contentType) throws MessageConversionException {
-		return contentType.startsWith(MailPart.TEXT_TYPE_PREFIX);
+		return contentType.startsWith(MailPart.IMAGE_TYPE_PREFIX)
+				|| contentType.startsWith(MailPart.VIDEO_TYPE_PREFIX)
+				|| contentType.startsWith(MailPart.APPLICATION_TYPE_PREFIX)
+				|| contentType.startsWith(MailPart.AUDIO_TYPE_PREFIX);
 	}
 
 	/* (non-Javadoc)
@@ -44,13 +51,24 @@ public class TextContentHandler extends AbstractContentHandler {
 	public void fromPartContent(Part part, MailPart mailPart,
 			ContentHandlerManager manager)
 			throws MessageConversionException {
+		InputStream input = null;
 		try {
-			String text = (String) part.getContent();
-			mailPart.setText(text);
+			input = part.getInputStream();
+			byte[] data = IOUtils.getBytes(input);
+			mailPart.setData(data);
+			mailPart.setFileName(part.getFileName());
 		} catch (IOException e) {
 			throw new MessageConversionException(e);
 		} catch (MessagingException e) {
 			throw new MessageConversionException(e);
+		} finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					throw new MessageConversionException(e);
+				}
+			}
 		}
 	}
 
@@ -61,8 +79,10 @@ public class TextContentHandler extends AbstractContentHandler {
 			Session session, ContentHandlerManager manager)
 			throws MessageConversionException {
 		try {
-			part.setContent(mailPart.getText(), mailPart
-					.getContentType());
+			ByteArrayDataSource dataSource = new ByteArrayDataSource(
+					mailPart.getData(), mailPart.getContentType());
+			part.setDataHandler(new DataHandler(dataSource));
+			part.setFileName(mailPart.getFileName());
 		} catch (MessagingException e) {
 			throw new MessageConversionException(e);
 		}

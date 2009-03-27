@@ -13,17 +13,13 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.contenthandler;
+package com.myslek.ragnarok.mail.contenthandler;
 
 import java.io.IOException;
 
-import javax.mail.BodyPart;
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.Session;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMultipart;
 
 import com.myslek.ragnarok.domain.MailPart;
 import com.myslek.ragnarok.mail.ContentHandlerManager;
@@ -31,15 +27,15 @@ import com.myslek.ragnarok.mail.MessageConversionException;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class MultipartContentHandler.
+ * The Class TextContentHandler.
  */
-public class MultipartContentHandler extends AbstractContentHandler {
+public class TextContentHandler extends AbstractContentHandler {
 
 	/* (non-Javadoc)
 	 * @see com.myslek.webmail.api.ContentHandler#accept(java.lang.String)
 	 */
 	public boolean accept(String contentType) throws MessageConversionException {
-		return contentType.startsWith(MailPart.MULTIPART_TYPE_PREFIX);
+		return contentType.startsWith(MailPart.TEXT_TYPE_PREFIX);
 	}
 
 	/* (non-Javadoc)
@@ -49,19 +45,8 @@ public class MultipartContentHandler extends AbstractContentHandler {
 			ContentHandlerManager manager)
 			throws MessageConversionException {
 		try {
-			Multipart multipart = (Multipart) part.getContent();
-			MailPart multiPart = new MailPart();
-			mailPart.addPart(multiPart);
-			multiPart.setContentType(multipart.getContentType());
-
-			for (int i = 0; i < multipart.getCount(); i++) {
-				Part body = multipart.getBodyPart(i);
-				MailPart bodyPart = new MailPart();
-				getAttributesHandler().fromAttributes(body, bodyPart);
-				multiPart.addPart(bodyPart);
-
-				manager.fromPartContent(body, bodyPart);
-			}
+			String text = (String) part.getContent();
+			mailPart.setText(text);
 		} catch (IOException e) {
 			throw new MessageConversionException(e);
 		} catch (MessagingException e) {
@@ -76,18 +61,8 @@ public class MultipartContentHandler extends AbstractContentHandler {
 			Session session, ContentHandlerManager manager)
 			throws MessageConversionException {
 		try {
-			Multipart multipart = new MimeMultipart();
-			MailPart multiPart = mailPart.getParts().get(0);
-
-			for (MailPart body : multiPart.getParts()) {
-				BodyPart bodyPart = new MimeBodyPart();
-				
-				getAttributesHandler().toAttributes(body, bodyPart);
-				manager.toPartContent(body, bodyPart, session);
-
-				multipart.addBodyPart(bodyPart);
-			}
-			part.setContent(multipart);
+			part.setContent(mailPart.getText(), mailPart
+					.getContentType());
 		} catch (MessagingException e) {
 			throw new MessageConversionException(e);
 		}

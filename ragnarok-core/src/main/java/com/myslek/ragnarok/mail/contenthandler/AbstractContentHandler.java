@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.contenthandler;
+package com.myslek.ragnarok.mail.contenthandler;
 
 import com.myslek.ragnarok.mail.AttributesHandler;
 import com.myslek.ragnarok.mail.ContentHandler;

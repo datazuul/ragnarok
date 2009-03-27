@@ -23,14 +23,14 @@ import javax.mail.MessagingException;
 import javax.mail.Part;
 import javax.mail.Session;
 
-import com.myslek.ragnarok.contenthandler.BlobContentHandler;
-import com.myslek.ragnarok.contenthandler.MessageContentHandler;
-import com.myslek.ragnarok.contenthandler.MultipartContentHandler;
-import com.myslek.ragnarok.contenthandler.TextContentHandler;
 import com.myslek.ragnarok.domain.MailPart;
 import com.myslek.ragnarok.mail.ContentHandler;
 import com.myslek.ragnarok.mail.ContentHandlerManager;
 import com.myslek.ragnarok.mail.MessageConversionException;
+import com.myslek.ragnarok.mail.contenthandler.BlobContentHandler;
+import com.myslek.ragnarok.mail.contenthandler.MessageContentHandler;
+import com.myslek.ragnarok.mail.contenthandler.MultipartContentHandler;
+import com.myslek.ragnarok.mail.contenthandler.TextContentHandler;
 
 // TODO: Auto-generated Javadoc
 /**
