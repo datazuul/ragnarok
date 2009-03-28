@@ -16,6 +16,7 @@
   <!-- GlassFish AppServer home directory -->
   <properties>
     <glassfish.home>c:/Users/rafal/dev/glassfish</glassfish.home>
+    <peristenceunit>ragnarok</peristenceunit>
   </properties>
 
 
@@ -124,7 +125,7 @@
             </component>
           </components>
           <componentProperties>
-            <persistenceunit>ragnarok</persistenceunit>
+            <persistenceunit>${peristenceunit}</persistenceunit>
             <export>false</export>
             <format>true</format>
             <outputfilename>${pom.artifactId}-${pom.version}.sql</outputfilename>
