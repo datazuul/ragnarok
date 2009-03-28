@@ -17,6 +17,7 @@ package com.myslek.ragnarok.mail.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 
 import javax.activation.DataHandler;
 import javax.mail.Address;
@@ -33,7 +34,6 @@ import javax.mail.util.ByteArrayDataSource;
 
 import junit.framework.TestCase;
 
-import com.myslek.ragnarok.domain.MailAddress;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.domain.MailPart;
@@ -42,8 +42,6 @@ import com.myslek.ragnarok.domain.MailServerProtocol;
 import com.myslek.ragnarok.mail.MailSession;
 import com.myslek.ragnarok.mail.MailSessionFactory;
 import com.myslek.ragnarok.mail.MessageConverter;
-import com.myslek.ragnarok.mail.impl.DefaultMailSessionFactory;
-import com.myslek.ragnarok.mail.impl.DefaultMessageConverter;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -58,22 +56,22 @@ public abstract class AbstractMailTestCase extends TestCase {
 	private MessageConverter messageConverter = new DefaultMessageConverter();
 
 	/** The Constant FROM. */
-	public static final MailAddress FROM = new MailAddress("from@example.com", "From");
+	public static final InternetAddress FROM;
 
 	/** The Constant TO. */
-	public static final MailAddress TO = new MailAddress("to@example.com", "To");
+	public static final InternetAddress TO;
 
 	/** The Constant CC1. */
-	public static final MailAddress CC1 = new MailAddress("cc1@example.com", "Cc1");
+	public static final InternetAddress CC1;
 
 	/** The Constant CC2. */
-	public static final MailAddress CC2 = new MailAddress("cc2@example.com", "Cc2");
+	public static final InternetAddress CC2;
 
 	/** The Constant BCC1. */
-	public static final MailAddress BCC1 = new MailAddress("bcc1@example.com", "Bcc1");
+	public static final InternetAddress BCC1;
 
 	/** The Constant BCC2. */
-	public static final MailAddress BCC2 = new MailAddress("bcc2@example.com", "Bcc2");
+	public static final InternetAddress BCC2;
 
 	/** The Constant SUBJECT. */
 	public static final String SUBJECT = "Test MimeMessage";
@@ -101,6 +99,19 @@ public abstract class AbstractMailTestCase extends TestCase {
 
 	/** The Constant IMAGE_TYPE. */
 	public static final String IMAGE_TYPE = "image/jpeg";
+	
+	static {
+		try {
+			FROM = new InternetAddress("from@example.com", "From");
+			TO = new InternetAddress("to@example.com", "To");
+			CC1 = new InternetAddress("cc1@example.com", "Cc1");
+			CC2 = new InternetAddress("cc2@example.com", "Cc2");
+			BCC1= new InternetAddress("bcc1@example.com", "Bcc1");
+			BCC2 = new InternetAddress("bcc2@example.com", "Bcc2");
+		} catch (UnsupportedEncodingException e) {
+			throw new ExceptionInInitializerError(e);
+		}
+	}
 
 	/**
 	 * Gets the mail session factory.
@@ -419,12 +430,12 @@ public abstract class AbstractMailTestCase extends TestCase {
 	 */
 	protected MailMessage createMailMessage() throws Exception {
 		MailMessage mailMessage = new MailMessage();
-		mailMessage.setFrom(FROM);
-		mailMessage.addRecipient(com.myslek.ragnarok.domain.RecipientType.TO, TO);
-		mailMessage.addRecipient(com.myslek.ragnarok.domain.RecipientType.CC, CC1);
-		mailMessage.addRecipient(com.myslek.ragnarok.domain.RecipientType.CC, CC2);
-		mailMessage.addRecipient(com.myslek.ragnarok.domain.RecipientType.BCC, BCC1);
-		mailMessage.addRecipient(com.myslek.ragnarok.domain.RecipientType.BCC, BCC2);
+		mailMessage.addFrom(FROM);
+		mailMessage.addTo(TO);
+		mailMessage.addCc(CC1);
+		mailMessage.addCc(CC2);
+		mailMessage.addBcc(BCC1);
+		mailMessage.addBcc(BCC2);
 
 		mailMessage.setSubject(SUBJECT);
 

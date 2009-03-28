@@ -18,6 +18,7 @@ package com.myslek.ragnarok.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.internet.InternetAddress;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -39,16 +40,16 @@ public class MailMessage extends MailPart {
 	private String uid;
 	
 	/** The from. */
-	private MailAddress from;
+	private List<InternetAddress> from = new ArrayList<InternetAddress>();
 	
 	/** The to. */
-	private List<MailAddress> to = new ArrayList<MailAddress>();
+	private List<InternetAddress> to = new ArrayList<InternetAddress>();
 	
 	/** The cc. */
-	private List<MailAddress> cc = new ArrayList<MailAddress>();
+	private List<InternetAddress> cc = new ArrayList<InternetAddress>();
 	
 	/** The bcc. */
-	private List<MailAddress> bcc = new ArrayList<MailAddress>();
+	private List<InternetAddress> bcc = new ArrayList<InternetAddress>();
 	
 	/** The subject. */
 	private String subject;
@@ -73,68 +74,6 @@ public class MailMessage extends MailPart {
 	 */
 	public void setUid(String uid) {
 		this.uid = uid;
-	}
-
-	public MailAddress getFrom() {
-		return from;
-	}
-
-	public void setFrom(MailAddress from) {
-		this.from = from;
-	}
-
-	/**
-	 * Gets the to.
-	 * 
-	 * @return the to
-	 */
-	public List<MailAddress> getTo() {
-		return to;
-	}
-
-	/**
-	 * Sets the to.
-	 * 
-	 * @param to the new to
-	 */
-	public void setTo(List<MailAddress> to) {
-		this.to = to;
-	}
-
-	/**
-	 * Gets the cc.
-	 * 
-	 * @return the cc
-	 */
-	public List<MailAddress> getCc() {
-		return cc;
-	}
-
-	/**
-	 * Sets the cc.
-	 * 
-	 * @param cc the new cc
-	 */
-	public void setCc(List<MailAddress> cc) {
-		this.cc = cc;
-	}
-
-	/**
-	 * Gets the bcc.
-	 * 
-	 * @return the bcc
-	 */
-	public List<MailAddress> getBcc() {
-		return bcc;
-	}
-
-	/**
-	 * Sets the bcc.
-	 * 
-	 * @param bcc the new bcc
-	 */
-	public void setBcc(List<MailAddress> bcc) {
-		this.bcc = bcc;
 	}
 
 	/**
@@ -176,6 +115,43 @@ public class MailMessage extends MailPart {
 		this.folder = folder;
 	}
 	
+	
+	@Transient
+	public List<InternetAddress> getFrom() {
+		return from;
+	}
+
+	public void setFrom(List<InternetAddress> from) {
+		this.from = from;
+	}
+
+	@Transient
+	public List<InternetAddress> getTo() {
+		return to;
+	}
+
+	public void setTo(List<InternetAddress> to) {
+		this.to = to;
+	}
+
+	@Transient
+	public List<InternetAddress> getCc() {
+		return cc;
+	}
+
+	public void setCc(List<InternetAddress> cc) {
+		this.cc = cc;
+	}
+
+	@Transient
+	public List<InternetAddress> getBcc() {
+		return bcc;
+	}
+
+	public void setBcc(List<InternetAddress> bcc) {
+		this.bcc = bcc;
+	}
+
 	/**
 	 * Gets the mail header by name.
 	 * 
@@ -214,25 +190,19 @@ public class MailMessage extends MailPart {
 		return null;
 	}
 	
+	public void addFrom(InternetAddress from) {
+		this.from.add(from);
+	}
 	
+	public void addTo(InternetAddress to) {
+		this.to.add(to);
+	}
 	
-	/**
-	 * Adds the recipient.
-	 * 
-	 * @param type the type
-	 * @param address the address
-	 */
-	public void addRecipient(RecipientType type, MailAddress address) {
-		switch (type) {
-		case TO:
-			to.add(address);
-			break;
-		case CC:
-			cc.add(address);
-			break;
-		case BCC:
-			bcc.add(address);
-			break;
-		}
+	public void addCc(InternetAddress cc) {
+		this.cc.add(cc);
+	}
+	
+	public void addBcc(InternetAddress bcc) {
+		this.bcc.add(bcc);
 	}
 }
