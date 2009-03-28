@@ -16,11 +16,9 @@
 package com.myslek.ragnarok.domain;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
