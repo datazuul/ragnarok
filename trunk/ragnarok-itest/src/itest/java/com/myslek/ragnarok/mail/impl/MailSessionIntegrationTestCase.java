@@ -22,19 +22,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+import javax.mail.internet.InternetAddress;
+
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import com.myslek.ragnarok.domain.MailAddress;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.domain.MailServer;
 import com.myslek.ragnarok.domain.MailServerProtocol;
-import com.myslek.ragnarok.domain.RecipientType;
 import com.myslek.ragnarok.mail.MailSession;
 import com.myslek.ragnarok.mail.MailSessionFactory;
-import com.myslek.ragnarok.mail.impl.DefaultMailSessionFactory;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -95,9 +94,9 @@ public class MailSessionIntegrationTestCase extends TestCase {
 				.getProperty("mailbox.0.to.user"), mailbox.getProperty("mailbox.0.to.password"));
 		MailSession mailSession = createMailSession();
 
-		MailAddress from = new MailAddress(mailbox.getProperty("mailbox.address"), mailbox
+		InternetAddress from = new InternetAddress(mailbox.getProperty("mailbox.address"), mailbox
 				.getProperty("mailbox.personal"));
-		MailAddress to = new MailAddress(mailbox.getProperty("mailbox.0.to.address"), mailbox
+		InternetAddress to = new InternetAddress(mailbox.getProperty("mailbox.0.to.address"), mailbox
 				.getProperty("mailbox.0.to.address"));
 		MailMessage mailMessage = createTextPlainMailMessage(from, to, "testSendMessage");
 
@@ -109,7 +108,7 @@ public class MailSessionIntegrationTestCase extends TestCase {
 		MailMessage message = messages.get(0);
 		Assert.assertNotNull("Message must not be null", message);
 		Assert.assertEquals("Expected from: " + mailbox.getProperty("mailbox.address"), mailbox
-				.getProperty("mailbox.address"), message.getFrom().getAddress());
+				.getProperty("mailbox.address"), message.getFrom().get(0).getAddress());
 		Assert.assertNotNull("Message uid must not be null", message.getUid());
 	}
 
@@ -123,9 +122,9 @@ public class MailSessionIntegrationTestCase extends TestCase {
 		MailBox mailBox = createMailBox(mailbox.getProperty("mailbox.host"), mailbox
 				.getProperty("mailbox.1.to.user"), mailbox.getProperty("mailbox.1.to.password"));
 		MailSession mailSession = createMailSession();
-		MailAddress from = new MailAddress(mailbox.getProperty("mailbox.address"), mailbox
+		InternetAddress from = new InternetAddress(mailbox.getProperty("mailbox.address"), mailbox
 				.getProperty("mailbox.personal"));
-		MailAddress to = new MailAddress(mailbox.getProperty("mailbox.1.to.address"), mailbox
+		InternetAddress to = new InternetAddress(mailbox.getProperty("mailbox.1.to.address"), mailbox
 				.getProperty("mailbox.1.to.address"));
 
 		final int MESSAGE_COUNT = 10;
@@ -153,9 +152,9 @@ public class MailSessionIntegrationTestCase extends TestCase {
 				.getProperty("mailbox.2.to.user"), mailbox.getProperty("mailbox.2.to.password"));
 		MailSession mailSession = createMailSession();
 
-		MailAddress from = new MailAddress(mailbox.getProperty("mailbox.address"), mailbox
+		InternetAddress from = new InternetAddress(mailbox.getProperty("mailbox.address"), mailbox
 				.getProperty("mailbox.personal"));
-		MailAddress to = new MailAddress(mailbox.getProperty("mailbox.2.to.address"), mailbox
+		InternetAddress to = new InternetAddress(mailbox.getProperty("mailbox.2.to.address"), mailbox
 				.getProperty("mailbox.2.to.address"));
 
 		final int MESSAGE_COUNT = 10;
@@ -254,12 +253,12 @@ public class MailSessionIntegrationTestCase extends TestCase {
 
 		mailBox.setMailTransport(smtp);
 		mailBox.setMailStore(pop3);
-		
+
 		// inbox
 		MailFolder inbox = new MailFolder();
 		inbox.setName("INBOX");
 		inbox.setInbox(true);
-		
+
 		mailBox.addFolder(inbox);
 
 		return mailBox;
@@ -276,11 +275,11 @@ public class MailSessionIntegrationTestCase extends TestCase {
 	protected MailMessage createMailMessage() throws Exception {
 		MailMessage mailMessage = new MailMessage();
 		mailMessage.setContentType(TEXT_PLAIN_TYPE);
-		mailMessage.setFrom(new MailAddress(mailbox.getProperty("mailbox.address"), mailbox
+		mailMessage.addFrom(new InternetAddress(mailbox.getProperty("mailbox.address"), mailbox
 				.getProperty("mailbox.personal")));
 
-		mailMessage.addRecipient(RecipientType.TO, new MailAddress(mailbox
-				.getProperty("mailbox.address"), mailbox.getProperty("mailbox.personal")));
+		mailMessage.addTo(new InternetAddress(mailbox.getProperty("mailbox.address"), mailbox
+				.getProperty("mailbox.personal")));
 
 		mailMessage.setSubject(mailbox.getProperty("mailbox.subject"));
 		mailMessage.setText(TEXT_PLAIN_CONTENT);
@@ -303,13 +302,13 @@ public class MailSessionIntegrationTestCase extends TestCase {
 	 * @throws Exception
 	 *             the exception
 	 */
-	protected MailMessage createTextPlainMailMessage(MailAddress from, MailAddress to,
+	protected MailMessage createTextPlainMailMessage(InternetAddress from, InternetAddress to,
 			String subject) throws Exception {
 		MailMessage mailMessage = new MailMessage();
 		mailMessage.setContentType(TEXT_PLAIN_TYPE);
-		mailMessage.setFrom(from);
+		mailMessage.addFrom(from);
 
-		mailMessage.addRecipient(RecipientType.TO, to);
+		mailMessage.addTo(to);
 		mailMessage.setSubject(subject);
 
 		mailMessage.setText(TEXT_PLAIN_CONTENT);

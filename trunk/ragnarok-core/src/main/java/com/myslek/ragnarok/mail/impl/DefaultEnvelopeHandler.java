@@ -15,17 +15,15 @@
  */
 package com.myslek.ragnarok.mail.impl;
 
-import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Message.RecipientType;
 import javax.mail.internet.InternetAddress;
 
-import com.myslek.ragnarok.domain.MailAddress;
 import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.mail.EnvelopeHandler;
 import com.myslek.ragnarok.mail.MessageConversionException;
@@ -35,7 +33,6 @@ import com.myslek.ragnarok.mail.MessageConversionException;
  * The Class DefaultEnvelopeHandler.
  */
 public class DefaultEnvelopeHandler implements EnvelopeHandler {
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -46,18 +43,20 @@ public class DefaultEnvelopeHandler implements EnvelopeHandler {
 	public void fromEnvelope(Message message, MailMessage mailMessage)
 			throws MessageConversionException {
 		try {
-			//TODO: copy all from addresses
-			// Copy from
 			InternetAddress[] from = (InternetAddress[]) message.getFrom();
-			MailAddress mailFrom = new MailAddress(from[0].getAddress(),
-					from[0].getPersonal());
-			mailMessage.setFrom(mailFrom);
+			mailMessage.setFrom(Arrays.asList(from));
 
 			// Copy all recipients
-			fromRecipients(message, mailMessage);
+			fromRecipients(RecipientType.TO, message, mailMessage);
+			fromRecipients(RecipientType.CC, message, mailMessage);
+			fromRecipients(RecipientType.BCC, message, mailMessage);
 
 			// Copy subject
 			mailMessage.setSubject(message.getSubject());
+
+			// TODO: copy sent date
+
+			// TODO: copy received date
 		} catch (MessagingException e) {
 			throw new MessageConversionException(e);
 		}
@@ -74,10 +73,9 @@ public class DefaultEnvelopeHandler implements EnvelopeHandler {
 			throws MessageConversionException {
 		try {
 			// Copy from
-			MailAddress mailFrom = mailMessage.getFrom();
-			Address from = new InternetAddress(mailFrom.getAddress(), mailFrom
-					.getPersonal());
-			message.setFrom(from);
+			List<InternetAddress> mailFrom = mailMessage.getFrom();
+			message.addFrom((InternetAddress[]) mailFrom.toArray(new InternetAddress[mailFrom
+					.size()]));
 
 			// Copy all recipients
 			toRecipients(RecipientType.TO, mailMessage, message);
@@ -86,8 +84,10 @@ public class DefaultEnvelopeHandler implements EnvelopeHandler {
 
 			// Copy subject
 			message.setSubject(mailMessage.getSubject());
-		} catch (UnsupportedEncodingException e) {
-			throw new MessageConversionException(e);
+
+			// TODO: copy sent date
+
+			// TODO: copy receive date
 		} catch (MessagingException e) {
 			throw new MessageConversionException(e);
 		}
@@ -104,9 +104,22 @@ public class DefaultEnvelopeHandler implements EnvelopeHandler {
 	 * @throws MessageConversionException
 	 *             the message conversion exception
 	 */
-	protected void fromRecipients(Message message, MailMessage mailMessage)
+	protected void fromRecipients(RecipientType type, Message message, MailMessage mailMessage)
 			throws MessageConversionException {
-		// TODO: implement me
+		try {
+			InternetAddress[] recipients = (InternetAddress[]) message.getRecipients(type);
+			if (recipients != null && recipients.length > 0) {
+				if (type == RecipientType.TO) {
+					mailMessage.setTo(Arrays.asList(recipients));
+				} else if (type == RecipientType.CC) {
+					mailMessage.setCc(Arrays.asList(recipients));
+				} else if (type == RecipientType.BCC) {
+					mailMessage.setBcc(Arrays.asList(recipients));
+				}
+			}
+		} catch (MessagingException e) {
+			throw new MessageConversionException(e);
+		}
 	}
 
 	/**
@@ -122,27 +135,23 @@ public class DefaultEnvelopeHandler implements EnvelopeHandler {
 	 * @throws MessageConversionException
 	 *             the message conversion exception
 	 */
-	protected void toRecipients(RecipientType type, MailMessage mailMessage,
-			Message message) throws MessageConversionException {
-		List<MailAddress> recipients = Collections.EMPTY_LIST;
-		if (type == RecipientType.TO) {
-			recipients = mailMessage.getTo();
-		} else if (type == RecipientType.CC) {
-			recipients = mailMessage.getCc();
-		} else if (type == RecipientType.BCC) {
-			recipients = mailMessage.getBcc();
-		}
-
-		for (MailAddress address : recipients) {
-			try {
-				Address addr = new InternetAddress(address.getAddress(),
-						address.getPersonal());
-				message.addRecipient(type, addr);
-			} catch (UnsupportedEncodingException e) {
-				throw new MessageConversionException(e);
-			} catch (MessagingException e) {
-				throw new MessageConversionException(e);
+	protected void toRecipients(RecipientType type, MailMessage mailMessage, Message message)
+			throws MessageConversionException {
+		try {
+			List<InternetAddress> recipients = Collections.EMPTY_LIST;
+			if (type == RecipientType.TO) {
+				recipients = mailMessage.getTo();
+			} else if (type == RecipientType.CC) {
+				recipients = mailMessage.getCc();
+			} else if (type == RecipientType.BCC) {
+				recipients = mailMessage.getBcc();
 			}
+			if (recipients != null && !recipients.isEmpty()) {
+				message.setRecipients(type, (InternetAddress[]) recipients
+						.toArray(new InternetAddress[recipients.size()]));
+			}
+		} catch (MessagingException e) {
+			throw new MessageConversionException(e);
 		}
 	}
 
