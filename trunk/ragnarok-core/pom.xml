@@ -1,109 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.myslek.ragnarok</groupId>
-		<artifactId>ragnarok</artifactId>
-		<version>0.9-SNAPSHOT</version>
-	</parent>
+  <parent>
+    <groupId>com.myslek.ragnarok</groupId>
+    <artifactId>ragnarok</artifactId>
+    <version>0.9-SNAPSHOT</version>
+  </parent>
 
-	<artifactId>ragnarok-core</artifactId>
-	<name>Ragnarok Core</name>
-	<packaging>ejb</packaging>
-	
-	<!-- GlassFish AppServer home directory -->
-	<properties>
-        <glassfish.home>c:/Users/rafal/dev/glassfish</glassfish.home>
-    </properties>
-	
+  <artifactId>ragnarok-core</artifactId>
+  <name>Ragnarok Core</name>
+  <packaging>ejb</packaging>
 
-	<dependencies>
-		<!-- system dependencies-->
-		
-		<dependency>
-            <groupId>glassfish</groupId>
-            <artifactId>appserv-rt.jar</artifactId>
-            <version>LATEST</version>
-            <scope>system</scope>
-            <systemPath>${glassfish.home}/lib/appserv-rt.jar</systemPath>
-        </dependency>
-        
-        <dependency>
-            <groupId>glassfish</groupId>
-            <artifactId>javaee.jar</artifactId>
-            <version>LATEST</version>
-            <scope>system</scope>
-            <systemPath>${glassfish.home}/lib/javaee.jar</systemPath>
-        </dependency>		
+  <!-- GlassFish AppServer home directory -->
+  <properties>
+    <glassfish.home>c:/Users/rafal/dev/glassfish</glassfish.home>
+  </properties>
 
-		<!-- javamail dependencies -->
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-		</dependency>
 
-		<dependency>
-			<groupId>javax.activation</groupId>
-			<artifactId>activation</artifactId>
-		</dependency>
+  <dependencies>
+    <!-- system dependencies-->
 
-		<!-- jboss seam dependencies -->
-		<dependency>
-			<groupId>org.jboss.seam</groupId>
-			<artifactId>jboss-seam</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		
-		<!-- hibernate dependencies -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<scope>provided</scope>
-		</dependency>
+    <dependency>
+      <groupId>glassfish</groupId>
+      <artifactId>appserv-rt.jar</artifactId>
+      <version>LATEST</version>
+      <scope>system</scope>
+      <systemPath>${glassfish.home}/lib/appserv-rt.jar</systemPath>
+    </dependency>
 
-		<!-- test dependencies -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
+    <dependency>
+      <groupId>glassfish</groupId>
+      <artifactId>javaee.jar</artifactId>
+      <version>LATEST</version>
+      <scope>system</scope>
+      <systemPath>${glassfish.home}/lib/javaee.jar</systemPath>
+    </dependency>
 
-		<dependency>
-			<groupId>org.jmock</groupId>
-			<artifactId>jmock-junit3</artifactId>
-			<scope>test</scope>
-		</dependency>
+    <!-- javamail dependencies -->
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+    </dependency>
 
-		<dependency>
-			<groupId>org.jmock</groupId>
-			<artifactId>jmock-legacy</artifactId>
-			<scope>test</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.jvnet.mock-javamail</groupId>
-			<artifactId>mock-javamail</artifactId>
-			<scope>test</scope>
-		</dependency>
+    <dependency>
+      <groupId>javax.activation</groupId>
+      <artifactId>activation</artifactId>
+    </dependency>
 
-	</dependencies>
+    <!-- jboss seam dependencies -->
+    <dependency>
+      <groupId>org.jboss.seam</groupId>
+      <artifactId>jboss-seam</artifactId>
+      <scope>provided</scope>
+    </dependency>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-ejb-plugin</artifactId>
-				<configuration>
-					<ejbVersion>3.0</ejbVersion>
-					<generateClient>true</generateClient>
-					<clientIncludes>
-						<clientInclude>com/myslek/ragnarok/api/**</clientInclude>
-					</clientIncludes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <!-- hibernate dependencies -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- test dependencies -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jmock</groupId>
+      <artifactId>jmock-junit3</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jmock</groupId>
+      <artifactId>jmock-legacy</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jvnet.mock-javamail</groupId>
+      <artifactId>mock-javamail</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-ejb-plugin</artifactId>
+        <configuration>
+          <ejbVersion>3.0</ejbVersion>
+          <generateClient>true</generateClient>
+          <clientIncludes>
+            <clientInclude>com/myslek/ragnarok/api/**</clientInclude>
+          </clientIncludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>hibernate3-maven-plugin</artifactId>
+        <version>2.2</version>
+        <executions>
+          <execution>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>hbm2ddl</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <components>
+            <component>
+              <name>hbm2ddl</name>
+              <implementation>jpaconfiguration</implementation>
+              <outputDirectory>target/generated-resources/schema</outputDirectory>
+            </component>
+          </components>
+          <componentProperties>
+            <persistenceunit>ragnarok</persistenceunit>
+            <export>false</export>
+            <format>true</format>
+            <outputfilename>${pom.artifactId}-${pom.version}.sql</outputfilename>
+          </componentProperties>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
