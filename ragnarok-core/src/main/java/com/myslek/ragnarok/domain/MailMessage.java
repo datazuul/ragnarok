@@ -16,15 +16,22 @@
 package com.myslek.ragnarok.domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import com.myslek.ragnarok.util.MailUtils;
 
 /**
  * The Class MailMessage.
@@ -32,37 +39,41 @@ import javax.persistence.Transient;
 @Entity
 @DiscriminatorValue("MESSAGE")
 public class MailMessage extends MailPart {
-	
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/** The uid. */
 	private String uid;
-	
+
 	/** The from. */
 	private List<InternetAddress> from = new ArrayList<InternetAddress>();
-	
+
 	/** The to. */
 	private List<InternetAddress> to = new ArrayList<InternetAddress>();
-	
+
 	/** The cc. */
 	private List<InternetAddress> cc = new ArrayList<InternetAddress>();
-	
+
 	/** The bcc. */
 	private List<InternetAddress> bcc = new ArrayList<InternetAddress>();
-	
+
 	/** The subject. */
 	private String subject;
-	
+
 	/** The folder. */
 	private MailFolder folder;
+	
+	private Date sentDate;
+	
+	private Date receivedDate;
 
 	/**
 	 * Gets the uid.
 	 * 
 	 * @return the uid
 	 */
-	@Column(name="MESSAGE_UID", length=100)
+	@Column(name = "MESSAGE_UID", length = 100)
 	public String getUid() {
 		return uid;
 	}
@@ -70,7 +81,8 @@ public class MailMessage extends MailPart {
 	/**
 	 * Sets the uid.
 	 * 
-	 * @param uid the new uid
+	 * @param uid
+	 *            the new uid
 	 */
 	public void setUid(String uid) {
 		this.uid = uid;
@@ -81,7 +93,7 @@ public class MailMessage extends MailPart {
 	 * 
 	 * @return the subject
 	 */
-	@Column(name="SUBJECT", length=250)
+	@Column(name = "SUBJECT", length = 250)
 	public String getSubject() {
 		return subject;
 	}
@@ -89,7 +101,8 @@ public class MailMessage extends MailPart {
 	/**
 	 * Sets the subject.
 	 * 
-	 * @param subject the new subject
+	 * @param subject
+	 *            the new subject
 	 */
 	public void setSubject(String subject) {
 		this.subject = subject;
@@ -101,7 +114,7 @@ public class MailMessage extends MailPart {
 	 * @return the folder
 	 */
 	@ManyToOne
-	@JoinColumn(name="FOLDER_ID")
+	@JoinColumn(name = "FOLDER_ID")
 	public MailFolder getFolder() {
 		return folder;
 	}
@@ -109,13 +122,13 @@ public class MailMessage extends MailPart {
 	/**
 	 * Sets the folder.
 	 * 
-	 * @param folder the new folder
+	 * @param folder
+	 *            the new folder
 	 */
 	public void setFolder(MailFolder folder) {
 		this.folder = folder;
 	}
-	
-	
+
 	@Transient
 	public List<InternetAddress> getFrom() {
 		return from;
@@ -152,10 +165,67 @@ public class MailMessage extends MailPart {
 		this.bcc = bcc;
 	}
 
+	@Column(name = "MAIL_FROM", length = 2000)
+	public String getFromString() {
+		return MailUtils.getAddressStringFromList(from);
+	}
+
+	public void setFromString(String addresses) {
+		from = MailUtils.getAddressListFromString(addresses);
+	}
+
+	@Column(name = "MAIL_TO", length = 2000)
+	public String getToString() {
+		return MailUtils.getAddressStringFromList(to);
+	}
+
+	public void setToString(String addresses) {
+		to = MailUtils.getAddressListFromString(addresses);
+	}
+
+	@Column(name="MAIL_CC", length = 2000)
+	public String getCcString() {
+		return MailUtils.getAddressStringFromList(cc);
+	}
+
+	public void setCcString(String addresses) {
+		cc = MailUtils.getAddressListFromString(addresses);
+	}
+
+	@Column(name="MAIL_BCC", length=2000)
+	public String getBccString() {
+		return MailUtils.getAddressStringFromList(bcc);
+	}
+
+	public void setBccString(String addresses) {
+		bcc = MailUtils.getAddressListFromString(addresses);
+	}
+
+	@Column(name="SENT_DATE")
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date getSentDate() {
+		return sentDate;
+	}
+
+	public void setSentDate(Date sentDate) {
+		this.sentDate = sentDate;
+	}
+
+	@Column(name="RECEIVED_DATE")
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date getReceivedDate() {
+		return receivedDate;
+	}
+
+	public void setReceivedDate(Date receivedDate) {
+		this.receivedDate = receivedDate;
+	}
+
 	/**
 	 * Gets the mail header by name.
 	 * 
-	 * @param name the name
+	 * @param name
+	 *            the name
 	 * 
 	 * @return the mail header by name
 	 */
@@ -172,8 +242,10 @@ public class MailMessage extends MailPart {
 	/**
 	 * Gets the mail part by header value.
 	 * 
-	 * @param name the name
-	 * @param value the value
+	 * @param name
+	 *            the name
+	 * @param value
+	 *            the value
 	 * 
 	 * @return the mail part by header value
 	 */
@@ -181,27 +253,26 @@ public class MailMessage extends MailPart {
 	public MailPart getMailPartByHeaderValue(String name, String value) {
 		for (MailPart part : getParts()) {
 			for (MailHeader header : part.getHeaders()) {
-				if (header.getName().equals(name)
-						&& header.getValue().equals(value)) {
+				if (header.getName().equals(name) && header.getValue().equals(value)) {
 					return part;
 				}
 			}
 		}
 		return null;
 	}
-	
+
 	public void addFrom(InternetAddress from) {
 		this.from.add(from);
 	}
-	
+
 	public void addTo(InternetAddress to) {
 		this.to.add(to);
 	}
-	
+
 	public void addCc(InternetAddress cc) {
 		this.cc.add(cc);
 	}
-	
+
 	public void addBcc(InternetAddress bcc) {
 		this.bcc.add(bcc);
 	}
