@@ -147,6 +147,8 @@ public class MailBox implements Serializable {
 	 * 
 	 * @return the folders
 	 */
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "MAILBOX_ID")
 	public Collection<MailFolder> getFolders() {
 		return folders;
 	}
@@ -157,8 +159,6 @@ public class MailBox implements Serializable {
 	 * @param folders
 	 *            the new folders
 	 */
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "MAILBOX_ID")
 	public void setFolders(Collection<MailFolder> folders) {
 		this.folders = folders;
 	}
