@@ -54,9 +54,11 @@ public class DefaultEnvelopeHandler implements EnvelopeHandler {
 			// Copy subject
 			mailMessage.setSubject(message.getSubject());
 
-			// TODO: copy sent date
+			// Copy sent date
+			mailMessage.setSentDate(message.getSentDate());
 
-			// TODO: copy received date
+			// Copy received date
+			mailMessage.setReceivedDate(message.getReceivedDate());
 		} catch (MessagingException e) {
 			throw new MessageConversionException(e);
 		}
