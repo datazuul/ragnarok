@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.mail.contenthandler;
+package com.myslek.ragnarok.mail.exception;
 
-import com.myslek.ragnarok.mail.SystemException;
 
 public class MailboxConfigurationException extends SystemException {
 	/**

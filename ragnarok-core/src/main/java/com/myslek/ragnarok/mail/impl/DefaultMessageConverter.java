@@ -24,8 +24,8 @@ import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.mail.AttributesHandler;
 import com.myslek.ragnarok.mail.ContentHandlerManager;
 import com.myslek.ragnarok.mail.EnvelopeHandler;
-import com.myslek.ragnarok.mail.MessageConversionException;
 import com.myslek.ragnarok.mail.MessageConverter;
+import com.myslek.ragnarok.mail.exception.MessageConversionException;
 
 // TODO: Auto-generated Javadoc
 /**

@@ -26,7 +26,7 @@ import javax.mail.internet.InternetAddress;
 
 import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.mail.EnvelopeHandler;
-import com.myslek.ragnarok.mail.MessageConversionException;
+import com.myslek.ragnarok.mail.exception.MessageConversionException;
 
 // TODO: Auto-generated Javadoc
 /**

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.mail;
+package com.myslek.ragnarok.mail.exception;
 
 public class InvalidAddressException extends SystemException {
 	/**

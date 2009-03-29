@@ -19,6 +19,7 @@ import javax.mail.Message;
 import javax.mail.Session;
 
 import com.myslek.ragnarok.domain.MailMessage;
+import com.myslek.ragnarok.mail.exception.MessageConversionException;
 
 // TODO: Auto-generated Javadoc
 /**

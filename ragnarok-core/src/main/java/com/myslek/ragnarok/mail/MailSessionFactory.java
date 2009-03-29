@@ -16,6 +16,7 @@
 package com.myslek.ragnarok.mail;
 
 import com.myslek.ragnarok.domain.MailServerProtocol;
+import com.myslek.ragnarok.mail.exception.UnsupportedMailStoreProtocolException;
 
 // TODO: Auto-generated Javadoc
 /**

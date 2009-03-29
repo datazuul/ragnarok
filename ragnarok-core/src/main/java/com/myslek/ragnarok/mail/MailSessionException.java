@@ -15,6 +15,8 @@
  */
 package com.myslek.ragnarok.mail;
 
+import com.myslek.ragnarok.mail.exception.SystemException;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class MailSessionException.
