@@ -121,7 +121,7 @@
             <component>
               <name>hbm2ddl</name>
               <implementation>jpaconfiguration</implementation>
-              <outputDirectory>target/generated-resources/schema</outputDirectory>
+              <outputDirectory>target/generated-resources/persistence/ddl</outputDirectory>
             </component>
           </components>
           <componentProperties>
