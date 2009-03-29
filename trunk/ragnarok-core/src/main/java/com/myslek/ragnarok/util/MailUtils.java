@@ -21,7 +21,7 @@ import java.util.List;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
-import com.myslek.ragnarok.mail.InvalidAddressException;
+import com.myslek.ragnarok.mail.exception.InvalidAddressException;
 
 public final class MailUtils {
 

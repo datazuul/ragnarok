@@ -26,7 +26,7 @@ import javax.mail.util.ByteArrayDataSource;
 
 import com.myslek.ragnarok.domain.MailPart;
 import com.myslek.ragnarok.mail.ContentHandlerManager;
-import com.myslek.ragnarok.mail.MessageConversionException;
+import com.myslek.ragnarok.mail.exception.MessageConversionException;
 import com.myslek.ragnarok.util.IOUtils;
 
 // TODO: Auto-generated Javadoc

@@ -21,7 +21,7 @@ import java.util.Map;
 import com.myslek.ragnarok.domain.MailServerProtocol;
 import com.myslek.ragnarok.mail.MailSession;
 import com.myslek.ragnarok.mail.MailSessionFactory;
-import com.myslek.ragnarok.mail.UnsupportedMailStoreProtocolException;
+import com.myslek.ragnarok.mail.exception.UnsupportedMailStoreProtocolException;
 
 // TODO: Auto-generated Javadoc
 /**

@@ -18,6 +18,7 @@ package com.myslek.ragnarok.mail;
 import javax.mail.Part;
 
 import com.myslek.ragnarok.domain.MailPart;
+import com.myslek.ragnarok.mail.exception.MessageConversionException;
 
 // TODO: Auto-generated Javadoc
 /**

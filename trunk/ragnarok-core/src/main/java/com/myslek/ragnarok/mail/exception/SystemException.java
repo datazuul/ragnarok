@@ -13,49 +13,49 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.mail;
+package com.myslek.ragnarok.mail.exception;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class MessageConversionException.
+ * The Class SystemException.
  */
-public class MessageConversionException extends SystemException {
+public class SystemException extends RuntimeException {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Instantiates a new message conversion exception.
+	 * Instantiates a new system exception.
 	 */
-	public MessageConversionException() {
+	public SystemException() {
 		super();
 	}
 
 	/**
-	 * Instantiates a new message conversion exception.
+	 * Instantiates a new system exception.
 	 * 
 	 * @param message the message
 	 * @param cause the cause
 	 */
-	public MessageConversionException(String message, Throwable cause) {
+	public SystemException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
 	/**
-	 * Instantiates a new message conversion exception.
+	 * Instantiates a new system exception.
 	 * 
 	 * @param message the message
 	 */
-	public MessageConversionException(String message) {
+	public SystemException(String message) {
 		super(message);
 	}
 
 	/**
-	 * Instantiates a new message conversion exception.
+	 * Instantiates a new system exception.
 	 * 
 	 * @param cause the cause
 	 */
-	public MessageConversionException(Throwable cause) {
+	public SystemException(Throwable cause) {
 		super(cause);
 	}
 }

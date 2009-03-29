@@ -31,7 +31,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.myslek.ragnarok.mail.contenthandler.MailboxConfigurationException;
+import com.myslek.ragnarok.mail.exception.MailboxConfigurationException;
 
 /**
  * The Class MailBox.
