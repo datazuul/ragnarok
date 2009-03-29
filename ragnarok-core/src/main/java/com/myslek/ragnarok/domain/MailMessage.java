@@ -163,7 +163,7 @@ public class MailMessage extends MailPart {
 		this.bcc = bcc;
 	}
 
-	@Column(name = "MAIL_FROM", length = 2000)
+	@Column(name = "ADDRESS_FROM", length = 2000)
 	public String getFromString() {
 		return MailUtils.getAddressStringFromList(from);
 	}
@@ -172,7 +172,7 @@ public class MailMessage extends MailPart {
 		from = MailUtils.getAddressListFromString(addresses);
 	}
 
-	@Column(name = "MAIL_TO", length = 2000)
+	@Column(name = "ADDRESS_TO", length = 2000)
 	public String getToString() {
 		return MailUtils.getAddressStringFromList(to);
 	}
@@ -181,7 +181,7 @@ public class MailMessage extends MailPart {
 		to = MailUtils.getAddressListFromString(addresses);
 	}
 
-	@Column(name="MAIL_CC", length = 2000)
+	@Column(name="ADDRESS_CC", length = 2000)
 	public String getCcString() {
 		return MailUtils.getAddressStringFromList(cc);
 	}
@@ -190,7 +190,7 @@ public class MailMessage extends MailPart {
 		cc = MailUtils.getAddressListFromString(addresses);
 	}
 
-	@Column(name="MAIL_BCC", length=2000)
+	@Column(name="ADDRESS_BCC", length=2000)
 	public String getBccString() {
 		return MailUtils.getAddressStringFromList(bcc);
 	}
