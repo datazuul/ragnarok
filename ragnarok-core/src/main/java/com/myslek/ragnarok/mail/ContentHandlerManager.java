@@ -28,14 +28,13 @@ import com.myslek.ragnarok.mail.exception.MessageConversionException;
  * The Interface ContentHandlerManager.
  */
 public interface ContentHandlerManager {
-
 	/**
 	 * Adds the content handler.
 	 * 
 	 * @param contentType the content type
 	 * @param handler the handler
 	 */
-	public void addContentHandler(String contentType, ContentHandler handler);
+	public void registerContentHandler(ContentHandlerType type, ContentHandler handler);
 
 	/**
 	 * Gets the content handlers.

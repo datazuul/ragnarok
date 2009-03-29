@@ -29,9 +29,11 @@ import com.myslek.ragnarok.mail.ContentHandlerManager;
 import com.myslek.ragnarok.mail.exception.MessageConversionException;
 import com.myslek.ragnarok.util.IOUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class BlobContentHandler.
+ * 
+ * TODO: this implementation is only intended for small binary attachments
+ * as it uses in-memory byte array to store the contents of the whole binary attachment.
  */
 public class BlobContentHandler extends AbstractContentHandler {
 
