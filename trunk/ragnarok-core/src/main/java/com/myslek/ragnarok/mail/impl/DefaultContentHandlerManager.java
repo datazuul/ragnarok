@@ -26,6 +26,7 @@ import javax.mail.Session;
 import com.myslek.ragnarok.domain.MailPart;
 import com.myslek.ragnarok.mail.ContentHandler;
 import com.myslek.ragnarok.mail.ContentHandlerManager;
+import com.myslek.ragnarok.mail.ContentHandlerType;
 import com.myslek.ragnarok.mail.contenthandler.BlobContentHandler;
 import com.myslek.ragnarok.mail.contenthandler.MessageContentHandler;
 import com.myslek.ragnarok.mail.contenthandler.MultipartContentHandler;
@@ -39,19 +40,7 @@ import com.myslek.ragnarok.mail.exception.MessageConversionException;
 public class DefaultContentHandlerManager implements ContentHandlerManager {
 	
 	/** The handlers. */
-	private final Map<String, ContentHandler> handlers = new HashMap<String, ContentHandler>();
-	
-	/** The Constant TEXT_TYPE_HANDLER. */
-	public static final String TEXT_TYPE_HANDLER = "TEXT";
-	
-	/** The Constant MESSAGE_TYPE_HANDLER. */
-	public static final String MESSAGE_TYPE_HANDLER = "MESSAGE";
-	
-	/** The Constant MULTIPART_TYPE_HANDLER. */
-	public static final String MULTIPART_TYPE_HANDLER = "MULTIPART";
-	
-	/** The Constant BLOB_TYPE_HANDLER. */
-	public static final String BLOB_TYPE_HANDLER = "BLOB";
+	private final Map<ContentHandlerType, ContentHandler> handlers = new HashMap<ContentHandlerType, ContentHandler>();
 	
 	/**
 	 * Instantiates a new default content handler manager.
@@ -61,20 +50,20 @@ public class DefaultContentHandlerManager implements ContentHandlerManager {
 	}
 	
 	private void defaultContentHandlers() {
-		handlers.put(TEXT_TYPE_HANDLER, new TextContentHandler());
-		handlers.put(MESSAGE_TYPE_HANDLER, new MessageContentHandler());
-		handlers.put(MULTIPART_TYPE_HANDLER, new MultipartContentHandler());
-		handlers.put(BLOB_TYPE_HANDLER, new BlobContentHandler());
+		handlers.put(ContentHandlerType.TEXT, new TextContentHandler());
+		handlers.put(ContentHandlerType.BLOB, new BlobContentHandler());
+		handlers.put(ContentHandlerType.MULTIPART, new MultipartContentHandler());
+		handlers.put(ContentHandlerType.MESSAGE, new MessageContentHandler());
 	}
 	
 	/* (non-Javadoc)
 	 * @see com.myslek.webmail.api.ContentHandlerManager#addContentHandler(java.lang.String, com.myslek.webmail.api.ContentHandler)
 	 */
-	public void addContentHandler(String contentType, ContentHandler handler) {
+	public void registerContentHandler(ContentHandlerType type, ContentHandler handler) {
 		if (handler == null) {
 			throw new IllegalArgumentException("ContentHadnler argument is null!");
 		}
-		handlers.put(contentType, handler);
+		handlers.put(type, handler);
 	}
 
 	/* (non-Javadoc)
@@ -118,16 +107,5 @@ public class DefaultContentHandlerManager implements ContentHandlerManager {
 	 */
 	public Collection<ContentHandler> getContentHandlers() {
 		return handlers.values();
-	}
-	
-	/**
-	 * Find content handler.
-	 * 
-	 * @param contentType the content type
-	 * 
-	 * @return the content handler
-	 */
-	protected ContentHandler findContentHandler(String contentType) {
-		return null;
 	}
 }
