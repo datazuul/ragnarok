@@ -5,7 +5,7 @@
 
 	<groupId>com.myslek.ragnarok</groupId>
 	<artifactId>ragnarok</artifactId>
-	<version>0.9-SNAPSHOT</version>
+	<version>0.9.0-SNAPSHOT</version>
 	<name>Ragnarok</name>
 	<url>http://code.google.com/p/ragnarok/</url>
 
