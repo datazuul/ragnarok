@@ -175,7 +175,7 @@ public class MailBox implements Serializable {
 	@Transient
 	public MailFolder getInbox() {
 		for (MailFolder folder : folders) {
-			if (folder.isInbox()) {
+			if (folder.getType() == MailFolderType.INBOX) {
 				return folder;
 			}
 		}
