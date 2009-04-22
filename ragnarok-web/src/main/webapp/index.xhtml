@@ -8,69 +8,8 @@
       xmlns:rich="http://richfaces.org/rich">
     <body>
         <ui:composition template="/template.xhtml">
-            
             <ui:define name="body">
-
-                <rich:gmap gmapVar="map" id="gmap" style="width:400px;height:400px" gmapKey="ABQIAAAAjLgm-UGSLHn7ThzvAG5YgBTba_EWFG1lokDwqQxFcMqU42TfMRQcuhHoRC3WagPD_OPK5qvjluNrqw" />
-
-                <h:form id="poiForm">
-                    
-                    <h:commandButton action="#{poiManager.addExamplePois}"
-                                     value="Dodaj testowe POI" />
-                    <br />
-                    
-                    <h2>All POIs</h2>
-                    <h:dataTable var="poi" value="#{poiManager.pois}">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Latitude"/>
-                            </f:facet>
-                            <h:outputText value="#{poi.latitude}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Longitude"/>
-                            </f:facet>
-                            <h:outputText value="#{poi.longitude}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Name"/>
-                            </f:facet>
-                            <h:outputText value="#{poi.name}"/>
-                        </h:column>
-                    </h:dataTable>
-                    
-                </h:form>
-
-
-
-                <h:form id="helloForm">
-                    
-                    <h:commandButton action="#{userManager.addUser}"
-                                     value="Dodaj użytkownika" />
-                    <br />
-                    
-                    <h2>User List</h2>
-                    <h:dataTable var="user" value="#{userManager.users}">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Id"/>
-                            </f:facet>
-                            <h:outputText value="#{user.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Name"/>
-                            </f:facet>
-                            <h:outputText value="#{user.name}"/>
-                        </h:column>
-                    </h:dataTable>
-                    
-                </h:form>
             </ui:define>
-            
-        </ui:composition>
-        
+        </ui:composition>   
     </body>
 </html>
