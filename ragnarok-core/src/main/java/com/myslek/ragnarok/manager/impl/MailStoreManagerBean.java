@@ -22,15 +22,22 @@ import javax.ejb.Stateless;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.manager.MailStoreManager;
+import com.myslek.ragnarok.persistence.MailStoreDao;
 
 @Stateless
 public class MailStoreManagerBean implements MailStoreManager {
+	
+	private MailStoreDao mailStoreDao;
+
+	public MailStoreDao getMailStoreDao() {
+		return mailStoreDao;
+	}
 
 	public void storeMessages(Collection<MailMessage> messages) {
 		
 	}
 
 	public Collection<String> getUids(MailBox mailBox) {
-		return null;
+		return getMailStoreDao().getUids(mailBox.getInbox());
 	}
 }

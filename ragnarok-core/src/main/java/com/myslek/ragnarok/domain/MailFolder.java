@@ -19,6 +19,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -38,7 +40,7 @@ public class MailFolder implements Serializable {
 	
 	private String name;
 	
-	private boolean inbox;
+	private MailFolderType type;
 	
 	/**
 	 * Gets the id.
@@ -69,12 +71,13 @@ public class MailFolder implements Serializable {
 		this.name = name;
 	}
 
-	@Column(name="INBOX")
-	public boolean isInbox() {
-		return inbox;
+	@Enumerated(EnumType.STRING)
+	@Column(name="FOLDER_TYPE", nullable = false)
+	public MailFolderType getType() {
+		return type;
 	}
 
-	public void setInbox(boolean inbox) {
-		this.inbox = inbox;
+	public void setType(MailFolderType type) {
+		this.type = type;
 	}
 }

@@ -15,6 +15,33 @@
  */
 package com.myslek.ragnarok.persistence;
 
-public interface MailStoreDao {
+import java.util.List;
 
+import javax.ejb.Local;
+
+import com.myslek.ragnarok.domain.MailBox;
+import com.myslek.ragnarok.domain.MailFolder;
+import com.myslek.ragnarok.domain.MailMessage;
+import com.myslek.ragnarok.domain.MailUser;
+
+@Local
+public interface MailStoreDao {
+	
+	Object find(Class entityClass, Object primaryKey);
+	
+	void persist(Object entity);
+	
+	MailUser getUser(String username);
+	
+	MailUser getUser(String username, String password);
+	
+	List<MailBox> getMailBoxes(MailUser user);
+	
+	List<MailFolder> getMailFolders(MailUser user);
+	
+	MailFolder getMailFolder(MailUser user, int folderId);
+	
+	List<MailMessage> getMailMessages(MailFolder folder);
+	
+	List<String> getUids(MailFolder folder);
 }

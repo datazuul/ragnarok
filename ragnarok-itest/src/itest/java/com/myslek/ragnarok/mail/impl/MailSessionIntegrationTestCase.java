@@ -29,6 +29,7 @@ import junit.framework.TestCase;
 
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailFolder;
+import com.myslek.ragnarok.domain.MailFolderType;
 import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.domain.MailServer;
 import com.myslek.ragnarok.domain.MailServerProtocol;
@@ -257,7 +258,7 @@ public class MailSessionIntegrationTestCase extends TestCase {
 		// inbox
 		MailFolder inbox = new MailFolder();
 		inbox.setName("INBOX");
-		inbox.setInbox(true);
+		inbox.setType(MailFolderType.INBOX);
 
 		mailBox.addFolder(inbox);
 
