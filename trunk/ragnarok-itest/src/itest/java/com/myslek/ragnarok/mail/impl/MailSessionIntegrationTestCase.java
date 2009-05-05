@@ -28,8 +28,6 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import com.myslek.ragnarok.domain.MailBox;
-import com.myslek.ragnarok.domain.MailFolder;
-import com.myslek.ragnarok.domain.MailFolderType;
 import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.domain.MailServer;
 import com.myslek.ragnarok.domain.MailServerProtocol;
@@ -254,13 +252,6 @@ public class MailSessionIntegrationTestCase extends TestCase {
 
 		mailBox.setMailTransport(smtp);
 		mailBox.setMailStore(pop3);
-
-		// inbox
-		MailFolder inbox = new MailFolder();
-		inbox.setName("INBOX");
-		inbox.setType(MailFolderType.INBOX);
-
-		mailBox.addFolder(inbox);
 
 		return mailBox;
 	}

@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.ejb.Local;
 
 import com.myslek.ragnarok.domain.MailBox;
+import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailMessage;
 
 @Local
@@ -24,5 +25,5 @@ public interface MailStoreManager {
 	 * 
 	 * @return the uids
 	 */
-	public Collection<String> getUids(MailBox mailBox);
+	public Collection<String> getUids(MailBox mailBox, MailFolder mailFolder);
 }

@@ -23,8 +23,8 @@ import javax.mail.internet.InternetAddress;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -111,8 +111,7 @@ public class MailMessage extends MailPart {
 	 * 
 	 * @return the folder
 	 */
-	@ManyToOne
-	@JoinColumn(name = "FOLDER_ID")
+	@Enumerated(EnumType.STRING)
 	public MailFolder getFolder() {
 		return folder;
 	}

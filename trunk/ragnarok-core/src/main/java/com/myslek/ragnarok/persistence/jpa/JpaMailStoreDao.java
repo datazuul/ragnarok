@@ -40,38 +40,34 @@ public class JpaMailStoreDao implements MailStoreDao {
 		return entityManager;
 	}
 
-	public Object find(Class entityClass, Object primaryKey) {
-		return null;
-	}
+    public Object find(Class entityClass, Object primaryKey) {
+        return null;
+    }
 
-	public List<MailBox> getMailBoxes(MailUser user) {
-		return null;
-	}
+    public MailBox getMailBox(MailUser user, int mailBoxId) {
+        return null;
+    }
 
-	public MailFolder getMailFolder(MailUser user, int folderId) {
-		return null;
-	}
+    public List<MailBox> getMailBoxes(MailUser user) {
+        return null;
+    }
 
-	public List<MailFolder> getMailFolders(MailUser user) {
-		return null;
-	}
+    public List<MailMessage> getMailMessages(MailBox mailBox, MailFolder folder) {
+        return null;
+    }
 
-	public List<MailMessage> getMailMessages(MailFolder folder) {
-		return null;
-	}
+    public List<String> getUids(MailBox mailBox, MailFolder folder) {
+        return null;
+    }
 
-	public MailUser getUser(String username) {
-		return null;
-	}
+    public MailUser getUser(String username) {
+        return null;
+    }
 
-	public MailUser getUser(String username, String password) {
-		return null;
-	}
+    public MailUser getUser(String username, String password) {
+        return null;
+    }
 
-	public void persist(Object entity) {
-	}
-
-	public List<String> getUids(MailFolder folder) {
-		return null;
-	}
+    public void persist(Object entity) {
+    }
 }

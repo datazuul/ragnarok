@@ -20,6 +20,7 @@ import java.util.Collection;
 import javax.ejb.Stateless;
 
 import com.myslek.ragnarok.domain.MailBox;
+import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.mail.MessageFilter;
 import com.myslek.ragnarok.manager.MailManagerFacade;
@@ -34,7 +35,7 @@ public class MailManagerFacadeBean implements MailManagerFacade {
 	private MailStoreManager mailStoreManager;
 
 	public void fetchAndStoreMessages(MailBox mailBox, MessageFilter filter) {
-		Collection<String> uids = getMailStoreManager().getUids(mailBox);
+		Collection<String> uids = getMailStoreManager().getUids(mailBox, MailFolder.INBOX);
 
 		Collection<MailMessage> messages = 
 			getMailSessionManager().fetchMessages(mailBox, uids, filter);

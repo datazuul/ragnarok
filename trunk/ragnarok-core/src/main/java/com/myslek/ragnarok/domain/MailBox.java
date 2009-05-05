@@ -16,22 +16,15 @@
 package com.myslek.ragnarok.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import com.myslek.ragnarok.mail.exception.MailboxConfigurationException;
 
 /**
  * The Class MailBox.
@@ -54,9 +47,6 @@ public class MailBox implements Serializable {
 
 	/** The default mail box. */
 	private boolean defaultMailBox;
-
-	/** The folders. */
-	private Collection<MailFolder> folders = new ArrayList<MailFolder>();
 
 	/**
 	 * Gets the id.
@@ -140,47 +130,5 @@ public class MailBox implements Serializable {
 	 */
 	public void setDefaultMailBox(boolean defaultMailBox) {
 		this.defaultMailBox = defaultMailBox;
-	}
-
-	/**
-	 * Gets the folders.
-	 * 
-	 * @return the folders
-	 */
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "MAILBOX_ID")
-	public Collection<MailFolder> getFolders() {
-		return folders;
-	}
-
-	/**
-	 * Sets the folders.
-	 * 
-	 * @param folders
-	 *            the new folders
-	 */
-	public void setFolders(Collection<MailFolder> folders) {
-		this.folders = folders;
-	}
-
-	public void addFolder(MailFolder folder) {
-		this.folders.add(folder);
-	}
-
-	/**
-	 * Gets the inbox.
-	 * 
-	 * @return the inbox
-	 */
-	@Transient
-	public MailFolder getInbox() {
-		for (MailFolder folder : folders) {
-			if (folder.getType() == MailFolderType.INBOX) {
-				return folder;
-			}
-		}
-		throw new MailboxConfigurationException("Unable to find 'inbox' folder for mailbox ["
-				+ mailStore.getProtocol() + "://" + mailStore.getUsername() + "@"
-				+ mailStore.getHostname() + "]");
 	}
 }

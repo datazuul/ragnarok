@@ -37,11 +37,9 @@ public interface MailStoreDao {
 	
 	List<MailBox> getMailBoxes(MailUser user);
 	
-	List<MailFolder> getMailFolders(MailUser user);
+	MailBox getMailBox(MailUser user, int mailBoxId);
 	
-	MailFolder getMailFolder(MailUser user, int folderId);
+	List<MailMessage> getMailMessages(MailBox mailBox, MailFolder folder);
 	
-	List<MailMessage> getMailMessages(MailFolder folder);
-	
-	List<String> getUids(MailFolder folder);
+	List<String> getUids(MailBox mailBox, MailFolder folder);
 }

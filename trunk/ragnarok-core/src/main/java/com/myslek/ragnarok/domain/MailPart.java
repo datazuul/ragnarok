@@ -79,6 +79,8 @@ public class MailPart implements Serializable {
 
 	/** The headers. */
 	private List<MailHeader> headers = new ArrayList<MailHeader>();
+	
+	private MailBox mailBox;
 
 	/** The size. */
 	private int size;
@@ -349,7 +351,17 @@ public class MailPart implements Serializable {
 		getHeaders().add(header);
 	}
 
-	/**
+	@ManyToOne
+	@JoinColumn(name="MAILBOX_ID")
+	public MailBox getMailBox() {
+        return mailBox;
+    }
+
+    public void setMailBox(MailBox mailBox) {
+        this.mailBox = mailBox;
+    }
+
+    /**
 	 * Checks if is mime type.
 	 * 
 	 * @param mimeType the mime type
