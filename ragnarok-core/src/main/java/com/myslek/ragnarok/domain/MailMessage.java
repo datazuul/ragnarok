@@ -112,6 +112,7 @@ public class MailMessage extends MailPart {
 	 * @return the folder
 	 */
 	@Enumerated(EnumType.STRING)
+	@Column(name="FOLDER", nullable=false, length=10)
 	public MailFolder getFolder() {
 		return folder;
 	}
