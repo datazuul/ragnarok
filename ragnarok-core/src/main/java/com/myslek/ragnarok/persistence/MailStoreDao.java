@@ -26,20 +26,22 @@ import com.myslek.ragnarok.domain.MailUser;
 
 @Local
 public interface MailStoreDao {
-	
-	Object find(Class entityClass, Object primaryKey);
-	
-	void persist(Object entity);
-	
-	MailUser getUser(String username);
-	
-	MailUser getUser(String username, String password);
-	
-	List<MailBox> getMailBoxes(MailUser user);
-	
-	MailBox getMailBox(MailUser user, int mailBoxId);
-	
-	List<MailMessage> getMailMessages(MailBox mailBox, MailFolder folder);
-	
-	List<String> getUids(MailBox mailBox, MailFolder folder);
+
+    Object find(Class entityClass, Object primaryKey);
+
+    void persist(Object entity);
+
+    MailUser getUser(String username);
+
+    MailUser getUser(String username, String password);
+
+    List<MailBox> getMailBoxes(MailUser user);
+
+    MailBox getMailBox(int mailBoxId);
+
+    boolean isUserMailBox(MailUser mailUser, MailBox mailBox);
+
+    List<String> getUids(MailBox mailBox, MailFolder folder);
+
+    List<MailMessage> getMailMessages(MailBox mailBox, MailFolder folder, ResultParams params);
 }

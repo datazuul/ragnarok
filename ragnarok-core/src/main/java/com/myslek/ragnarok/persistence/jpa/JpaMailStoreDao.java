@@ -28,6 +28,7 @@ import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.domain.MailUser;
 import com.myslek.ragnarok.persistence.MailStoreDao;
+import com.myslek.ragnarok.persistence.ResultParams;
 
 @Stateless
 @Name("mailStoreDao")
@@ -41,33 +42,47 @@ public class JpaMailStoreDao implements MailStoreDao {
 	}
 
     public Object find(Class entityClass, Object primaryKey) {
+        // TODO Auto-generated method stub
         return null;
     }
 
-    public MailBox getMailBox(MailUser user, int mailBoxId) {
+    public MailBox getMailBox(int mailBoxId) {
+        // TODO Auto-generated method stub
         return null;
     }
 
     public List<MailBox> getMailBoxes(MailUser user) {
+        // TODO Auto-generated method stub
         return null;
     }
 
-    public List<MailMessage> getMailMessages(MailBox mailBox, MailFolder folder) {
+    public List<MailMessage> getMailMessages(MailBox mailBox, MailFolder folder, ResultParams params) {
+        // TODO Auto-generated method stub
         return null;
     }
 
     public List<String> getUids(MailBox mailBox, MailFolder folder) {
+        // TODO Auto-generated method stub
         return null;
     }
 
     public MailUser getUser(String username) {
+        // TODO Auto-generated method stub
         return null;
     }
 
     public MailUser getUser(String username, String password) {
+        // TODO Auto-generated method stub
         return null;
     }
 
+    public boolean isUserMailBox(MailUser mailUser, MailBox mailBox) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
     public void persist(Object entity) {
+        // TODO Auto-generated method stub
+        
     }
 }
