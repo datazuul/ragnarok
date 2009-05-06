@@ -1,12 +1,15 @@
 package com.myslek.ragnarok.manager;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.Local;
 
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailMessage;
+import com.myslek.ragnarok.domain.MailUser;
+import com.myslek.ragnarok.persistence.ResultParams;
 
 @Local
 public interface MailStoreManager {
@@ -16,7 +19,7 @@ public interface MailStoreManager {
 	 * 
 	 * @param messages the messages
 	 */
-	public void storeMessages(Collection<MailMessage> messages);
+	void storeMessages(Collection<MailMessage> messages);
 	
 	/**
 	 * Gets the uids.
@@ -25,5 +28,8 @@ public interface MailStoreManager {
 	 * 
 	 * @return the uids
 	 */
-	public Collection<String> getUids(MailBox mailBox, MailFolder mailFolder);
+	Collection<String> getUids(MailBox mailBox, MailFolder mailFolder);
+	
+	List<MailMessage> getMessages(MailUser user, int mailBoxId, MailFolder folder,
+            ResultParams params);
 }

@@ -16,18 +16,23 @@
 package com.myslek.ragnarok.manager.impl;
 
 import java.util.Collection;
+import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailMessage;
+import com.myslek.ragnarok.domain.MailUser;
 import com.myslek.ragnarok.manager.MailStoreManager;
 import com.myslek.ragnarok.persistence.MailStoreDao;
+import com.myslek.ragnarok.persistence.ResultParams;
 
 @Stateless
 public class MailStoreManagerBean implements MailStoreManager {
 	
+    @EJB
 	private MailStoreDao mailStoreDao;
 
 	public MailStoreDao getMailStoreDao() {
@@ -41,4 +46,18 @@ public class MailStoreManagerBean implements MailStoreManager {
 	public Collection<String> getUids(MailBox mailBox, MailFolder mailFolder) {
 		return getMailStoreDao().getUids(mailBox, mailFolder);
 	}
+
+    public List<MailMessage> getMessages(MailUser user, int mailBoxId, MailFolder folder,
+            ResultParams params) {
+        MailBox mailBox = mailStoreDao.getMailBox(mailBoxId);
+        if (mailBox == null) {
+            //TODO: throw application exception
+        }
+        boolean isUserMailBox = mailStoreDao.isUserMailBox(user, mailBox);
+        if (!isUserMailBox) {
+            //TODO: thorw application exception
+        }
+        
+        return mailStoreDao.getMailMessages(mailBox, folder, params);
+    }
 }

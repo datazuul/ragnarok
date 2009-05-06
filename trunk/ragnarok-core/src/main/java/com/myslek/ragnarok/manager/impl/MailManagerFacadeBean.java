@@ -16,46 +16,56 @@
 package com.myslek.ragnarok.manager.impl;
 
 import java.util.Collection;
+import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailMessage;
+import com.myslek.ragnarok.domain.MailUser;
 import com.myslek.ragnarok.mail.MessageFilter;
 import com.myslek.ragnarok.manager.MailManagerFacade;
 import com.myslek.ragnarok.manager.MailSessionManager;
 import com.myslek.ragnarok.manager.MailStoreManager;
+import com.myslek.ragnarok.persistence.ResultParams;
 
 @Stateless
 public class MailManagerFacadeBean implements MailManagerFacade {
 
-	private MailSessionManager mailSessionManager;
+    @EJB
+    private MailSessionManager mailSessionManager;
+    @EJB
+    private MailStoreManager mailStoreManager;
 
-	private MailStoreManager mailStoreManager;
+    public void fetchAndStoreMessages(MailBox mailBox, MessageFilter filter) {
+        Collection<String> uids = getMailStoreManager().getUids(mailBox, MailFolder.INBOX);
 
-	public void fetchAndStoreMessages(MailBox mailBox, MessageFilter filter) {
-		Collection<String> uids = getMailStoreManager().getUids(mailBox, MailFolder.INBOX);
+        Collection<MailMessage> messages = getMailSessionManager().fetchMessages(mailBox, uids,
+                filter);
 
-		Collection<MailMessage> messages = 
-			getMailSessionManager().fetchMessages(mailBox, uids, filter);
+        getMailStoreManager().storeMessages(messages);
+    }
 
-		getMailStoreManager().storeMessages(messages);
-	}
+    public List<MailMessage> getMessages(MailUser user, int mailBoxId, MailFolder folder,
+            ResultParams params) {
+        return getMailStoreManager().getMessages(user, mailBoxId, folder, params);
+    }
 
-	public MailSessionManager getMailSessionManager() {
-		return mailSessionManager;
-	}
+    public MailSessionManager getMailSessionManager() {
+        return mailSessionManager;
+    }
 
-	public void setMailSessionManager(MailSessionManager mailSessionManager) {
-		this.mailSessionManager = mailSessionManager;
-	}
+    public void setMailSessionManager(MailSessionManager mailSessionManager) {
+        this.mailSessionManager = mailSessionManager;
+    }
 
-	public MailStoreManager getMailStoreManager() {
-		return mailStoreManager;
-	}
+    public MailStoreManager getMailStoreManager() {
+        return mailStoreManager;
+    }
 
-	public void setMailStoreManager(MailStoreManager mailStoreManager) {
-		this.mailStoreManager = mailStoreManager;
-	}
+    public void setMailStoreManager(MailStoreManager mailStoreManager) {
+        this.mailStoreManager = mailStoreManager;
+    }
 }
