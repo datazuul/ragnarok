@@ -23,6 +23,15 @@ public class ResultParams implements Serializable {
 
     private int firstItem = 0;
     private int batchSize = 10;
+    
+    public ResultParams() {
+        
+    }
+    
+    public ResultParams(int firstItem, int batchSize) {
+        this.firstItem = firstItem;
+        this.batchSize = batchSize;
+    }
 
     public int getFirstItem() {
         return firstItem;
