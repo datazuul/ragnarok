@@ -18,7 +18,7 @@ package com.myslek.ragnarok.web.common;
 public interface MailConstatnts {
     public static final String MAIL_USER = "com.myslek.ragnarok.web.MailUser";
     
-    public static final String MAILBOX_ID = "mailBoxId";
+    public static final String MAILBOX_ID = "mbox";
     
     public static final String FOLDER = "folder";
 }
