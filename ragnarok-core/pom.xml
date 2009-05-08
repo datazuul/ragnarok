@@ -17,8 +17,8 @@
   <properties>
     <glassfish.home>c:/Users/rafal/dev/glassfish</glassfish.home>
     <peristenceunit>ragnarok</peristenceunit>
+    <version.jboss-embedded>beta3.SP5</version.jboss-embedded>
   </properties>
-
 
   <dependencies>
     <!-- system dependencies-->
@@ -89,6 +89,45 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- JBoss Embeddable EJB 3.0 -->
+    <dependency>
+      <groupId>org.jboss.embedded</groupId>
+      <artifactId>jboss-embedded-all</artifactId>
+      <version>${version.jboss-embedded}</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.jboss.embedded</groupId>
+          <artifactId>jboss-embedded</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.jboss.microcontainer</groupId>
+          <artifactId>jboss-deployers-client-spi</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.jboss.microcontainer</groupId>
+          <artifactId>jboss-deployers-core-spi</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.embedded</groupId>
+      <artifactId>jboss-embedded</artifactId>
+      <version>${version.jboss-embedded}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.embedded</groupId>
+      <artifactId>thirdparty-all</artifactId>
+      <version>${version.jboss-embedded}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.embedded</groupId>
+      <artifactId>hibernate-all</artifactId>
+      <version>${version.jboss-embedded}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
