@@ -90,6 +90,7 @@
     </dependency>
 
     <!-- JBoss Embeddable EJB 3.0 -->
+    <!--
     <dependency>
       <groupId>org.jboss.embedded</groupId>
       <artifactId>jboss-embedded-all</artifactId>
@@ -128,8 +129,10 @@
       <version>${version.jboss-embedded}</version>
       <scope>test</scope>
     </dependency>
+    -->
 
     <!-- TestNG -->
+    <!--
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
@@ -137,6 +140,7 @@
       <scope>test</scope>
       <classifier>jdk15</classifier>
     </dependency>
+    -->
   </dependencies>
 
   <build>
