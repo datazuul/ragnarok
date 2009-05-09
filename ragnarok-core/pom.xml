@@ -50,18 +50,9 @@
       <artifactId>activation</artifactId>
     </dependency>
 
-    <!-- jboss seam dependencies -->
     <dependency>
-      <groupId>org.jboss.seam</groupId>
-      <artifactId>jboss-seam</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
-    <!-- hibernate dependencies -->
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-validator</artifactId>
-      <scope>provided</scope>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
     </dependency>
 
     <!-- test dependencies -->
@@ -93,6 +84,13 @@
     <dependency>
       <groupId>com.bm</groupId>
       <artifactId>ejb3unit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.jboss.logging</groupId>
+      <artifactId>jboss-logging-log4j</artifactId>
+      <version>2.0.6.GA</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

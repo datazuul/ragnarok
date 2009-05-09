@@ -27,6 +27,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * The Class MailUser.
@@ -131,5 +132,10 @@ public class MailUser implements Serializable {
 	 */
 	public void setMailBoxes(Collection<MailBox> mailBoxes) {
 		this.mailBoxes = mailBoxes;
+	}
+	
+	@Transient
+	public void addMailBox(MailBox mailBox) {
+	    mailBoxes.add(mailBox);
 	}
 }
