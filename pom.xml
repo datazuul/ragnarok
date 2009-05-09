@@ -1,253 +1,267 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.myslek.ragnarok</groupId>
-	<artifactId>ragnarok</artifactId>
-	<version>0.9.0-SNAPSHOT</version>
-	<name>Ragnarok</name>
-	<url>http://code.google.com/p/ragnarok/</url>
+  <groupId>com.myslek.ragnarok</groupId>
+  <artifactId>ragnarok</artifactId>
+  <version>0.9.0-SNAPSHOT</version>
+  <name>Ragnarok</name>
+  <url>http://code.google.com/p/ragnarok/</url>
 
-	<packaging>pom</packaging>
+  <packaging>pom</packaging>
 
-	<!-- Additional remote repositories -->
-	<repositories>
-		<repository>
-			<id>java.net.legacy</id>
-			<url>http://download.java.net/maven/1</url>
-			<layout>legacy</layout>
-		</repository>
-		<repository>
-			<id>java.net</id>
-			<url>http://download.java.net/maven/2</url>
-		</repository>
-		<repository>
-			<id>jboss.com</id>
-			<url>http://repository.jboss.com/maven2</url>
-		</repository>
-	</repositories>
+  <!-- Additional remote repositories -->
+  <repositories>
+    <repository>
+      <id>java.net.legacy</id>
+      <url>http://download.java.net/maven/1</url>
+      <layout>legacy</layout>
+    </repository>
+    <repository>
+      <id>java.net</id>
+      <url>http://download.java.net/maven/2</url>
+    </repository>
+    <repository>
+      <id>jboss.com</id>
+      <url>http://repository.jboss.com/maven2</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>ejb3unit</id>
+      <name>ejb3unit repository</name>
+      <url>http://ejb3unit.sourceforge.net/maven2</url>
+    </repository>
 
-	<!-- Additional plugin repositories -->
-	<pluginRepositories>
-		<pluginRepository>
-			<id>maven.java.net</id>
-			<name>Java.net Maven2 Repository</name>
-			<url>http://download.java.net/maven/2</url>
-		</pluginRepository>
-	</pluginRepositories>
+  </repositories>
 
-	<!-- Application modules -->
-	<modules>
-		<module>ragnarok-application</module>
-		<module>ragnarok-core</module>
-		<module>ragnarok-web</module>
-		<module>ragnarok-itest</module>
-	</modules>
+  <!-- Additional plugin repositories -->
+  <pluginRepositories>
+    <pluginRepository>
+      <id>maven.java.net</id>
+      <name>Java.net Maven2 Repository</name>
+      <url>http://download.java.net/maven/2</url>
+    </pluginRepository>
+  </pluginRepositories>
 
-	<dependencyManagement>
-		<dependencies>
-			<!-- JavaEE API-->
-			<dependency>
-				<groupId>javaee</groupId>
-				<artifactId>javaee-api</artifactId>
-				<version>5</version>
-			</dependency>
+  <!-- Application modules -->
+  <modules>
+    <module>ragnarok-application</module>
+    <module>ragnarok-core</module>
+    <module>ragnarok-web</module>
+    <module>ragnarok-itest</module>
+  </modules>
 
-			<!-- JBoss SEAM -->
-			<dependency>
-				<groupId>org.jboss.seam</groupId>
-				<artifactId>jboss-seam</artifactId>
-				<version>2.0.0.GA</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.seam</groupId>
-				<artifactId>jboss-seam</artifactId>
-				<version>2.0.0.GA</version>
-				<type>ejb</type>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.seam</groupId>
-				<artifactId>jboss-seam-ui</artifactId>
-				<version>2.0.0.GA</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.seam</groupId>
-				<artifactId>jboss-seam-debug</artifactId>
-				<version>2.0.0.GA</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.seam</groupId>
-				<artifactId>jboss-el</artifactId>
-				<version>2.0.0.GA</version>
-			</dependency>
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-validator</artifactId>
-				<version>3.0.0.GA</version>
-			</dependency>
-			<dependency>
-				<groupId>com.sun.facelets</groupId>
-				<artifactId>jsf-facelets</artifactId>
-				<version>1.1.14</version>
-			</dependency>
-			<dependency>
-				<groupId>commons-beanutils</groupId>
-				<artifactId>commons-beanutils</artifactId>
-				<version>1.7.0</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.mail</groupId>
-				<artifactId>mail</artifactId>
-				<version>1.4.1</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.activation</groupId>
-				<artifactId>activation</artifactId>
-				<version>1.1.1</version>
-			</dependency>
+  <dependencyManagement>
+    <dependencies>
+      <!-- JavaEE API-->
+      <dependency>
+        <groupId>javaee</groupId>
+        <artifactId>javaee-api</artifactId>
+        <version>5</version>
+      </dependency>
 
-			<!-- Richfaces -->
-			<dependency>
-				<groupId>org.richfaces.ui</groupId>
-				<artifactId>richfaces-ui</artifactId>
-				<version>3.1.2.GA</version>
-			</dependency>
+      <!-- JBoss SEAM -->
+      <dependency>
+        <groupId>org.jboss.seam</groupId>
+        <artifactId>jboss-seam</artifactId>
+        <version>2.0.0.GA</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.seam</groupId>
+        <artifactId>jboss-seam</artifactId>
+        <version>2.0.0.GA</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.seam</groupId>
+        <artifactId>jboss-seam-ui</artifactId>
+        <version>2.0.0.GA</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.seam</groupId>
+        <artifactId>jboss-seam-debug</artifactId>
+        <version>2.0.0.GA</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.seam</groupId>
+        <artifactId>jboss-el</artifactId>
+        <version>2.0.0.GA</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>3.0.0.GA</version>
+      </dependency>
+      <dependency>
+        <groupId>com.sun.facelets</groupId>
+        <artifactId>jsf-facelets</artifactId>
+        <version>1.1.14</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-beanutils</groupId>
+        <artifactId>commons-beanutils</artifactId>
+        <version>1.7.0</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>mail</artifactId>
+        <version>1.4.1</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.activation</groupId>
+        <artifactId>activation</artifactId>
+        <version>1.1.1</version>
+      </dependency>
 
-			<!-- Test dependencies -->
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>3.8.1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jmock</groupId>
-				<artifactId>jmock-junit3</artifactId>
-				<version>2.5.1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jmock</groupId>
-				<artifactId>jmock-legacy</artifactId>
-				<version>2.5.1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jvnet.mock-javamail</groupId>
-				<artifactId>mock-javamail</artifactId>
-				<version>1.7</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+      <!-- Richfaces -->
+      <dependency>
+        <groupId>org.richfaces.ui</groupId>
+        <artifactId>richfaces-ui</artifactId>
+        <version>3.1.2.GA</version>
+      </dependency>
+
+      <!-- Test dependencies -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>3.8.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jmock</groupId>
+        <artifactId>jmock-junit3</artifactId>
+        <version>2.5.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jmock</groupId>
+        <artifactId>jmock-legacy</artifactId>
+        <version>2.5.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jvnet.mock-javamail</groupId>
+        <artifactId>mock-javamail</artifactId>
+        <version>1.7</version>
+      </dependency>
+      <dependency>
+        <groupId>com.bm</groupId>
+        <artifactId>ejb3unit</artifactId>
+        <version>1.2</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
 
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<configuration>
-						<source>1.5</source>
-						<target>1.5</target>
-					</configuration>
-				</plugin>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <source>1.5</source>
+            <target>1.5</target>
+          </configuration>
+        </plugin>
 
-				<!-- Generating source JARs -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<executions>
-						<execution>
-							<id>deploy-sources</id>
-							<phase>deploy</phase>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-						<execution>
-							<id>install-sources</id>
-							<phase>install</phase>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-site-plugin</artifactId>
-				</plugin>
+        <!-- Generating source JARs -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>deploy-sources</id>
+              <phase>deploy</phase>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>install-sources</id>
+              <phase>install</phase>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+        </plugin>
 
-				<!--- Plugins used in other modules -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-ear-plugin</artifactId>
-					<version>2.3</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-war-plugin</artifactId>
-					<version>2.0.2</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-ejb-plugin</artifactId>
-					<version>2.1</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-		
-		<plugins>
-			<!-- Plugins -->
-		</plugins>
+        <!--- Plugins used in other modules -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-ear-plugin</artifactId>
+          <version>2.3</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>2.0.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-ejb-plugin</artifactId>
+          <version>2.1</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
 
-	</build>
+    <plugins>
+      <!-- Plugins -->
+    </plugins>
 
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<configuration>
-					<targetJdk>1.5</targetJdk>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-			</plugin>
+  </build>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jxr-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<configuration>
-					<rulesets>
-						<ruleset>/rulesets/basic.xml</ruleset>
-						<ruleset>/rulesets/imports.xml</ruleset>
-						<ruleset>/rulesets/unusedcode.xml</ruleset>
-						<ruleset>/rulesets/design.xml</ruleset>
-						<ruleset>/rulesets/naming.xml</ruleset>
-						<ruleset>/rulesets/codesize.xml</ruleset>
-						<ruleset>/rulesets/coupling.xml</ruleset>
-						<ruleset>/rulesets/strictexception.xml</ruleset>
-					</rulesets>
-					<sourceEncoding>utf-8</sourceEncoding>
-					<minimumTokens>100</minimumTokens>
-					<targetJdk>1.5</targetJdk>
-				</configuration>
-			</plugin>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <configuration>
+          <targetJdk>1.5</targetJdk>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+      </plugin>
 
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</reporting>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <configuration>
+          <rulesets>
+            <ruleset>/rulesets/basic.xml</ruleset>
+            <ruleset>/rulesets/imports.xml</ruleset>
+            <ruleset>/rulesets/unusedcode.xml</ruleset>
+            <ruleset>/rulesets/design.xml</ruleset>
+            <ruleset>/rulesets/naming.xml</ruleset>
+            <ruleset>/rulesets/codesize.xml</ruleset>
+            <ruleset>/rulesets/coupling.xml</ruleset>
+            <ruleset>/rulesets/strictexception.xml</ruleset>
+          </rulesets>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <minimumTokens>100</minimumTokens>
+          <targetJdk>1.5</targetJdk>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
 
 </project>

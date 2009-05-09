@@ -89,58 +89,12 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- JBoss Embeddable EJB 3.0 -->
-    <!--
+    <!-- Ejb3Unit -->
     <dependency>
-      <groupId>org.jboss.embedded</groupId>
-      <artifactId>jboss-embedded-all</artifactId>
-      <version>${version.jboss-embedded}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.jboss.embedded</groupId>
-          <artifactId>jboss-embedded</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.jboss.microcontainer</groupId>
-          <artifactId>jboss-deployers-client-spi</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.jboss.microcontainer</groupId>
-          <artifactId>jboss-deployers-core-spi</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.embedded</groupId>
-      <artifactId>jboss-embedded</artifactId>
-      <version>${version.jboss-embedded}</version>
+      <groupId>com.bm</groupId>
+      <artifactId>ejb3unit</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.jboss.embedded</groupId>
-      <artifactId>thirdparty-all</artifactId>
-      <version>${version.jboss-embedded}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.embedded</groupId>
-      <artifactId>hibernate-all</artifactId>
-      <version>${version.jboss-embedded}</version>
-      <scope>test</scope>
-    </dependency>
-    -->
-
-    <!-- TestNG -->
-    <!--
-    <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-      <version>5.8</version>
-      <scope>test</scope>
-      <classifier>jdk15</classifier>
-    </dependency>
-    -->
   </dependencies>
 
   <build>
