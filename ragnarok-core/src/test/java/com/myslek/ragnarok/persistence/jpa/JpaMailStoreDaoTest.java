@@ -33,7 +33,7 @@ public class JpaMailStoreDaoTest extends BaseSessionBeanFixture<JpaMailStoreDao>
             MailMessage.class, MailPart.class, MailServer.class, MailUser.class };
 
     public JpaMailStoreDaoTest() {
-        super(JpaMailStoreDao.class, usedEntityBeans, new MailUserInitialDataSet());
+        super(JpaMailStoreDao.class, usedEntityBeans, new MailStoreInitialDataSet());
     }
 
     public void testDependencyInjection() throws Exception {
@@ -50,9 +50,9 @@ public class JpaMailStoreDaoTest extends BaseSessionBeanFixture<JpaMailStoreDao>
         assertEquals("user name should be 'ragnarok'", "ragnarok", user.getUsername());
     }
 
-    static class MailUserInitialDataSet extends EntityInitialDataSet<MailUser> {
+    static class MailStoreInitialDataSet extends EntityInitialDataSet<MailUser> {
 
-        public MailUserInitialDataSet() {
+        public MailStoreInitialDataSet() {
             super(MailUser.class);
         }
 
