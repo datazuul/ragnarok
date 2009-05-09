@@ -71,6 +71,7 @@ public class DefaultAttributesHandler implements AttributesHandler {
 	 * 
 	 * @throws MessageConversionException the message conversion exception
 	 */
+	@SuppressWarnings(value = "unchecked")
 	protected void fromHeaders(Part part, MailPart mailPart)
 			throws MessageConversionException {
 		try {

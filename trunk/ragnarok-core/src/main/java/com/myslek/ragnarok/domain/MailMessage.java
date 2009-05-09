@@ -25,6 +25,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -40,6 +42,8 @@ public class MailMessage extends MailPart {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	private MailBox mailBox;
 
 	/** The uid. */
 	private String uid;
@@ -65,6 +69,16 @@ public class MailMessage extends MailPart {
 	private Date sentDate;
 	
 	private Date receivedDate;
+	
+	@ManyToOne
+    @JoinColumn(name="MAILBOX_ID")
+    public MailBox getMailBox() {
+        return mailBox;
+    }
+
+    public void setMailBox(MailBox mailBox) {
+        this.mailBox = mailBox;
+    }
 
 	/**
 	 * Gets the uid.

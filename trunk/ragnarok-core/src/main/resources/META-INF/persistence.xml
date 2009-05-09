@@ -4,8 +4,8 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <jta-data-source>jdbc/ragnarok</jta-data-source>
     <properties>
-      <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+      <property name="hibernate.max_fetch_depth" value="5"/>
     </properties>
   </persistence-unit>
 </persistence>

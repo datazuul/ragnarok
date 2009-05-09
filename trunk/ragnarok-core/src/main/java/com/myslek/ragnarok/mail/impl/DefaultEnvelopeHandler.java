@@ -137,6 +137,7 @@ public class DefaultEnvelopeHandler implements EnvelopeHandler {
 	 * @throws MessageConversionException
 	 *             the message conversion exception
 	 */
+	@SuppressWarnings(value = "unchecked")
 	protected void toRecipients(RecipientType type, MailMessage mailMessage, Message message)
 			throws MessageConversionException {
 		try {

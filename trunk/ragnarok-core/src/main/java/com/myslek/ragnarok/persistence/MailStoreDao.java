@@ -27,6 +27,7 @@ import com.myslek.ragnarok.domain.MailUser;
 @Local
 public interface MailStoreDao {
 
+    @SuppressWarnings(value = "unchecked")
     Object find(Class entityClass, Object primaryKey);
 
     void persist(Object entity);
@@ -44,4 +45,6 @@ public interface MailStoreDao {
     List<String> getUids(MailBox mailBox, MailFolder folder);
 
     List<MailMessage> getMailMessages(MailBox mailBox, MailFolder folder, ResultParams params);
+    
+    MailMessage getCompleteMessage(int messageId);
 }
