@@ -17,6 +17,7 @@ package com.myslek.ragnarok.persistence.jpa;
 
 import com.bm.testsuite.BaseSessionBeanFixture;
 import com.bm.testsuite.dataloader.EntityInitialDataSet;
+import com.bm.testsuite.dataloader.InitialDataSet;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailHeader;
 import com.myslek.ragnarok.domain.MailMessage;
@@ -29,11 +30,13 @@ import com.myslek.ragnarok.persistence.jpa.JpaMailStoreDao;
 public class JpaMailStoreDaoTest extends BaseSessionBeanFixture<JpaMailStoreDao> {
 
     @SuppressWarnings(value = "unchecked")
-    private static final Class[] usedEntityBeans = { MailBox.class, MailHeader.class,
+    private static final Class[] USED_ENTITY_BEANS = { MailBox.class, MailHeader.class,
             MailMessage.class, MailPart.class, MailServer.class, MailUser.class };
+    
+    private static final InitialDataSet INITIAL_DATA_SET = new MailStoreInitialDataSet();
 
     public JpaMailStoreDaoTest() {
-        super(JpaMailStoreDao.class, usedEntityBeans, new MailStoreInitialDataSet());
+        super(JpaMailStoreDao.class, USED_ENTITY_BEANS, INITIAL_DATA_SET);
     }
 
     public void testDependencyInjection() throws Exception {
