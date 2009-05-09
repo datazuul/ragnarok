@@ -20,8 +20,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import org.jboss.seam.annotations.Name;
+import javax.persistence.Query;
 
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailFolder;
@@ -31,7 +30,6 @@ import com.myslek.ragnarok.persistence.MailStoreDao;
 import com.myslek.ragnarok.persistence.ResultParams;
 
 @Stateless
-@Name("mailStoreDao")
 public class JpaMailStoreDao implements MailStoreDao {
 
 	@PersistenceContext
@@ -67,8 +65,10 @@ public class JpaMailStoreDao implements MailStoreDao {
     }
 
     public MailUser getUser(String username) {
-        // TODO Auto-generated method stub
-        return null;
+        Query query = entityManager.createQuery("from MailUser u where u.username = :username");
+        query.setParameter("username", username);
+        
+        return (MailUser) query.getSingleResult();
     }
 
     public MailUser getUser(String username, String password) {
