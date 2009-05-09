@@ -32,48 +32,70 @@ import com.myslek.ragnarok.persistence.ResultParams;
 @Stateless
 public class JpaMailStoreDao implements MailStoreDao {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
 
+    @SuppressWarnings(value = "unchecked")
     public Object find(Class entityClass, Object primaryKey) {
-        // TODO Auto-generated method stub
-        return null;
+        return entityManager.find(entityClass, primaryKey);
     }
 
     public MailBox getMailBox(int mailBoxId) {
-        // TODO Auto-generated method stub
-        return null;
+        Query query = entityManager.createQuery("from MailBox mb where mb.id = :mailBoxId");
+        query.setParameter("mailBoxId", mailBoxId);
+
+        return (MailBox) query.getSingleResult();
     }
 
+    @SuppressWarnings(value = "unchecked")
     public List<MailBox> getMailBoxes(MailUser user) {
-        // TODO Auto-generated method stub
-        return null;
+        Query query = entityManager.createQuery("from MailBox mb where mb.user.id = :userId");
+        query.setParameter("userId", user.getId());
+
+        return query.getResultList();
     }
 
+    @SuppressWarnings(value = "unchecked")
     public List<MailMessage> getMailMessages(MailBox mailBox, MailFolder folder, ResultParams params) {
-        // TODO Auto-generated method stub
-        return null;
+        Query query = entityManager
+                .createQuery("from MailMessage m where m.mailBox.id = :mailBoxId and m.folder = :folder");
+        query.setParameter("mailBoxId", mailBox.getId());
+        query.setParameter("folder", folder);
+
+        query.setFirstResult(params.getFirstItem());
+        query.setMaxResults(params.getBatchSize());
+
+        return query.getResultList();
     }
 
+    @SuppressWarnings(value = "unchecked")
     public List<String> getUids(MailBox mailBox, MailFolder folder) {
-        // TODO Auto-generated method stub
-        return null;
+        Query query = entityManager
+                .createQuery("select m.uid from MailMessage m where m.mailBox.id = :mailBoxId and m.folder = :folder");
+        query.setParameter("mailBoxId", mailBox.getId());
+        query.setParameter("folder", folder);
+
+        return query.getResultList();
     }
 
     public MailUser getUser(String username) {
         Query query = entityManager.createQuery("from MailUser u where u.username = :username");
         query.setParameter("username", username);
-        
+
         return (MailUser) query.getSingleResult();
     }
 
     public MailUser getUser(String username, String password) {
-        // TODO Auto-generated method stub
-        return null;
+        Query query = entityManager
+                .createQuery("from MailUser u where u.username = :username and u.password = :password");
+        query.setParameter("username", username);
+        query.setParameter("password", password);
+        
+        return (MailUser) query.getSingleResult();
     }
 
     public boolean isUserMailBox(MailUser mailUser, MailBox mailBox) {
@@ -82,7 +104,11 @@ public class JpaMailStoreDao implements MailStoreDao {
     }
 
     public void persist(Object entity) {
+        entityManager.persist(entity);
+    }
+
+    public MailMessage getCompleteMessage(int messageId) {
         // TODO Auto-generated method stub
-        
+        return null;
     }
 }

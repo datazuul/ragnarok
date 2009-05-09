@@ -23,6 +23,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -38,6 +39,8 @@ public class MailBox implements Serializable {
 
 	/** The id. */
 	private Long id;
+	
+	private MailUser user;
 
 	/** The mail store. */
 	private MailServer mailStore;
@@ -70,7 +73,17 @@ public class MailBox implements Serializable {
 		this.id = id;
 	}
 
-	/**
+	@ManyToOne
+	@JoinColumn(name = "USER_ID")
+	public MailUser getUser() {
+        return user;
+    }
+
+    public void setUser(MailUser user) {
+        this.user = user;
+    }
+
+    /**
 	 * Gets the mail store.
 	 * 
 	 * @return the mail store

@@ -19,12 +19,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -36,106 +34,105 @@ import javax.persistence.Transient;
 @Table(name = "RAG_USER")
 public class MailUser implements Serializable {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 1L;
 
-	/** The id. */
-	private Long id;
+    /** The id. */
+    private Long id;
 
-	/** The username. */
-	private String username;
+    /** The username. */
+    private String username;
 
-	/** The password. */
-	private String password;
+    /** The password. */
+    private String password;
 
-	/** The mail boxes. */
-	private Collection<MailBox> mailBoxes = new ArrayList<MailBox>();
+    /** The mail boxes. */
+    private Collection<MailBox> mailBoxes = new ArrayList<MailBox>();
 
-	/**
-	 * Gets the id.
-	 * 
-	 * @return the id
-	 */
-	@Id
-	@GeneratedValue
-	@Column(name = "ID")
-	public Long getId() {
-		return id;
-	}
+    /**
+     * Gets the id.
+     * 
+     * @return the id
+     */
+    @Id
+    @GeneratedValue
+    @Column(name = "ID")
+    public Long getId() {
+        return id;
+    }
 
-	/**
-	 * Sets the id.
-	 * 
-	 * @param id
-	 *            the new id
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
+    /**
+     * Sets the id.
+     * 
+     * @param id
+     *            the new id
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	/**
-	 * Gets the username.
-	 * 
-	 * @return the username
-	 */
-	@Column(name = "USERNAME", nullable = false, unique = true)
-	public String getUsername() {
-		return username;
-	}
+    /**
+     * Gets the username.
+     * 
+     * @return the username
+     */
+    @Column(name = "USERNAME", nullable = false, unique = true)
+    public String getUsername() {
+        return username;
+    }
 
-	/**
-	 * Sets the username.
-	 * 
-	 * @param username
-	 *            the new username
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    /**
+     * Sets the username.
+     * 
+     * @param username
+     *            the new username
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	/**
-	 * Gets the password.
-	 * 
-	 * @return the password
-	 */
-	@Column(name = "PASSWORD", nullable = false)
-	public String getPassword() {
-		return password;
-	}
+    /**
+     * Gets the password.
+     * 
+     * @return the password
+     */
+    @Column(name = "PASSWORD", nullable = false)
+    public String getPassword() {
+        return password;
+    }
 
-	/**
-	 * Sets the password.
-	 * 
-	 * @param password
-	 *            the new password
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    /**
+     * Sets the password.
+     * 
+     * @param password
+     *            the new password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	/**
-	 * Gets the mail boxes.
-	 * 
-	 * @return the mail boxes
-	 */
-	@OneToMany(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "USER_ID")
-	public Collection<MailBox> getMailBoxes() {
-		return mailBoxes;
-	}
+    /**
+     * Gets the mail boxes.
+     * 
+     * @return the mail boxes
+     */
+    @OneToMany(mappedBy = "user")
+    public Collection<MailBox> getMailBoxes() {
+        return mailBoxes;
+    }
 
-	/**
-	 * Sets the mail boxes.
-	 * 
-	 * @param mailBoxes
-	 *            the new mail boxes
-	 */
-	public void setMailBoxes(Collection<MailBox> mailBoxes) {
-		this.mailBoxes = mailBoxes;
-	}
-	
-	@Transient
-	public void addMailBox(MailBox mailBox) {
-	    mailBoxes.add(mailBox);
-	}
+    /**
+     * Sets the mail boxes.
+     * 
+     * @param mailBoxes
+     *            the new mail boxes
+     */
+    public void setMailBoxes(Collection<MailBox> mailBoxes) {
+        this.mailBoxes = mailBoxes;
+    }
+
+    @Transient
+    public void addMailBox(MailBox mailBox) {
+        mailBoxes.add(mailBox);
+    }
 }
