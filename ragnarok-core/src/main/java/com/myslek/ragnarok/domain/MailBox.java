@@ -73,7 +73,7 @@ public class MailBox implements Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name = "USER_ID")
 	public MailUser getUser() {
         return user;

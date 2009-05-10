@@ -39,6 +39,10 @@ public class JpaMailStoreDao implements MailStoreDao {
         return entityManager;
     }
 
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
     @SuppressWarnings(value = "unchecked")
     public Object find(Class entityClass, Object primaryKey) {
         return entityManager.find(entityClass, primaryKey);

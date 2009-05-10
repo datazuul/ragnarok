@@ -15,75 +15,97 @@
  */
 package com.myslek.ragnarok.persistence.jpa;
 
-import com.bm.testsuite.BaseSessionBeanFixture;
-import com.bm.testsuite.dataloader.EntityInitialDataSet;
-import com.bm.testsuite.dataloader.InitialDataSet;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
 import com.myslek.ragnarok.domain.MailBox;
-import com.myslek.ragnarok.domain.MailHeader;
-import com.myslek.ragnarok.domain.MailMessage;
-import com.myslek.ragnarok.domain.MailPart;
 import com.myslek.ragnarok.domain.MailServer;
 import com.myslek.ragnarok.domain.MailServerProtocol;
 import com.myslek.ragnarok.domain.MailUser;
-import com.myslek.ragnarok.persistence.jpa.JpaMailStoreDao;
 
-public class JpaMailStoreDaoTest extends BaseSessionBeanFixture<JpaMailStoreDao> {
+public class JpaMailStoreDaoTest extends AbstractJpaTest {
 
-    @SuppressWarnings(value = "unchecked")
-    private static final Class[] USED_ENTITY_BEANS = { MailBox.class, MailHeader.class,
-            MailMessage.class, MailPart.class, MailServer.class, MailUser.class };
-    
-    private static final InitialDataSet INITIAL_DATA_SET = new MailStoreInitialDataSet();
+    private static Logger LOG = Logger.getLogger(JpaMailStoreDaoTest.class);
 
-    public JpaMailStoreDaoTest() {
-        super(JpaMailStoreDao.class, USED_ENTITY_BEANS, INITIAL_DATA_SET);
+    private JpaMailStoreDao mailStoreDao;
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        mailStoreDao = new JpaMailStoreDao();
+        mailStoreDao.setEntityManager(getEntityManager());
+        createInitialData();
     }
 
-    public void testDependencyInjection() throws Exception {
-        final JpaMailStoreDao bean = this.getBeanToTest();
-        assertNotNull("bean should not be null", bean);
-        assertNotNull("entity manager should not be null", bean.getEntityManager());
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        mailStoreDao = null;
     }
 
     public void testGetUserByName() throws Exception {
-        final JpaMailStoreDao bean = this.getBeanToTest();
-        assertNotNull("bean should not be null", bean);
-        MailUser user = bean.getUser("ragnarok");
+        beginTransaction();
+        MailUser user = mailStoreDao.getUser("ragnarok");
+        commitTransaction();
         assertNotNull("user should not be null", user);
+        LOG.info("### userId: [" + user.getId() + "] ###");
         assertEquals("user name should be 'ragnarok'", "ragnarok", user.getUsername());
     }
 
-    static class MailStoreInitialDataSet extends EntityInitialDataSet<MailUser> {
+    public void testGetUserByNameAndPassword() throws Exception {
+        beginTransaction();
+        MailUser user = mailStoreDao.getUser("ragnarok", "ragnarok");
+        commitTransaction();
+        assertNotNull("user should not be null", user);
+        LOG.info("### userId: [" + user.getId() + "] ###");
+        assertEquals("user name should be 'ragnarok'", "ragnarok", user.getUsername());
+        assertEquals("user password should be 'ragnarok'", "ragnarok", user.getPassword());
+    }
 
-        public MailStoreInitialDataSet() {
-            super(MailUser.class);
-        }
+    public void testGetMailBoxesByUser() throws Exception {
+        beginTransaction();
+        MailUser user = mailStoreDao.getUser("ragnarok", "ragnarok");
+        assertNotNull("user should not be null", user);
+        
+        List<MailBox> mailBoxes = mailStoreDao.getMailBoxes(user);
+        commitTransaction();
+        assertNotNull("mailBoxes should be not null");
+        assertEquals("mailBoxes size should be: 1", 1, mailBoxes.size());
+    }
 
-        public void create() {
-            MailUser user = new MailUser();
-            user.setUsername("ragnarok");
-            user.setPassword("ragnarok");
+    private MailBox createMailBox() {
+        MailServer in = new MailServer();
+        in.setHostname("localhost");
+        in.setUsername("mailuser");
+        in.setPassword("mailuser");
+        in.setProtocol(MailServerProtocol.POP3);
 
-            MailServer in = new MailServer();
-            in.setHostname("localhost");
-            in.setUsername("mailuser");
-            in.setPassword("mailuser");
-            in.setProtocol(MailServerProtocol.POP3);
+        MailServer out = new MailServer();
+        out.setHostname("localhost");
+        out.setUsername("mailuser");
+        out.setPassword("mailuser");
+        out.setProtocol(MailServerProtocol.SMTP);
 
-            MailServer out = new MailServer();
-            out.setHostname("localhost");
-            out.setUsername("mailuser");
-            out.setPassword("mailuser");
-            out.setProtocol(MailServerProtocol.SMTP);
+        MailBox mailBox = new MailBox();
+        mailBox.setDefaultMailBox(true);
+        mailBox.setMailStore(in);
+        mailBox.setMailTransport(out);
 
-            MailBox mailBox = new MailBox();
-            mailBox.setDefaultMailBox(true);
-            mailBox.setMailStore(in);
-            mailBox.setMailTransport(out);
+        return mailBox;
+    }
 
-            user.addMailBox(mailBox);
+    public void createInitialData() {
+        beginTransaction();
+        MailUser user = new MailUser();
+        user.setUsername("ragnarok");
+        user.setPassword("ragnarok");
 
-            this.add(user);
-        }
+        MailBox mailBox = createMailBox();
+
+        user.addMailBox(mailBox);
+
+        getEntityManager().persist(mailBox);
+        commitTransaction();
     }
 }

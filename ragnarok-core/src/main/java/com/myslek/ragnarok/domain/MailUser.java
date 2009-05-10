@@ -25,7 +25,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * The Class MailUser.
@@ -131,8 +130,8 @@ public class MailUser implements Serializable {
         this.mailBoxes = mailBoxes;
     }
 
-    @Transient
     public void addMailBox(MailBox mailBox) {
+        mailBox.setUser(this);
         mailBoxes.add(mailBox);
     }
 }
