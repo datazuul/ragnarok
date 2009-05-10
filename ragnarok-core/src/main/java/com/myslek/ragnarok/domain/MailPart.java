@@ -53,6 +53,8 @@ public class MailPart implements Serializable {
     /** The id. */
     private Long id;
 
+    private String token;
+
     /** The text. */
     private String text;
 
@@ -130,6 +132,15 @@ public class MailPart implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Column(name = "TOKEN", length = 10)
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     /**
@@ -259,8 +270,8 @@ public class MailPart implements Serializable {
      * 
      * @return the headers
      */
-    @OneToMany(cascade = {CascadeType.ALL})
-    @JoinColumn(name="PART_ID")
+    @OneToMany(cascade = { CascadeType.ALL })
+    @JoinColumn(name = "PART_ID")
     public List<MailHeader> getHeaders() {
         return headers;
     }
