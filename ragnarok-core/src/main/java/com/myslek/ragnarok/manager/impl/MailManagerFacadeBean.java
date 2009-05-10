@@ -48,9 +48,9 @@ public class MailManagerFacadeBean implements MailManagerFacade {
         getMailStoreManager().storeMessages(messages);
     }
 
-    public List<MailMessage> getMessages(MailUser user, int mailBoxId, MailFolder folder,
+    public List<MailMessage> getMessages(MailUser user, String mailBoxToken, MailFolder folder,
             ResultParams params) {
-        return getMailStoreManager().getMessages(user, mailBoxId, folder, params);
+        return getMailStoreManager().getMessages(user, mailBoxToken, folder, params);
     }
 
     public MailSessionManager getMailSessionManager() {

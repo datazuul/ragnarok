@@ -122,12 +122,19 @@
         <artifactId>richfaces-ui</artifactId>
         <version>3.1.2.GA</version>
       </dependency>
-      
+
       <!-- log4j -->
       <dependency>
         <groupId>log4j</groupId>
         <artifactId>log4j</artifactId>
         <version>1.2.8</version>
+      </dependency>
+
+      <!-- commons lang -->
+      <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>2.4</version>
       </dependency>
 
       <!-- Test dependencies -->
@@ -158,6 +165,14 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.4</version>
+    </dependency>
+  </dependencies>
 
 
   <build>

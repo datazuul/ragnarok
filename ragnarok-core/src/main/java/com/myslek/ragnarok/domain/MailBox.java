@@ -40,6 +40,8 @@ public class MailBox implements Serializable {
 	/** The id. */
 	private Long id;
 	
+	private String token;
+	
 	private MailUser user;
 
 	/** The mail store. */
@@ -72,8 +74,17 @@ public class MailBox implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	@Column(name="TOKEN", nullable=false, length=10)
+	public String getToken() {
+        return token;
+    }
 
-	@ManyToOne(cascade={CascadeType.ALL})
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    @ManyToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name = "USER_ID")
 	public MailUser getUser() {
         return user;

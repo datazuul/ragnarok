@@ -43,12 +43,12 @@ public class MessageController {
     public DataModel getMessages() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         MailUser user = (MailUser) FacesUtils.getSessionAttribute(ctx, MailConstatnts.MAIL_USER);
-        int mailBoxId = FacesUtils.getRequestParamAsInt(ctx, MailConstatnts.MAILBOX_ID);
+        String mailBoxToken = FacesUtils.getRequestParam(ctx, MailConstatnts.MAILBOX_ID);
         MailFolder folder = FacesUtils.getRequestParamAsEnum(ctx, MailFolder.class,
                 MailConstatnts.FOLDER);
-        if (validateInput(user, mailBoxId, folder)) {
+        if (validateInput(user, mailBoxToken, folder)) {
             if (messages == null || !refreshed) {
-                messages = getNextMessages(user, mailBoxId, folder);
+                messages = getNextMessages(user, mailBoxToken, folder);
             }
             return messages;
         } else {
@@ -56,9 +56,9 @@ public class MessageController {
         }
     }
 
-    protected DataModel getNextMessages(MailUser user, int mailBoxId, MailFolder folder) {
+    protected DataModel getNextMessages(MailUser user, String mailBoxToken, MailFolder folder) {
         ResultParams params = new ResultParams(firstItem, batchSize);
-        messages = new ListDataModel(mailFacade.getMessages(user, mailBoxId, folder, params));
+        messages = new ListDataModel(mailFacade.getMessages(user, mailBoxToken, folder, params));
         refreshed = true;
         return messages;
     }
@@ -67,7 +67,7 @@ public class MessageController {
         return 0;
     }
 
-    private boolean validateInput(MailUser user, int mailBoxId, MailFolder folder) {
-        return user != null && mailBoxId != -1 && folder != null;
+    private boolean validateInput(MailUser user, String mailBoxToken, MailFolder folder) {
+        return user != null && mailBoxToken != null && folder != null;
     }
 }

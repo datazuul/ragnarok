@@ -44,6 +44,8 @@ public class MailMessage extends MailPart {
 	private static final long serialVersionUID = 1L;
 	
 	private MailBox mailBox;
+	
+	private String token;
 
 	/** The uid. */
 	private String uid;
@@ -78,6 +80,15 @@ public class MailMessage extends MailPart {
 
     public void setMailBox(MailBox mailBox) {
         this.mailBox = mailBox;
+    }
+    
+    @Column(name="TOKEN", nullable=false, length=10)
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
 	/**

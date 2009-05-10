@@ -29,6 +29,6 @@ public interface MailManagerFacade {
      */
     void fetchAndStoreMessages(MailBox mailBox, MessageFilter filter);
 
-    List<MailMessage> getMessages(MailUser user, int mailBoxId, MailFolder folder,
+    List<MailMessage> getMessages(MailUser user, String mailBoxToken, MailFolder folder,
             ResultParams params);
 }

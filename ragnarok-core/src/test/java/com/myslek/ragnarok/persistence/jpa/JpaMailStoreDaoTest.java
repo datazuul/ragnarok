@@ -30,6 +30,12 @@ public class JpaMailStoreDaoTest extends AbstractJpaTest {
 
     private static Logger LOG = Logger.getLogger(JpaMailStoreDaoTest.class);
 
+    private static final String MAILBOX_TOKEN = "WERTYUBVCD";
+
+    private static final String MESSAGE_TOKEN = "KQRZEWDCJL";
+
+    private static final String MESSAGE_UID = "XFTRQWEC";
+
     private JpaMailStoreDao mailStoreDao;
 
     @Override
@@ -72,26 +78,28 @@ public class JpaMailStoreDaoTest extends AbstractJpaTest {
 
         List<MailBox> mailBoxes = mailStoreDao.getMailBoxes(user);
         commitTransaction();
-        assertNotNull("mailBoxes should be not null", mailBoxes);
+        assertNotNull("mailBoxes should not be null", mailBoxes);
         assertEquals("mailBoxes size should be: 1", 1, mailBoxes.size());
     }
     
-    public void testGetMessagesByMailBoxAndFolder() throws Exception {
+    public void testGetMailBoxByToken() throws Exception {
         beginTransaction();
-        MailUser user = mailStoreDao.getUser("ragnarok", "ragnarok");
-        assertNotNull("user should not be null", user);
-        List<MailBox> mailBoxes = mailStoreDao.getMailBoxes(user);
-        assertNotNull("mailBoxes should be not null", mailBoxes);
-        assertEquals("mailBoxes size should be: 1", 1, mailBoxes.size());
-        MailBox mailBox = mailBoxes.get(0);
-        ResultParams params = new ResultParams(0, 10);
-        List<MailMessage> messages = mailStoreDao.getMailMessages(mailBox, MailFolder.INBOX, params);
+        MailBox mailBox = mailStoreDao.getMailBox(MAILBOX_TOKEN);
         commitTransaction();
-        assertNotNull("messages should be not null", messages);
-        assertEquals("messages size should be: 1", 1, messages.size());
+        assertNotNull("mailBox should not be null", mailBox);
     }
 
-    
+    public void testGetMessagesByMailBoxAndFolder() throws Exception {
+        beginTransaction();
+        MailBox mailBox = mailStoreDao.getMailBox(MAILBOX_TOKEN);
+        assertNotNull("mailBox should not be null", mailBox);
+        ResultParams params = new ResultParams(0, 10);
+        List<MailMessage> messages = mailStoreDao
+                .getMailMessages(mailBox, MailFolder.INBOX, params);
+        commitTransaction();
+        assertNotNull("messages should not be null", messages);
+        assertEquals("messages size should be: 1", 1, messages.size());
+    }
 
     public void createInitialData() {
         beginTransaction();
@@ -99,11 +107,12 @@ public class JpaMailStoreDaoTest extends AbstractJpaTest {
         user.setUsername("ragnarok");
         user.setPassword("ragnarok");
 
-        MailBox mailBox = TestUtils.createMailBox();
+        MailBox mailBox = TestUtils.createMailBox(MAILBOX_TOKEN);
 
         user.addMailBox(mailBox);
 
-        MailMessage message = TestUtils.createMultipartMailMessage(mailBox, MailFolder.INBOX);
+        MailMessage message = TestUtils.createMultipartMailMessage(mailBox, MailFolder.INBOX,
+                MESSAGE_TOKEN, MESSAGE_UID);
 
         getEntityManager().persist(mailBox);
         getEntityManager().persist(message);

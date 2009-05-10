@@ -48,9 +48,9 @@ public class JpaMailStoreDao implements MailStoreDao {
         return entityManager.find(entityClass, primaryKey);
     }
 
-    public MailBox getMailBox(int mailBoxId) {
-        Query query = entityManager.createQuery("from MailBox mb where mb.id = :mailBoxId");
-        query.setParameter("mailBoxId", mailBoxId);
+    public MailBox getMailBox(String token) {
+        Query query = entityManager.createQuery("from MailBox mb where mb.token = :token");
+        query.setParameter("token", token);
 
         return (MailBox) query.getSingleResult();
     }
@@ -111,7 +111,7 @@ public class JpaMailStoreDao implements MailStoreDao {
         entityManager.persist(entity);
     }
 
-    public MailMessage getCompleteMessage(int messageId) {
+    public MailMessage getCompleteMessage(String token) {
         // TODO Auto-generated method stub
         return null;
     }

@@ -47,9 +47,9 @@ public class MailStoreManagerBean implements MailStoreManager {
 		return getMailStoreDao().getUids(mailBox, mailFolder);
 	}
 
-    public List<MailMessage> getMessages(MailUser user, int mailBoxId, MailFolder folder,
+    public List<MailMessage> getMessages(MailUser user, String mailBoxToken, MailFolder folder,
             ResultParams params) {
-        MailBox mailBox = mailStoreDao.getMailBox(mailBoxId);
+        MailBox mailBox = mailStoreDao.getMailBox(mailBoxToken);
         if (mailBox == null) {
             //TODO: throw application exception
         }
