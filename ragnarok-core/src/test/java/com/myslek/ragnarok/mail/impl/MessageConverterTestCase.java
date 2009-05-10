@@ -67,9 +67,6 @@ public class MessageConverterTestCase extends AbstractMailTestCase {
 
 		MailPart multiPart = mailMessage.getParts().get(0);
 		Assert.assertNotNull("MailMessage multiPart must not be null", multiPart);
-		Assert.assertNotNull("MailMessage multiPart parent must not be null", multiPart.getParent());
-		Assert.assertSame("MailMessage multiPart parent must be mailMessage object",
-				mailMessage, multiPart.getParent());
 		Assert.assertEquals("Expected MailMessage multiPart parts size: 2", 2, multiPart.getParts().size());
 		
 		MailPart part1 = multiPart.getParts().get(0);

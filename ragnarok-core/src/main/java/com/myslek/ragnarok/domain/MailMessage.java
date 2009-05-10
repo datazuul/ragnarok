@@ -82,7 +82,7 @@ public class MailMessage extends MailPart {
         this.mailBox = mailBox;
     }
     
-    @Column(name="TOKEN", nullable=false, length=10)
+    @Column(name="TOKEN", length=10)
     public String getToken() {
         return token;
     }
@@ -137,7 +137,7 @@ public class MailMessage extends MailPart {
 	 * @return the folder
 	 */
 	@Enumerated(EnumType.STRING)
-	@Column(name="FOLDER", nullable=false, length=10)
+	@Column(name="FOLDER", length=10)
 	public MailFolder getFolder() {
 		return folder;
 	}

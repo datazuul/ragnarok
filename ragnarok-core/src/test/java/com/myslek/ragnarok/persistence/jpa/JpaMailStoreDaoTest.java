@@ -110,6 +110,15 @@ public class JpaMailStoreDaoTest extends AbstractJpaTest {
         assertNotNull("messages should not be null", messages);
         assertEquals("messages size should be: 1", 1, messages.size());
     }
+    
+    public void testGetCompleteMessage() throws Exception {
+        beginTransaction();
+        MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
+        assertNotNull("user should not be null", user);
+        
+        MailMessage message = mailStoreDao.getCompleteMessage(user, MESSAGE_TOKEN);
+        assertNotNull("message should not be null", message);
+    }
 
     public void createInitialData() {
         beginTransaction();

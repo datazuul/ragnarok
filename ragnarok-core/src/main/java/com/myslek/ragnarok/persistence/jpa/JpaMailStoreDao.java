@@ -110,8 +110,8 @@ public class JpaMailStoreDao implements MailStoreDao {
 
     public MailMessage getCompleteMessage(MailUser user, String token) {
         Query query = entityManager.createQuery("select m from MailMessage m, MailBox mb "
-                + "join fetch m.parts join fetch m.headers where m.token = :token "
-                + "and m.mailBox.id = mb.id and mb.user.id = :userId");
+                + "left join fetch m.parts where m.token = :token and m.mailBox.id = mb.id "
+                + "and mb.user.id = :userId");
         query.setParameter("token", token);
         query.setParameter("userId", user.getId());
 
