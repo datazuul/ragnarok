@@ -38,7 +38,7 @@ public interface MailStoreDao {
 
     List<MailBox> getMailBoxes(MailUser user);
 
-    MailBox getMailBox(int mailBoxId);
+    MailBox getMailBox(String token);
 
     boolean isUserMailBox(MailUser mailUser, MailBox mailBox);
 
@@ -46,5 +46,5 @@ public interface MailStoreDao {
 
     List<MailMessage> getMailMessages(MailBox mailBox, MailFolder folder, ResultParams params);
     
-    MailMessage getCompleteMessage(int messageId);
+    MailMessage getCompleteMessage(String token);
 }

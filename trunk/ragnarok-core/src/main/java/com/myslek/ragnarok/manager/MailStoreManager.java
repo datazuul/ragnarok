@@ -30,6 +30,6 @@ public interface MailStoreManager {
 	 */
 	Collection<String> getUids(MailBox mailBox, MailFolder mailFolder);
 	
-	List<MailMessage> getMessages(MailUser user, int mailBoxId, MailFolder folder,
+	List<MailMessage> getMessages(MailUser user, String mailBoxToken, MailFolder folder,
             ResultParams params);
 }

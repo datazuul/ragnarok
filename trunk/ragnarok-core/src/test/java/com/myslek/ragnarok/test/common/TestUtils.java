@@ -88,8 +88,8 @@ public final class TestUtils {
 
     private TestUtils() {
     }
-    
-    public static MailBox createMailBox() {
+
+    public static MailBox createMailBox(String token) {
         MailServer in = new MailServer();
         in.setHostname("localhost");
         in.setUsername("mailuser");
@@ -103,6 +103,7 @@ public final class TestUtils {
         out.setProtocol(MailServerProtocol.SMTP);
 
         MailBox mailBox = new MailBox();
+        mailBox.setToken(token);
         mailBox.setDefaultMailBox(true);
         mailBox.setMailStore(in);
         mailBox.setMailTransport(out);
@@ -110,10 +111,13 @@ public final class TestUtils {
         return mailBox;
     }
 
-    public static MailMessage createMailMessage(MailBox mailBox, MailFolder folder) {
+    public static MailMessage createMailMessage(MailBox mailBox, MailFolder folder, String token,
+            String uid) {
         MailMessage mailMessage = new MailMessage();
         mailMessage.setMailBox(mailBox);
         mailMessage.setFolder(folder);
+        mailMessage.setToken(token);
+        mailMessage.setUid(uid);
         mailMessage.addFrom(FROM);
         mailMessage.addTo(TO);
         mailMessage.addCc(CC1);
@@ -126,8 +130,9 @@ public final class TestUtils {
         return mailMessage;
     }
 
-    public static MailMessage createMultipartMailMessage(MailBox mailBox, MailFolder folder) {
-        MailMessage mailMessage = createMailMessage(mailBox, folder);
+    public static MailMessage createMultipartMailMessage(MailBox mailBox, MailFolder folder,
+            String token, String uid) {
+        MailMessage mailMessage = createMailMessage(mailBox, folder, token, uid);
         mailMessage.setContentType(MULTIPART_MIXED_TYPE);
 
         MailPart part1 = new MailPart();
