@@ -38,13 +38,11 @@ public interface MailStoreDao {
 
     List<MailBox> getMailBoxes(MailUser user);
 
-    MailBox getMailBox(String token);
-
-    boolean isUserMailBox(MailUser mailUser, MailBox mailBox);
+    MailBox getMailBox(MailUser user, String token);
 
     List<String> getUids(MailBox mailBox, MailFolder folder);
 
     List<MailMessage> getMailMessages(MailBox mailBox, MailFolder folder, ResultParams params);
     
-    MailMessage getCompleteMessage(String token);
+    MailMessage getCompleteMessage(MailUser user, String token);
 }

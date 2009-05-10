@@ -48,9 +48,11 @@ public class JpaMailStoreDao implements MailStoreDao {
         return entityManager.find(entityClass, primaryKey);
     }
 
-    public MailBox getMailBox(String token) {
-        Query query = entityManager.createQuery("from MailBox mb where mb.token = :token");
+    public MailBox getMailBox(MailUser user, String token) {
+        Query query = entityManager
+                .createQuery("from MailBox mb where mb.token = :token and mb.user.id = :userId");
         query.setParameter("token", token);
+        query.setParameter("userId", user.getId());
 
         return (MailBox) query.getSingleResult();
     }
@@ -98,21 +100,21 @@ public class JpaMailStoreDao implements MailStoreDao {
                 .createQuery("from MailUser u where u.username = :username and u.password = :password");
         query.setParameter("username", username);
         query.setParameter("password", password);
-        
-        return (MailUser) query.getSingleResult();
-    }
 
-    public boolean isUserMailBox(MailUser mailUser, MailBox mailBox) {
-        // TODO Auto-generated method stub
-        return false;
+        return (MailUser) query.getSingleResult();
     }
 
     public void persist(Object entity) {
         entityManager.persist(entity);
     }
 
-    public MailMessage getCompleteMessage(String token) {
-        // TODO Auto-generated method stub
-        return null;
+    public MailMessage getCompleteMessage(MailUser user, String token) {
+        Query query = entityManager.createQuery("select m from MailMessage m, MailBox mb "
+                + "join fetch m.parts join fetch m.headers where m.token = :token "
+                + "and m.mailBox.id = mb.id and mb.user.id = :userId");
+        query.setParameter("token", token);
+        query.setParameter("userId", user.getId());
+
+        return (MailMessage) query.getSingleResult();
     }
 }

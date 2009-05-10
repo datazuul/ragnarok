@@ -29,6 +29,10 @@ import com.myslek.ragnarok.test.common.TestUtils;
 public class JpaMailStoreDaoTest extends AbstractJpaTest {
 
     private static Logger LOG = Logger.getLogger(JpaMailStoreDaoTest.class);
+    
+    private static final String USERNAME = "ragnarok";
+    
+    private static final String PASSWORD = "ragnarok";
 
     private static final String MAILBOX_TOKEN = "WERTYUBVCD";
 
@@ -54,26 +58,26 @@ public class JpaMailStoreDaoTest extends AbstractJpaTest {
 
     public void testGetUserByName() throws Exception {
         beginTransaction();
-        MailUser user = mailStoreDao.getUser("ragnarok");
+        MailUser user = mailStoreDao.getUser(USERNAME);
         commitTransaction();
         assertNotNull("user should not be null", user);
         LOG.info("### userId: [" + user.getId() + "] ###");
-        assertEquals("user name should be 'ragnarok'", "ragnarok", user.getUsername());
+        assertEquals("user name should be '" + USERNAME + "'", USERNAME, user.getUsername());
     }
 
     public void testGetUserByNameAndPassword() throws Exception {
         beginTransaction();
-        MailUser user = mailStoreDao.getUser("ragnarok", "ragnarok");
+        MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
         commitTransaction();
         assertNotNull("user should not be null", user);
         LOG.info("### userId: [" + user.getId() + "] ###");
-        assertEquals("user name should be 'ragnarok'", "ragnarok", user.getUsername());
-        assertEquals("user password should be 'ragnarok'", "ragnarok", user.getPassword());
+        assertEquals("user name should be '" + USERNAME + "'", USERNAME, user.getUsername());
+        assertEquals("user password should be '" + PASSWORD + "'", PASSWORD, user.getPassword());
     }
 
     public void testGetMailBoxesByUser() throws Exception {
         beginTransaction();
-        MailUser user = mailStoreDao.getUser("ragnarok", "ragnarok");
+        MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
         assertNotNull("user should not be null", user);
 
         List<MailBox> mailBoxes = mailStoreDao.getMailBoxes(user);
@@ -84,14 +88,20 @@ public class JpaMailStoreDaoTest extends AbstractJpaTest {
     
     public void testGetMailBoxByToken() throws Exception {
         beginTransaction();
-        MailBox mailBox = mailStoreDao.getMailBox(MAILBOX_TOKEN);
+        MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
+        assertNotNull("user should not be null", user);
+        
+        MailBox mailBox = mailStoreDao.getMailBox(user, MAILBOX_TOKEN);
         commitTransaction();
         assertNotNull("mailBox should not be null", mailBox);
     }
 
     public void testGetMessagesByMailBoxAndFolder() throws Exception {
         beginTransaction();
-        MailBox mailBox = mailStoreDao.getMailBox(MAILBOX_TOKEN);
+        MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
+        assertNotNull("user should not be null", user);
+        
+        MailBox mailBox = mailStoreDao.getMailBox(user, MAILBOX_TOKEN);
         assertNotNull("mailBox should not be null", mailBox);
         ResultParams params = new ResultParams(0, 10);
         List<MailMessage> messages = mailStoreDao
@@ -104,8 +114,8 @@ public class JpaMailStoreDaoTest extends AbstractJpaTest {
     public void createInitialData() {
         beginTransaction();
         MailUser user = new MailUser();
-        user.setUsername("ragnarok");
-        user.setPassword("ragnarok");
+        user.setUsername(USERNAME);
+        user.setPassword(PASSWORD);
 
         MailBox mailBox = TestUtils.createMailBox(MAILBOX_TOKEN);
 
