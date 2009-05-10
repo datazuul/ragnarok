@@ -20,9 +20,11 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.myslek.ragnarok.domain.MailBox;
-import com.myslek.ragnarok.domain.MailServer;
-import com.myslek.ragnarok.domain.MailServerProtocol;
+import com.myslek.ragnarok.domain.MailFolder;
+import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.domain.MailUser;
+import com.myslek.ragnarok.persistence.ResultParams;
+import com.myslek.ragnarok.test.common.TestUtils;
 
 public class JpaMailStoreDaoTest extends AbstractJpaTest {
 
@@ -67,33 +69,29 @@ public class JpaMailStoreDaoTest extends AbstractJpaTest {
         beginTransaction();
         MailUser user = mailStoreDao.getUser("ragnarok", "ragnarok");
         assertNotNull("user should not be null", user);
-        
+
         List<MailBox> mailBoxes = mailStoreDao.getMailBoxes(user);
         commitTransaction();
-        assertNotNull("mailBoxes should be not null");
+        assertNotNull("mailBoxes should be not null", mailBoxes);
         assertEquals("mailBoxes size should be: 1", 1, mailBoxes.size());
     }
-
-    private MailBox createMailBox() {
-        MailServer in = new MailServer();
-        in.setHostname("localhost");
-        in.setUsername("mailuser");
-        in.setPassword("mailuser");
-        in.setProtocol(MailServerProtocol.POP3);
-
-        MailServer out = new MailServer();
-        out.setHostname("localhost");
-        out.setUsername("mailuser");
-        out.setPassword("mailuser");
-        out.setProtocol(MailServerProtocol.SMTP);
-
-        MailBox mailBox = new MailBox();
-        mailBox.setDefaultMailBox(true);
-        mailBox.setMailStore(in);
-        mailBox.setMailTransport(out);
-
-        return mailBox;
+    
+    public void testGetMessagesByMailBoxAndFolder() throws Exception {
+        beginTransaction();
+        MailUser user = mailStoreDao.getUser("ragnarok", "ragnarok");
+        assertNotNull("user should not be null", user);
+        List<MailBox> mailBoxes = mailStoreDao.getMailBoxes(user);
+        assertNotNull("mailBoxes should be not null", mailBoxes);
+        assertEquals("mailBoxes size should be: 1", 1, mailBoxes.size());
+        MailBox mailBox = mailBoxes.get(0);
+        ResultParams params = new ResultParams(0, 10);
+        List<MailMessage> messages = mailStoreDao.getMailMessages(mailBox, MailFolder.INBOX, params);
+        commitTransaction();
+        assertNotNull("messages should be not null", messages);
+        assertEquals("messages size should be: 1", 1, messages.size());
     }
+
+    
 
     public void createInitialData() {
         beginTransaction();
@@ -101,11 +99,14 @@ public class JpaMailStoreDaoTest extends AbstractJpaTest {
         user.setUsername("ragnarok");
         user.setPassword("ragnarok");
 
-        MailBox mailBox = createMailBox();
+        MailBox mailBox = TestUtils.createMailBox();
 
         user.addMailBox(mailBox);
 
+        MailMessage message = TestUtils.createMultipartMailMessage(mailBox, MailFolder.INBOX);
+
         getEntityManager().persist(mailBox);
+        getEntityManager().persist(message);
         commitTransaction();
     }
 }
