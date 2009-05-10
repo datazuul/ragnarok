@@ -75,7 +75,7 @@ public class JpaMailStoreDaoTest extends AbstractJpaTest {
         assertEquals("user password should be '" + PASSWORD + "'", PASSWORD, user.getPassword());
     }
 
-    public void testGetMailBoxesByUser() throws Exception {
+    public void testGetMailBoxesByExistingUser() throws Exception {
         beginTransaction();
         MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
         assertNotNull("user should not be null", user);
@@ -86,7 +86,7 @@ public class JpaMailStoreDaoTest extends AbstractJpaTest {
         assertEquals("mailBoxes size should be: 1", 1, mailBoxes.size());
     }
     
-    public void testGetMailBoxByToken() throws Exception {
+    public void testGetMailBoxByExistingUserAndToken() throws Exception {
         beginTransaction();
         MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
         assertNotNull("user should not be null", user);
