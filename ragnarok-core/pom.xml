@@ -17,12 +17,10 @@
   <properties>
     <glassfish.home>c:/Users/rafal/dev/glassfish</glassfish.home>
     <peristenceunit>ragnarok</peristenceunit>
-    <version.jboss-embedded>beta3.SP5</version.jboss-embedded>
   </properties>
 
   <dependencies>
     <!-- system dependencies-->
-
     <dependency>
       <groupId>glassfish</groupId>
       <artifactId>appserv-rt.jar</artifactId>
@@ -30,7 +28,6 @@
       <scope>system</scope>
       <systemPath>${glassfish.home}/lib/appserv-rt.jar</systemPath>
     </dependency>
-
     <dependency>
       <groupId>glassfish</groupId>
       <artifactId>javaee.jar</artifactId>
@@ -38,21 +35,41 @@
       <scope>system</scope>
       <systemPath>${glassfish.home}/lib/javaee.jar</systemPath>
     </dependency>
-
     <!-- javamail dependencies -->
     <dependency>
       <groupId>javax.mail</groupId>
       <artifactId>mail</artifactId>
     </dependency>
-
     <dependency>
       <groupId>javax.activation</groupId>
       <artifactId>activation</artifactId>
     </dependency>
-
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
+    </dependency>
+    <!-- Hibernate -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-annotations</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.5.0</version>
     </dependency>
 
     <!-- test dependencies -->
@@ -61,36 +78,30 @@
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.jmock</groupId>
       <artifactId>jmock-junit3</artifactId>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.jmock</groupId>
       <artifactId>jmock-legacy</artifactId>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.jvnet.mock-javamail</groupId>
       <artifactId>mock-javamail</artifactId>
       <scope>test</scope>
     </dependency>
-
-    <!-- Ejb3Unit -->
     <dependency>
-      <groupId>com.bm</groupId>
-      <artifactId>ejb3unit</artifactId>
-      <scope>test</scope>
+      <groupId>hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
     </dependency>
-    
+    <!-- openejb container for running tests -->
     <dependency>
-      <groupId>org.jboss.logging</groupId>
-      <artifactId>jboss-logging-log4j</artifactId>
-      <version>2.0.6.GA</version>
+      <groupId>org.apache.openejb</groupId>
+      <artifactId>openejb-core</artifactId>
+      <version>3.1</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -138,5 +149,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>

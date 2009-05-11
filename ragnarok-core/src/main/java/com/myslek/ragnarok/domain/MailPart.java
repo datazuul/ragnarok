@@ -291,7 +291,7 @@ public class MailPart implements Serializable {
      * 
      * @return the parts
      */
-    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+    @OneToMany(cascade = { CascadeType.ALL })
     @JoinColumn(name = "PARENT_ID")
     public List<MailPart> getParts() {
         return parts;

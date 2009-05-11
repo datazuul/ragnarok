@@ -32,18 +32,6 @@
 		</dependency>
 
 		<!-- additonal dependencies -->
-
-		<dependency>
-			<groupId>org.jboss.seam</groupId>
-			<artifactId>jboss-seam</artifactId>
-			<type>ejb</type>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.el</groupId>
-					<artifactId>el-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
@@ -53,18 +41,6 @@
 					<artifactId>hibernate</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.seam</groupId>
-			<artifactId>jboss-el</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.el</groupId>
-					<artifactId>el-api</artifactId>
-				</exclusion>
-			</exclusions>
-			<type>jar</type>
 		</dependency>
 
 		<dependency>
@@ -99,17 +75,6 @@
 							<groupId>com.myslek.ragnarok</groupId>
 							<artifactId>ragnarok-core</artifactId>
 						</ejbModule>
-
-						<ejbModule>
-							<groupId>org.jboss.seam</groupId>
-							<artifactId>jboss-seam</artifactId>
-						</ejbModule>
-
-						<jarModule>
-							<groupId>org.jboss.seam</groupId>
-							<artifactId>jboss-el</artifactId>
-							<bundleDir>lib</bundleDir>
-						</jarModule>
 
 						<jarModule>
 							<groupId>commons-beanutils</groupId>

@@ -26,15 +26,6 @@
       <id>jboss.com</id>
       <url>http://repository.jboss.com/maven2</url>
     </repository>
-    <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>ejb3unit</id>
-      <name>ejb3unit repository</name>
-      <url>http://ejb3unit.sourceforge.net/maven2</url>
-    </repository>
-
   </repositories>
 
   <!-- Additional plugin repositories -->
@@ -62,39 +53,49 @@
         <artifactId>javaee-api</artifactId>
         <version>5</version>
       </dependency>
-
-      <!-- JBoss SEAM -->
-      <dependency>
-        <groupId>org.jboss.seam</groupId>
-        <artifactId>jboss-seam</artifactId>
-        <version>2.0.0.GA</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.seam</groupId>
-        <artifactId>jboss-seam</artifactId>
-        <version>2.0.0.GA</version>
-        <type>ejb</type>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.seam</groupId>
-        <artifactId>jboss-seam-ui</artifactId>
-        <version>2.0.0.GA</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.seam</groupId>
-        <artifactId>jboss-seam-debug</artifactId>
-        <version>2.0.0.GA</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.seam</groupId>
-        <artifactId>jboss-el</artifactId>
-        <version>2.0.0.GA</version>
-      </dependency>
+      <!-- Hibernate -->
       <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-validator</artifactId>
-        <version>3.0.0.GA</version>
+        <version>3.1.0.GA</version>
       </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>3.3.0.GA</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+          </exclusion>
+        </exclusions>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-annotations</artifactId>
+        <version>3.3.1.GA</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+          </exclusion>
+        </exclusions>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-entitymanager</artifactId>
+        <version>3.3.2.GA</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+          </exclusion>
+        </exclusions>
+        <scope>test</scope>
+      </dependency>
+      <!-- Facelets -->
       <dependency>
         <groupId>com.sun.facelets</groupId>
         <artifactId>jsf-facelets</artifactId>
@@ -127,7 +128,7 @@
       <dependency>
         <groupId>log4j</groupId>
         <artifactId>log4j</artifactId>
-        <version>1.2.8</version>
+        <version>1.2.12</version>
       </dependency>
 
       <!-- commons lang -->
@@ -159,9 +160,9 @@
         <version>1.7</version>
       </dependency>
       <dependency>
-        <groupId>com.bm</groupId>
-        <artifactId>ejb3unit</artifactId>
-        <version>1.2</version>
+        <groupId>hsqldb</groupId>
+        <artifactId>hsqldb</artifactId>
+        <version>1.8.0.7</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

@@ -27,72 +27,12 @@
     </dependency>
     
     <!-- dependecies included in WEB-INF/lib of the war -->
-
-    <dependency>
-      <groupId>org.jboss.seam</groupId>
-      <artifactId>jboss-seam-ui</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.el</groupId>
-          <artifactId>el-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.faces</groupId>
-          <artifactId>jsf-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.seam</groupId>
-      <artifactId>jboss-seam-debug</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.el</groupId>
-          <artifactId>el-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.faces</groupId>
-          <artifactId>jsf-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.facelets</groupId>
-      <artifactId>jsf-facelets</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.richfaces.ui</groupId>
-      <artifactId>richfaces-ui</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.faces</groupId>
-          <artifactId>jsf-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.faces</groupId>
-          <artifactId>jsf-impl</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
     
     <!-- "provided" dependencies are only need for compilation -->   
     
     <dependency>
       <groupId>javaee</groupId>
       <artifactId>javaee-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.seam</groupId>
-      <artifactId>jboss-seam</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
