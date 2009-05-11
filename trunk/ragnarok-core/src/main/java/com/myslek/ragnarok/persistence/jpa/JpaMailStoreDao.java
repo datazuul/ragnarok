@@ -29,7 +29,7 @@ import com.myslek.ragnarok.domain.MailUser;
 import com.myslek.ragnarok.persistence.MailStoreDao;
 import com.myslek.ragnarok.persistence.ResultParams;
 
-@Stateless
+@Stateless(name = "MailStoreDao")
 public class JpaMailStoreDao implements MailStoreDao {
 
     @PersistenceContext
