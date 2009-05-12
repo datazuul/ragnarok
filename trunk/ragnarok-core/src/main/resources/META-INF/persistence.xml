@@ -4,7 +4,7 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <jta-data-source>testdb</jta-data-source>
     <properties>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
       <property name="hibernate.max_fetch_depth" value="5"/>
       <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
     </properties>

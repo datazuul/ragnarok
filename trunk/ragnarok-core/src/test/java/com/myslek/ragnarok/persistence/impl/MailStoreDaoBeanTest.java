@@ -53,13 +53,15 @@ public class MailStoreDaoBeanTest extends TestCase {
         Properties props = new Properties();
         props.put(Context.INITIAL_CONTEXT_FACTORY,
                 "org.apache.openejb.client.LocalInitialContextFactory");
+        props.setProperty("openejb.altdd.prefix", "test");
+
         props.put("testdb", "new://Resource?type=DataSource");
-        props.put("testdb.JdbcDriver", "org.hsqldb.jdbcDriver");
-        props.put("testdb.JdbcUrl", "jdbc:hsqldb:mem:testdb");
+        props.put("testdb.JdbcDriver", "org.h2.Driver");
+        props.put("testdb.JdbcUrl", "jdbc:h2:mem:testdb");
 
         props.put("testdbUnmanaged", "new://Resource?type=DataSource");
-        props.put("testdbUnmanaged.JdbcDriver", "org.hsqldb.jdbcDriver");
-        props.put("testdbUnmanaged.JdbcUrl", "jdbc:hsqldb:mem:testdb");
+        props.put("testdbUnmanaged.JdbcDriver", "org.h2.Driver");
+        props.put("testdbUnmanaged.JdbcUrl", "jdbc:h2:mem:testdb");
         props.put("testdbUnmanaged.JtaManaged", "false");
 
         context = new InitialContext(props);
