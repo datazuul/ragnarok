@@ -69,7 +69,6 @@
             <artifactId>jta</artifactId>
           </exclusion>
         </exclusions>
-        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.hibernate</groupId>
@@ -81,7 +80,6 @@
             <artifactId>persistence-api</artifactId>
           </exclusion>
         </exclusions>
-        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.hibernate</groupId>
@@ -93,7 +91,6 @@
             <artifactId>persistence-api</artifactId>
           </exclusion>
         </exclusions>
-        <scope>test</scope>
       </dependency>
       <!-- Facelets -->
       <dependency>

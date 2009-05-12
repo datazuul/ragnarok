@@ -45,4 +45,8 @@ public interface MailStoreDao {
     List<MailMessage> getMailMessages(MailBox mailBox, MailFolder folder, ResultParams params);
     
     MailMessage getCompleteMessage(MailUser user, String token);
+    
+    public List<MailMessage> getAllMessages(MailUser user);
+    
+    void removeUser(String username);
 }

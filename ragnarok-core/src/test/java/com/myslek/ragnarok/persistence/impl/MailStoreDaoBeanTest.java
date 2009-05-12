@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.persistence.jpa;
+package com.myslek.ragnarok.persistence.impl;
 
 import java.util.List;
 import java.util.Properties;
@@ -31,10 +31,10 @@ import com.myslek.ragnarok.persistence.MailStoreDao;
 import com.myslek.ragnarok.persistence.ResultParams;
 import com.myslek.ragnarok.test.common.TestUtils;
 
-public class JpaMailStoreDaoTest extends TestCase {
-    
+public class MailStoreDaoBeanTest extends TestCase {
+
     private static final String USERNAME = "ragnarok";
-    
+
     private static final String PASSWORD = "ragnarok";
 
     private static final String MAILBOX_TOKEN = "WERTYUBVCD";
@@ -44,25 +44,26 @@ public class JpaMailStoreDaoTest extends TestCase {
     private static final String MESSAGE_UID = "XFTRQWEC";
 
     private Context context;
-    
+
     private MailStoreDao mailStoreDao;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         Properties props = new Properties();
-        props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.LocalInitialContextFactory");
+        props.put(Context.INITIAL_CONTEXT_FACTORY,
+                "org.apache.openejb.client.LocalInitialContextFactory");
         props.put("testdb", "new://Resource?type=DataSource");
         props.put("testdb.JdbcDriver", "org.hsqldb.jdbcDriver");
         props.put("testdb.JdbcUrl", "jdbc:hsqldb:mem:testdb");
-        
+
         props.put("testdbUnmanaged", "new://Resource?type=DataSource");
         props.put("testdbUnmanaged.JdbcDriver", "org.hsqldb.jdbcDriver");
         props.put("testdbUnmanaged.JdbcUrl", "jdbc:hsqldb:mem:testdb");
         props.put("testdbUnmanaged.JtaManaged", "false");
-        
+
         context = new InitialContext(props);
-        
+
         mailStoreDao = (MailStoreDao) context.lookup("MailStoreDaoLocal");
         createInitialData(mailStoreDao);
     }
@@ -70,27 +71,23 @@ public class JpaMailStoreDaoTest extends TestCase {
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
-        //TODO: clean up initial data
+        dropInitialData(mailStoreDao);
     }
-    
-    public void testNoop() {
-        
-    }
-    
-    public void _testGetUserByName() throws Exception {
+
+    public void testGetUserByName() throws Exception {
         MailUser user = mailStoreDao.getUser(USERNAME);
         assertNotNull("user should not be null", user);
         assertEquals("user name should be '" + USERNAME + "'", USERNAME, user.getUsername());
     }
 
-    public void _testGetUserByNameAndPassword() throws Exception {
+    public void testGetUserByNameAndPassword() throws Exception {
         MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
         assertNotNull("user should not be null", user);
         assertEquals("user name should be '" + USERNAME + "'", USERNAME, user.getUsername());
         assertEquals("user password should be '" + PASSWORD + "'", PASSWORD, user.getPassword());
     }
 
-    public void _testGetMailBoxesByExistingUser() throws Exception {
+    public void testGetMailBoxesByExistingUser() throws Exception {
         MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
         assertNotNull("user should not be null", user);
 
@@ -98,19 +95,19 @@ public class JpaMailStoreDaoTest extends TestCase {
         assertNotNull("mailBoxes should not be null", mailBoxes);
         assertEquals("mailBoxes size should be: 1", 1, mailBoxes.size());
     }
-    
-    public void _testGetMailBoxByExistingUserAndToken() throws Exception {
+
+    public void testGetMailBoxByExistingUserAndToken() throws Exception {
         MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
         assertNotNull("user should not be null", user);
-        
+
         MailBox mailBox = mailStoreDao.getMailBox(user, MAILBOX_TOKEN);
         assertNotNull("mailBox should not be null", mailBox);
     }
 
-    public void _testGetMessagesByMailBoxAndFolder() throws Exception {
+    public void testGetMessagesByMailBoxAndFolder() throws Exception {
         MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
         assertNotNull("user should not be null", user);
-        
+
         MailBox mailBox = mailStoreDao.getMailBox(user, MAILBOX_TOKEN);
         assertNotNull("mailBox should not be null", mailBox);
         ResultParams params = new ResultParams(0, 10);
@@ -119,11 +116,11 @@ public class JpaMailStoreDaoTest extends TestCase {
         assertNotNull("messages should not be null", messages);
         assertEquals("messages size should be: 1", 1, messages.size());
     }
-    
-    public void _testGetCompleteMessage() throws Exception {
+
+    public void testGetCompleteMessage() throws Exception {
         MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
         assertNotNull("user should not be null", user);
-        
+
         MailMessage message = mailStoreDao.getCompleteMessage(user, MESSAGE_TOKEN);
         assertNotNull("message should not be null", message);
     }
@@ -142,5 +139,9 @@ public class JpaMailStoreDaoTest extends TestCase {
 
         mailStoreDao.persist(mailBox);
         mailStoreDao.persist(message);
+    }
+
+    private void dropInitialData(MailStoreDao mailStoreDao) {
+        mailStoreDao.removeUser(USERNAME);
     }
 }

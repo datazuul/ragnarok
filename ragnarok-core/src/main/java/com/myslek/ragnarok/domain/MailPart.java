@@ -270,7 +270,7 @@ public class MailPart implements Serializable {
      * 
      * @return the headers
      */
-    @OneToMany(cascade = { CascadeType.ALL })
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
     @JoinColumn(name = "PART_ID")
     public List<MailHeader> getHeaders() {
         return headers;
@@ -291,7 +291,7 @@ public class MailPart implements Serializable {
      * 
      * @return the parts
      */
-    @OneToMany(cascade = { CascadeType.ALL })
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
     @JoinColumn(name = "PARENT_ID")
     public List<MailPart> getParts() {
         return parts;
