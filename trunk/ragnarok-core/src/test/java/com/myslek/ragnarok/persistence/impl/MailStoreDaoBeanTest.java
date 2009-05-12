@@ -64,7 +64,7 @@ public class MailStoreDaoBeanTest extends TestCase {
 
         context = new InitialContext(props);
 
-        mailStoreDao = (MailStoreDao) context.lookup("MailStoreDaoLocal");
+        mailStoreDao = (MailStoreDao) context.lookup("ejb/MailStoreDaoLocal");
         createInitialData(mailStoreDao);
     }
 
