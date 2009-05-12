@@ -29,7 +29,7 @@ import com.myslek.ragnarok.domain.MailUser;
 import com.myslek.ragnarok.persistence.MailStoreDao;
 import com.myslek.ragnarok.persistence.ResultParams;
 
-@Stateless(name = "MailStoreDao")
+@Stateless(name = "ejb/MailStoreDao")
 public class MailStoreDaoBean implements MailStoreDao {
 
     @PersistenceContext
