@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.persistence.jpa;
+package com.myslek.ragnarok.persistence.impl;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ import com.myslek.ragnarok.persistence.MailStoreDao;
 import com.myslek.ragnarok.persistence.ResultParams;
 
 @Stateless(name = "MailStoreDao")
-public class JpaMailStoreDao implements MailStoreDao {
+public class MailStoreDaoBean implements MailStoreDao {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -116,5 +116,30 @@ public class JpaMailStoreDao implements MailStoreDao {
         query.setParameter("userId", user.getId());
 
         return (MailMessage) query.getSingleResult();
+    }
+
+    @SuppressWarnings(value = "unchecked")
+    public List<MailMessage> getAllMessages(MailUser user) {
+        Query query = entityManager
+                .createQuery("from MailMessage m where m.mailBox.id in (select mb.id from MailBox mb where mb.user.id = :userId)");
+        query.setParameter("userId", user.getId());
+        return query.getResultList();
+    }
+    
+    public void removeUser(String username) {
+        // TODO: the remove operation should be performed in a 'bulk update'
+        MailUser user = getUser(username);
+        if (user == null) {
+            //TODO: throw Application Exception
+        }
+        List<MailMessage> messages = getAllMessages(user);
+        for (MailMessage message : messages) {
+            entityManager.remove(message);
+        }
+        List<MailBox> mailBoxes = getMailBoxes(user);
+        for (MailBox mailBox : mailBoxes) {
+            entityManager.remove(mailBox);
+        }
+        entityManager.remove(user);
     }
 }
