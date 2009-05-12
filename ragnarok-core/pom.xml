@@ -94,8 +94,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>hsqldb</groupId>
-      <artifactId>hsqldb</artifactId>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>test</scope>
     </dependency>
     <!-- openejb container for running tests -->
     <dependency>
