@@ -26,7 +26,7 @@ import com.myslek.ragnarok.domain.MailPart;
 import com.myslek.ragnarok.domain.MailServer;
 import com.myslek.ragnarok.domain.MailServerProtocol;
 
-public final class TestUtils {
+public final class MailTestUtils {
 
     /** The Constant FROM. */
     public static final InternetAddress FROM;
@@ -86,7 +86,7 @@ public final class TestUtils {
         }
     }
 
-    private TestUtils() {
+    private MailTestUtils() {
     }
 
     public static MailBox createMailBox(String token) {
