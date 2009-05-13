@@ -29,7 +29,7 @@ import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.domain.MailUser;
 import com.myslek.ragnarok.persistence.MailStoreDao;
 import com.myslek.ragnarok.persistence.ResultParams;
-import com.myslek.ragnarok.test.common.TestUtils;
+import com.myslek.ragnarok.test.common.MailTestUtils;
 
 public class MailStoreDaoBeanTest extends TestCase {
 
@@ -132,11 +132,11 @@ public class MailStoreDaoBeanTest extends TestCase {
         user.setUsername(USERNAME);
         user.setPassword(PASSWORD);
 
-        MailBox mailBox = TestUtils.createMailBox(MAILBOX_TOKEN);
+        MailBox mailBox = MailTestUtils.createMailBox(MAILBOX_TOKEN);
 
         user.addMailBox(mailBox);
 
-        MailMessage message = TestUtils.createMultipartMailMessage(mailBox, MailFolder.INBOX,
+        MailMessage message = MailTestUtils.createMultipartMailMessage(mailBox, MailFolder.INBOX,
                 MESSAGE_TOKEN, MESSAGE_UID);
 
         mailStoreDao.persist(mailBox);
