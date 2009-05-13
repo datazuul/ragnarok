@@ -18,25 +18,18 @@ package com.myslek.ragnarok.domain;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * The Class MailServer.
  */
-@Entity
-@Table(name = "RAG_SERVER")
+@Embeddable
 public class MailServer implements Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-
-	/** The id. */
-	private Long id;
 
 	/** The username. */
 	private String username;
@@ -51,33 +44,11 @@ public class MailServer implements Serializable {
 	private MailServerProtocol protocol;
 
 	/**
-	 * Gets the id.
-	 * 
-	 * @return the id
-	 */
-	@Id
-	@GeneratedValue
-	@Column(name = "ID")
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * Sets the id.
-	 * 
-	 * @param id
-	 *            the new id
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	/**
 	 * Gets the username.
 	 * 
 	 * @return the username
 	 */
-	@Column(name = "USERNAME", nullable = false)
+	@Column(name = "USERNAME", nullable = false, length=20)
 	public String getUsername() {
 		return username;
 	}
@@ -97,7 +68,7 @@ public class MailServer implements Serializable {
 	 * 
 	 * @return the password
 	 */
-	@Column(name = "PASSWORD", nullable = false)
+	@Column(name = "PASSWORD", nullable = false, length=20)
 	public String getPassword() {
 		return password;
 	}
@@ -117,7 +88,7 @@ public class MailServer implements Serializable {
 	 * 
 	 * @return the host
 	 */
-	@Column(name = "HOSTNAME")
+	@Column(name = "HOSTNAME", length=50)
 	public String getHostname() {
 		return hostname;
 	}
@@ -133,7 +104,7 @@ public class MailServer implements Serializable {
 	}
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "PROTOCOL", nullable = false)
+	@Column(name = "PROTOCOL", nullable = false, length=10)
 	public MailServerProtocol getProtocol() {
 		return protocol;
 	}
