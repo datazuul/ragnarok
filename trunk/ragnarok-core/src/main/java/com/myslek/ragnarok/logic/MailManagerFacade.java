@@ -1,4 +1,4 @@
-package com.myslek.ragnarok.manager;
+package com.myslek.ragnarok.logic;
 
 import java.util.List;
 

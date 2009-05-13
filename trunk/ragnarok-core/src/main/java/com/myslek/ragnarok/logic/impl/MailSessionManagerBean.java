@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.manager.impl;
+package com.myslek.ragnarok.logic.impl;
 
 import java.util.Collection;
 
@@ -21,10 +21,10 @@ import javax.ejb.Stateless;
 
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailMessage;
+import com.myslek.ragnarok.logic.MailSessionManager;
 import com.myslek.ragnarok.mail.MailSession;
 import com.myslek.ragnarok.mail.MailSessionFactory;
 import com.myslek.ragnarok.mail.MessageFilter;
-import com.myslek.ragnarok.manager.MailSessionManager;
 
 @Stateless
 public class MailSessionManagerBean implements MailSessionManager {

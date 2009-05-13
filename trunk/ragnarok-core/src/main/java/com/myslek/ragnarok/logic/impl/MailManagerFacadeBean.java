@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.     
  */
-package com.myslek.ragnarok.manager.impl;
+package com.myslek.ragnarok.logic.impl;
 
 import java.util.Collection;
 import java.util.List;
@@ -25,10 +25,10 @@ import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.domain.MailUser;
+import com.myslek.ragnarok.logic.MailManagerFacade;
+import com.myslek.ragnarok.logic.MailSessionManager;
+import com.myslek.ragnarok.logic.MailStoreManager;
 import com.myslek.ragnarok.mail.MessageFilter;
-import com.myslek.ragnarok.manager.MailManagerFacade;
-import com.myslek.ragnarok.manager.MailSessionManager;
-import com.myslek.ragnarok.manager.MailStoreManager;
 import com.myslek.ragnarok.persistence.ResultParams;
 
 @Stateless

@@ -24,7 +24,7 @@ import javax.faces.model.ListDataModel;
 
 import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailUser;
-import com.myslek.ragnarok.manager.MailManagerFacade;
+import com.myslek.ragnarok.logic.MailManagerFacade;
 import com.myslek.ragnarok.persistence.ResultParams;
 import com.myslek.ragnarok.web.common.FacesUtils;
 import com.myslek.ragnarok.web.common.MailConstatnts;
