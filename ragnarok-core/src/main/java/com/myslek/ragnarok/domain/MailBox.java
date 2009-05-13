@@ -17,14 +17,16 @@ package com.myslek.ragnarok.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -99,8 +101,12 @@ public class MailBox implements Serializable {
      * 
      * @return the mail store
      */
-    @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-    @JoinColumn(name = "IN_SERVER_ID")
+    @Embedded
+    @AttributeOverrides( {
+            @AttributeOverride(name = "username", column = @Column(name = "IN_SERVER_USERNAME", nullable = false, length = 20)),
+            @AttributeOverride(name = "password", column = @Column(name = "IN_SERVER_PASSWORD", nullable = false, length = 20)),
+            @AttributeOverride(name = "hostname", column = @Column(name = "IN_SERVER_HOSTNAME", nullable = false, length = 50)),
+            @AttributeOverride(name = "protocol", column = @Column(name = "IN_SERVER_PROTOCOL", nullable = false, length = 10)) })
     public MailServer getMailStore() {
         return mailStore;
     }
@@ -120,8 +126,12 @@ public class MailBox implements Serializable {
      * 
      * @return the mail transport
      */
-    @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-    @JoinColumn(name = "OUT_SERVER_ID")
+    @Embedded
+    @AttributeOverrides( {
+            @AttributeOverride(name = "username", column = @Column(name = "OUT_SERVER_USERNAME", nullable = false, length = 20)),
+            @AttributeOverride(name = "password", column = @Column(name = "OUT_SERVER_PASSWORD", nullable = false, length = 20)),
+            @AttributeOverride(name = "hostname", column = @Column(name = "OUT_SERVER_HOSTNAME", nullable = false, length = 50)),
+            @AttributeOverride(name = "protocol", column = @Column(name = "OUT_SERVER_PROTOCOL", nullable = false, length = 10)) })
     public MailServer getMailTransport() {
         return mailTransport;
     }
