@@ -99,7 +99,7 @@ public class DefaultAttributesHandler implements AttributesHandler {
 	protected void toHeaders(MailPart mailPart, Part part)
 			throws MessageConversionException {
 		try {
-			for (MailHeader header : mailPart.getHeaders()) {
+			for (MailHeader header : mailPart.getHeaders().values()) {
 				part.setHeader(header.getName(), header.getValue());
 			}
 		} catch (MessagingException e) {

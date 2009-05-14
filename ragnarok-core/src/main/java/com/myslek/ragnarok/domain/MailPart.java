@@ -17,7 +17,9 @@ package com.myslek.ragnarok.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -33,6 +35,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -77,7 +80,7 @@ public class MailPart implements Serializable {
     private List<MailPart> parts = new ArrayList<MailPart>();
 
     /** The headers. */
-    private List<MailHeader> headers = new ArrayList<MailHeader>();
+    private Map<String, MailHeader> headers = new HashMap<String, MailHeader>();
 
     /** The size. */
     private int size;
@@ -270,9 +273,10 @@ public class MailPart implements Serializable {
      * 
      * @return the headers
      */
-    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
     @JoinColumn(name = "PART_ID")
-    public List<MailHeader> getHeaders() {
+    @MapKey(name = "name")
+    public Map<String, MailHeader> getHeaders() {
         return headers;
     }
 
@@ -282,7 +286,7 @@ public class MailPart implements Serializable {
      * @param headers
      *            the new headers
      */
-    public void setHeaders(List<MailHeader> headers) {
+    public void setHeaders(Map<String, MailHeader> headers) {
         this.headers = headers;
     }
 
@@ -291,7 +295,7 @@ public class MailPart implements Serializable {
      * 
      * @return the parts
      */
-    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
     @JoinColumn(name = "PARENT_ID")
     public List<MailPart> getParts() {
         return parts;
@@ -344,7 +348,7 @@ public class MailPart implements Serializable {
      *            the header
      */
     public void addHeader(MailHeader header) {
-        getHeaders().add(header);
+        getHeaders().put(header.getName(), header);
     }
 
     /**
@@ -365,5 +369,9 @@ public class MailPart implements Serializable {
             return contentType.equalsIgnoreCase(mimeType);
         }
         return false;
+    }
+
+    public MailHeader getMailHeader(String name) {
+        return headers.get(name);
     }
 }

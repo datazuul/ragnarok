@@ -234,24 +234,6 @@ public class MailMessage extends MailPart {
     }
 
     /**
-     * Gets the mail header by name.
-     * 
-     * @param name
-     *            the name
-     * 
-     * @return the mail header by name
-     */
-    @Transient
-    public MailHeader getMailHeaderByName(String name) {
-        for (MailHeader header : getHeaders()) {
-            if (header.getName().equals(name)) {
-                return header;
-            }
-        }
-        return null;
-    }
-
-    /**
      * Gets the mail part by header value.
      * 
      * @param name
@@ -264,10 +246,9 @@ public class MailMessage extends MailPart {
     @Transient
     public MailPart getMailPartByHeaderValue(String name, String value) {
         for (MailPart part : getParts()) {
-            for (MailHeader header : part.getHeaders()) {
-                if (header.getName().equals(name) && header.getValue().equals(value)) {
-                    return part;
-                }
+            MailHeader header = getMailHeader(name);
+            if (header != null && header.getValue().equals(value)) {
+                return part;
             }
         }
         return null;
