@@ -45,7 +45,7 @@ public class MailStoreManagerBean implements MailStoreManager {
 	}
 
 	public Collection<String> getUids(MailBox mailBox, MailFolder mailFolder) {
-		return getMailStoreDao().getUids(mailBox, mailFolder);
+		return getMailStoreDao().getMailMessageUids(mailBox, mailFolder);
 	}
 
     public List<MailMessageSummary> getMessageSummaries(MailUser user, String mailBoxToken, MailFolder folder,

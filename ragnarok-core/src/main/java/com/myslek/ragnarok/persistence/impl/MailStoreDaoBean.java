@@ -82,7 +82,7 @@ public class MailStoreDaoBean implements MailStoreDao {
     }
 
     @SuppressWarnings(value = "unchecked")
-    public List<String> getUids(MailBox mailBox, MailFolder folder) {
+    public List<String> getMailMessageUids(MailBox mailBox, MailFolder folder) {
         Query query = entityManager
                 .createQuery("select m.uid from MailMessage m where m.mailBox.id = :mailBoxId and m.folder = :folder");
         query.setParameter("mailBoxId", mailBox.getId());
@@ -91,14 +91,14 @@ public class MailStoreDaoBean implements MailStoreDao {
         return query.getResultList();
     }
 
-    public MailUser getUser(String username) {
+    public MailUser getMailUser(String username) {
         Query query = entityManager.createQuery("from MailUser u where u.username = :username");
         query.setParameter("username", username);
 
         return (MailUser) query.getSingleResult();
     }
 
-    public MailUser getUser(String username, String password) {
+    public MailUser getMailUser(String username, String password) {
         Query query = entityManager
                 .createQuery("from MailUser u where u.username = :username and u.password = :password");
         query.setParameter("username", username);
@@ -111,7 +111,7 @@ public class MailStoreDaoBean implements MailStoreDao {
         entityManager.persist(entity);
     }
 
-    public MailMessage getMailMessageDetail(MailUser user, String token) {
+    public MailMessage getMailMessage(MailUser user, String token) {
         Query query = entityManager.createQuery("select m from MailMessage m, MailBox mb "
                 + "where m.token = :token and m.mailBox.id = mb.id " + "and mb.user.id = :userId");
         query.setParameter("token", token);
@@ -121,20 +121,20 @@ public class MailStoreDaoBean implements MailStoreDao {
     }
 
     @SuppressWarnings(value = "unchecked")
-    public List<MailMessage> getAllMessages(MailUser user) {
+    public List<MailMessage> getAllMailMessages(MailUser user) {
         Query query = entityManager
                 .createQuery("from MailMessage m where m.mailBox.id in (select mb.id from MailBox mb where mb.user.id = :userId)");
         query.setParameter("userId", user.getId());
         return query.getResultList();
     }
 
-    public void removeUser(String username) {
+    public void removeMailUser(String username) {
         // TODO: the remove operation should be performed in a 'bulk update'
-        MailUser user = getUser(username);
+        MailUser user = getMailUser(username);
         if (user == null) {
             // TODO: throw Application Exception
         }
-        List<MailMessage> messages = getAllMessages(user);
+        List<MailMessage> messages = getAllMailMessages(user);
         for (MailMessage message : messages) {
             entityManager.remove(message);
         }
