@@ -142,74 +142,74 @@ public class MailMessage extends MailPart {
     }
 
     @Transient
-    public List<InternetAddress> getFrom() {
+    public List<InternetAddress> getFromList() {
         return from;
     }
 
-    public void setFrom(List<InternetAddress> from) {
+    public void setFromList(List<InternetAddress> from) {
         this.from = from;
     }
 
     @Transient
-    public List<InternetAddress> getTo() {
+    public List<InternetAddress> getToList() {
         return to;
     }
 
-    public void setTo(List<InternetAddress> to) {
+    public void setToList(List<InternetAddress> to) {
         this.to = to;
     }
 
     @Transient
-    public List<InternetAddress> getCc() {
+    public List<InternetAddress> getCcList() {
         return cc;
     }
 
-    public void setCc(List<InternetAddress> cc) {
+    public void setCcList(List<InternetAddress> cc) {
         this.cc = cc;
     }
 
     @Transient
-    public List<InternetAddress> getBcc() {
+    public List<InternetAddress> getBccList() {
         return bcc;
     }
 
-    public void setBcc(List<InternetAddress> bcc) {
+    public void setBccList(List<InternetAddress> bcc) {
         this.bcc = bcc;
     }
 
     @Column(name = "ADDRESS_FROM", length = 2000)
-    public String getFromString() {
+    public String getFrom() {
         return MailUtils.getAddressStringFromList(from);
     }
 
-    public void setFromString(String addresses) {
+    public void setFrom(String addresses) {
         from = MailUtils.getAddressListFromString(addresses);
     }
 
     @Column(name = "ADDRESS_TO", length = 2000)
-    public String getToString() {
+    public String getTo() {
         return MailUtils.getAddressStringFromList(to);
     }
 
-    public void setToString(String addresses) {
+    public void setTo(String addresses) {
         to = MailUtils.getAddressListFromString(addresses);
     }
 
     @Column(name = "ADDRESS_CC", length = 2000)
-    public String getCcString() {
+    public String getCc() {
         return MailUtils.getAddressStringFromList(cc);
     }
 
-    public void setCcString(String addresses) {
+    public void setCc(String addresses) {
         cc = MailUtils.getAddressListFromString(addresses);
     }
 
     @Column(name = "ADDRESS_BCC", length = 2000)
-    public String getBccString() {
+    public String getBcc() {
         return MailUtils.getAddressStringFromList(bcc);
     }
 
-    public void setBccString(String addresses) {
+    public void setBcc(String addresses) {
         bcc = MailUtils.getAddressListFromString(addresses);
     }
 

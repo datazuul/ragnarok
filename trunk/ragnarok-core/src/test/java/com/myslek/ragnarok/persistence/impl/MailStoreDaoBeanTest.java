@@ -26,6 +26,7 @@ import junit.framework.TestCase;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailMessage;
+import com.myslek.ragnarok.domain.MailMessageSummary;
 import com.myslek.ragnarok.domain.MailPart;
 import com.myslek.ragnarok.domain.MailUser;
 import com.myslek.ragnarok.persistence.MailStoreDao;
@@ -114,8 +115,8 @@ public class MailStoreDaoBeanTest extends TestCase {
         MailBox mailBox = mailStoreDao.getMailBox(user, MAILBOX_TOKEN);
         assertNotNull("mailBox should not be null", mailBox);
         ResultParams params = new ResultParams(0, 10);
-        List<MailMessage> messages = mailStoreDao
-                .getMailMessages(mailBox, MailFolder.INBOX, params);
+        List<MailMessageSummary> messages = mailStoreDao.getMailMessageSummaries(mailBox,
+                MailFolder.INBOX, params);
         assertNotNull("messages should not be null", messages);
         assertEquals("messages size should be: 1", 1, messages.size());
     }

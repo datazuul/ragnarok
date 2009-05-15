@@ -44,7 +44,7 @@ public class DefaultEnvelopeHandler implements EnvelopeHandler {
 			throws MessageConversionException {
 		try {
 			InternetAddress[] from = (InternetAddress[]) message.getFrom();
-			mailMessage.setFrom(Arrays.asList(from));
+			mailMessage.setFromList(Arrays.asList(from));
 
 			// Copy all recipients
 			fromRecipients(RecipientType.TO, message, mailMessage);
@@ -75,7 +75,7 @@ public class DefaultEnvelopeHandler implements EnvelopeHandler {
 			throws MessageConversionException {
 		try {
 			// Copy from
-			List<InternetAddress> mailFrom = mailMessage.getFrom();
+			List<InternetAddress> mailFrom = mailMessage.getFromList();
 			message.addFrom((InternetAddress[]) mailFrom.toArray(new InternetAddress[mailFrom
 					.size()]));
 
@@ -112,11 +112,11 @@ public class DefaultEnvelopeHandler implements EnvelopeHandler {
 			InternetAddress[] recipients = (InternetAddress[]) message.getRecipients(type);
 			if (recipients != null && recipients.length > 0) {
 				if (type == RecipientType.TO) {
-					mailMessage.setTo(Arrays.asList(recipients));
+					mailMessage.setToList(Arrays.asList(recipients));
 				} else if (type == RecipientType.CC) {
-					mailMessage.setCc(Arrays.asList(recipients));
+					mailMessage.setCcList(Arrays.asList(recipients));
 				} else if (type == RecipientType.BCC) {
-					mailMessage.setBcc(Arrays.asList(recipients));
+					mailMessage.setBccList(Arrays.asList(recipients));
 				}
 			}
 		} catch (MessagingException e) {
@@ -143,11 +143,11 @@ public class DefaultEnvelopeHandler implements EnvelopeHandler {
 		try {
 			List<InternetAddress> recipients = Collections.EMPTY_LIST;
 			if (type == RecipientType.TO) {
-				recipients = mailMessage.getTo();
+				recipients = mailMessage.getToList();
 			} else if (type == RecipientType.CC) {
-				recipients = mailMessage.getCc();
+				recipients = mailMessage.getCcList();
 			} else if (type == RecipientType.BCC) {
-				recipients = mailMessage.getBcc();
+				recipients = mailMessage.getBccList();
 			}
 			if (recipients != null && !recipients.isEmpty()) {
 				message.setRecipients(type, (InternetAddress[]) recipients

@@ -25,6 +25,7 @@ import javax.persistence.Query;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailMessage;
+import com.myslek.ragnarok.domain.MailMessageSummary;
 import com.myslek.ragnarok.domain.MailUser;
 import com.myslek.ragnarok.persistence.MailStoreDao;
 import com.myslek.ragnarok.persistence.ResultParams;
@@ -66,9 +67,11 @@ public class MailStoreDaoBean implements MailStoreDao {
     }
 
     @SuppressWarnings(value = "unchecked")
-    public List<MailMessage> getMailMessages(MailBox mailBox, MailFolder folder, ResultParams params) {
+    public List<MailMessageSummary> getMailMessageSummaries(MailBox mailBox, MailFolder folder,
+            ResultParams params) {
         Query query = entityManager
-                .createQuery("from MailMessage m where m.mailBox.id = :mailBoxId and m.folder = :folder");
+                .createQuery("select new com.myslek.ragnarok.domain.MailMessageSummary(m.token, m.from, m.subject, m.contentType, m.size, m.sentDate, m.receivedDate) "
+                        + "from MailMessage m where m.mailBox.id = :mailBoxId and m.folder = :folder");
         query.setParameter("mailBoxId", mailBox.getId());
         query.setParameter("folder", folder);
 
@@ -110,8 +113,7 @@ public class MailStoreDaoBean implements MailStoreDao {
 
     public MailMessage getCompleteMessage(MailUser user, String token) {
         Query query = entityManager.createQuery("select m from MailMessage m, MailBox mb "
-                + "where m.token = :token and m.mailBox.id = mb.id "
-                + "and mb.user.id = :userId");
+                + "where m.token = :token and m.mailBox.id = mb.id " + "and mb.user.id = :userId");
         query.setParameter("token", token);
         query.setParameter("userId", user.getId());
 
@@ -125,12 +127,12 @@ public class MailStoreDaoBean implements MailStoreDao {
         query.setParameter("userId", user.getId());
         return query.getResultList();
     }
-    
+
     public void removeUser(String username) {
         // TODO: the remove operation should be performed in a 'bulk update'
         MailUser user = getUser(username);
         if (user == null) {
-            //TODO: throw Application Exception
+            // TODO: throw Application Exception
         }
         List<MailMessage> messages = getAllMessages(user);
         for (MailMessage message : messages) {

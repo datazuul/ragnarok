@@ -107,7 +107,7 @@ public class MailSessionIntegrationTestCase extends TestCase {
 		MailMessage message = messages.get(0);
 		Assert.assertNotNull("Message must not be null", message);
 		Assert.assertEquals("Expected from: " + mailbox.getProperty("mailbox.address"), mailbox
-				.getProperty("mailbox.address"), message.getFrom().get(0).getAddress());
+				.getProperty("mailbox.address"), message.getFromList().get(0).getAddress());
 		Assert.assertNotNull("Message uid must not be null", message.getUid());
 	}
 
