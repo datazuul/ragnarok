@@ -33,22 +33,22 @@ public interface MailStoreDao {
 
     void persist(Object entity);
 
-    MailUser getUser(String username);
+    MailUser getMailUser(String username);
 
-    MailUser getUser(String username, String password);
+    MailUser getMailUser(String username, String password);
 
     List<MailBox> getMailBoxes(MailUser user);
 
     MailBox getMailBox(MailUser user, String token);
 
-    List<String> getUids(MailBox mailBox, MailFolder folder);
+    List<String> getMailMessageUids(MailBox mailBox, MailFolder folder);
 
     List<MailMessageSummary> getMailMessageSummaries(MailBox mailBox, MailFolder folder,
             ResultParams params);
 
-    MailMessage getMailMessageDetail(MailUser user, String token);
+    MailMessage getMailMessage(MailUser user, String token);
 
-    public List<MailMessage> getAllMessages(MailUser user);
+    public List<MailMessage> getAllMailMessages(MailUser user);
 
-    void removeUser(String username);
+    void removeMailUser(String username);
 }

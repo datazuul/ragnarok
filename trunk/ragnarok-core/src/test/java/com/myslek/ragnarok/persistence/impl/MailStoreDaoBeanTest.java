@@ -79,20 +79,20 @@ public class MailStoreDaoBeanTest extends TestCase {
     }
 
     public void testGetUserByName() throws Exception {
-        MailUser user = mailStoreDao.getUser(USERNAME);
+        MailUser user = mailStoreDao.getMailUser(USERNAME);
         assertNotNull("user should not be null", user);
         assertEquals("user name should be '" + USERNAME + "'", USERNAME, user.getUsername());
     }
 
     public void testGetUserByNameAndPassword() throws Exception {
-        MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
+        MailUser user = mailStoreDao.getMailUser(USERNAME, PASSWORD);
         assertNotNull("user should not be null", user);
         assertEquals("user name should be '" + USERNAME + "'", USERNAME, user.getUsername());
         assertEquals("user password should be '" + PASSWORD + "'", PASSWORD, user.getPassword());
     }
 
     public void testGetMailBoxesByExistingUser() throws Exception {
-        MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
+        MailUser user = mailStoreDao.getMailUser(USERNAME, PASSWORD);
         assertNotNull("user should not be null", user);
 
         List<MailBox> mailBoxes = mailStoreDao.getMailBoxes(user);
@@ -101,7 +101,7 @@ public class MailStoreDaoBeanTest extends TestCase {
     }
 
     public void testGetMailBoxByExistingUserAndToken() throws Exception {
-        MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
+        MailUser user = mailStoreDao.getMailUser(USERNAME, PASSWORD);
         assertNotNull("user should not be null", user);
 
         MailBox mailBox = mailStoreDao.getMailBox(user, MAILBOX_TOKEN);
@@ -109,7 +109,7 @@ public class MailStoreDaoBeanTest extends TestCase {
     }
 
     public void testGetMessagesByMailBoxAndFolder() throws Exception {
-        MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
+        MailUser user = mailStoreDao.getMailUser(USERNAME, PASSWORD);
         assertNotNull("user should not be null", user);
 
         MailBox mailBox = mailStoreDao.getMailBox(user, MAILBOX_TOKEN);
@@ -122,10 +122,10 @@ public class MailStoreDaoBeanTest extends TestCase {
     }
 
     public void testGetMailMessageDetail() throws Exception {
-        MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
+        MailUser user = mailStoreDao.getMailUser(USERNAME, PASSWORD);
         assertNotNull("user should not be null", user);
 
-        MailMessage message = mailStoreDao.getMailMessageDetail(user, MESSAGE_TOKEN);
+        MailMessage message = mailStoreDao.getMailMessage(user, MESSAGE_TOKEN);
         assertNotNull("message should not be null", message);
         assertNotNull("message parts should not be null", message.getParts());
         assertEquals("message parts size should be: 1", 1, message.getParts().size());
@@ -155,6 +155,6 @@ public class MailStoreDaoBeanTest extends TestCase {
     }
 
     private void dropInitialData(MailStoreDao mailStoreDao) {
-        mailStoreDao.removeUser(USERNAME);
+        mailStoreDao.removeMailUser(USERNAME);
     }
 }
