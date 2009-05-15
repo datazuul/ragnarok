@@ -24,6 +24,7 @@ import javax.ejb.Stateless;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailMessage;
+import com.myslek.ragnarok.domain.MailMessageSummary;
 import com.myslek.ragnarok.domain.MailUser;
 import com.myslek.ragnarok.logic.MailManagerFacade;
 import com.myslek.ragnarok.logic.MailSessionManager;
@@ -48,9 +49,9 @@ public class MailManagerFacadeBean implements MailManagerFacade {
         getMailStoreManager().storeMessages(messages);
     }
 
-    public List<MailMessage> getMessages(MailUser user, String mailBoxToken, MailFolder folder,
-            ResultParams params) {
-        return getMailStoreManager().getMessages(user, mailBoxToken, folder, params);
+    public List<MailMessageSummary> getMessageSummaries(MailUser user, String mailBoxToken,
+            MailFolder folder, ResultParams params) {
+        return getMailStoreManager().getMessageSummaries(user, mailBoxToken, folder, params);
     }
 
     public MailSessionManager getMailSessionManager() {

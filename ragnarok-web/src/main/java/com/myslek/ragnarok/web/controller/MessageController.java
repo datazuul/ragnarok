@@ -58,7 +58,7 @@ public class MessageController {
 
     protected DataModel getNextMessages(MailUser user, String mailBoxToken, MailFolder folder) {
         ResultParams params = new ResultParams(firstItem, batchSize);
-        messages = new ListDataModel(mailFacade.getMessages(user, mailBoxToken, folder, params));
+        messages = new ListDataModel(mailFacade.getMessageSummaries(user, mailBoxToken, folder, params));
         refreshed = true;
         return messages;
     }

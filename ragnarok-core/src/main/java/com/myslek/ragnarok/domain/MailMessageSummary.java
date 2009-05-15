@@ -16,12 +16,88 @@
 package com.myslek.ragnarok.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class MailMessageSummary implements Serializable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
+    private String token;
+    private String from;
+    private String subject;
+    private String contentType;
+    private int size;
+    private Date sentDate;
+    private Date receivedDate;
+
+    public MailMessageSummary() {
+
+    }
+
+    public MailMessageSummary(String token, String from, String subject, String contentType,
+            int size, Date sentDate, Date receivedDate) {
+        this.token = token;
+        this.from = from;
+        this.subject = subject;
+        this.contentType = contentType;
+        this.size = size;
+        this.sentDate = sentDate;
+        this.receivedDate = receivedDate;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public Date getSentDate() {
+        return sentDate;
+    }
+
+    public void setSentDate(Date sentDate) {
+        this.sentDate = sentDate;
+    }
+
+    public Date getReceivedDate() {
+        return receivedDate;
+    }
+
+    public void setReceivedDate(Date receivedDate) {
+        this.receivedDate = receivedDate;
+    }
 }

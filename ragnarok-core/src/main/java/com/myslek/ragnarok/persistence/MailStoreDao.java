@@ -22,6 +22,7 @@ import javax.ejb.Local;
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailMessage;
+import com.myslek.ragnarok.domain.MailMessageSummary;
 import com.myslek.ragnarok.domain.MailUser;
 
 @Local
@@ -42,11 +43,12 @@ public interface MailStoreDao {
 
     List<String> getUids(MailBox mailBox, MailFolder folder);
 
-    List<MailMessage> getMailMessages(MailBox mailBox, MailFolder folder, ResultParams params);
-    
+    List<MailMessageSummary> getMailMessageSummaries(MailBox mailBox, MailFolder folder,
+            ResultParams params);
+
     MailMessage getCompleteMessage(MailUser user, String token);
-    
+
     public List<MailMessage> getAllMessages(MailUser user);
-    
+
     void removeUser(String username);
 }

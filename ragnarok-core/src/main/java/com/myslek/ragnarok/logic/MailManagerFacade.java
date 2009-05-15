@@ -6,7 +6,7 @@ import javax.ejb.Local;
 
 import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailFolder;
-import com.myslek.ragnarok.domain.MailMessage;
+import com.myslek.ragnarok.domain.MailMessageSummary;
 import com.myslek.ragnarok.domain.MailUser;
 import com.myslek.ragnarok.mail.MessageFilter;
 import com.myslek.ragnarok.persistence.ResultParams;
@@ -29,6 +29,6 @@ public interface MailManagerFacade {
      */
     void fetchAndStoreMessages(MailBox mailBox, MessageFilter filter);
 
-    List<MailMessage> getMessages(MailUser user, String mailBoxToken, MailFolder folder,
+    List<MailMessageSummary> getMessageSummaries(MailUser user, String mailBoxToken, MailFolder folder,
             ResultParams params);
 }
