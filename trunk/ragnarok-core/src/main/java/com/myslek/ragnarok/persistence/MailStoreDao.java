@@ -46,7 +46,7 @@ public interface MailStoreDao {
     List<MailMessageSummary> getMailMessageSummaries(MailBox mailBox, MailFolder folder,
             ResultParams params);
 
-    MailMessage getCompleteMessage(MailUser user, String token);
+    MailMessage getMailMessageDetail(MailUser user, String token);
 
     public List<MailMessage> getAllMessages(MailUser user);
 

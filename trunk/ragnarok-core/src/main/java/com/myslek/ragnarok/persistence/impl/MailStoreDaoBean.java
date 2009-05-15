@@ -111,7 +111,7 @@ public class MailStoreDaoBean implements MailStoreDao {
         entityManager.persist(entity);
     }
 
-    public MailMessage getCompleteMessage(MailUser user, String token) {
+    public MailMessage getMailMessageDetail(MailUser user, String token) {
         Query query = entityManager.createQuery("select m from MailMessage m, MailBox mb "
                 + "where m.token = :token and m.mailBox.id = mb.id " + "and mb.user.id = :userId");
         query.setParameter("token", token);

@@ -121,11 +121,11 @@ public class MailStoreDaoBeanTest extends TestCase {
         assertEquals("messages size should be: 1", 1, messages.size());
     }
 
-    public void testGetCompleteMessage() throws Exception {
+    public void testGetMailMessageDetail() throws Exception {
         MailUser user = mailStoreDao.getUser(USERNAME, PASSWORD);
         assertNotNull("user should not be null", user);
 
-        MailMessage message = mailStoreDao.getCompleteMessage(user, MESSAGE_TOKEN);
+        MailMessage message = mailStoreDao.getMailMessageDetail(user, MESSAGE_TOKEN);
         assertNotNull("message should not be null", message);
         assertNotNull("message parts should not be null", message.getParts());
         assertEquals("message parts size should be: 1", 1, message.getParts().size());
