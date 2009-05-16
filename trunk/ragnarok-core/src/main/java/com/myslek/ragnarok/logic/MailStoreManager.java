@@ -33,6 +33,8 @@ public interface MailStoreManager {
      */
     Collection<String> getUids(MailBox mailBox, MailFolder mailFolder);
 
-    List<MailMessageSummary> getMessageSummaries(MailUser user, String mailBoxToken,
+    List<MailMessageSummary> getMessageSummaries(MailUser user, MailBox mailBox,
             MailFolder folder, ResultParams params);
+    
+    MailBox getMailBox(MailUser user, String mailBoxToken);
 }
