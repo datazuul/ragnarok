@@ -48,13 +48,12 @@ public class MailStoreManagerBean implements MailStoreManager {
 		return getMailStoreDao().getMailMessageUids(mailBox, mailFolder);
 	}
 
-    public List<MailMessageSummary> getMessageSummaries(MailUser user, String mailBoxToken, MailFolder folder,
+    public List<MailMessageSummary> getMessageSummaries(MailUser user, MailBox mailBox, MailFolder folder,
             ResultParams params) {
-        MailBox mailBox = mailStoreDao.getMailBox(user, mailBoxToken);
-        if (mailBox == null) {
-            //TODO: throw application exception
-        }
-        
         return mailStoreDao.getMailMessageSummaries(mailBox, folder, params);
+    }
+
+    public MailBox getMailBox(MailUser user, String mailBoxToken) {
+        return mailStoreDao.getMailBox(user, mailBoxToken);
     }
 }

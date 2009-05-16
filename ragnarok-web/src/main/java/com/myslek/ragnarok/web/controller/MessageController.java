@@ -38,7 +38,8 @@ public class MessageController {
 
     private int firstItem = 0;
     private int batchSize = 10;
-    private boolean refreshed = false;
+    private int currentFirstItem = 0;
+    private boolean synchronize = true;
 
     public DataModel getMessages() {
         FacesContext ctx = FacesContext.getCurrentInstance();
@@ -47,7 +48,7 @@ public class MessageController {
         MailFolder folder = FacesUtils.getRequestParamAsEnum(ctx, MailFolder.class,
                 MailConstatnts.FOLDER);
         if (validateInput(user, mailBoxToken, folder)) {
-            if (messages == null || !refreshed) {
+            if (messages == null || currentFirstItem != firstItem) {
                 messages = getNextMessages(user, mailBoxToken, folder);
             }
             return messages;
@@ -58,8 +59,8 @@ public class MessageController {
 
     protected DataModel getNextMessages(MailUser user, String mailBoxToken, MailFolder folder) {
         ResultParams params = new ResultParams(firstItem, batchSize);
-        messages = new ListDataModel(mailFacade.getMessageSummaries(user, mailBoxToken, folder, params));
-        refreshed = true;
+        messages = new ListDataModel(mailFacade.getMessageSummaries(user, mailBoxToken, folder, params, synchronize));
+        currentFirstItem = firstItem;
         return messages;
     }
 

@@ -40,18 +40,23 @@ public class MailManagerFacadeBean implements MailManagerFacade {
     @EJB
     private MailStoreManager mailStoreManager;
 
-    public void fetchAndStoreMessages(MailBox mailBox, MessageFilter filter) {
-        Collection<String> uids = getMailStoreManager().getUids(mailBox, MailFolder.INBOX);
-
-        Collection<MailMessage> messages = getMailSessionManager().fetchMessages(mailBox, uids,
+    protected void fetchAndStoreMessages(MailBox mailBox, MessageFilter filter) {
+        Collection<String> uids = mailStoreManager.getUids(mailBox, MailFolder.INBOX);
+        Collection<MailMessage> messages = mailSessionManager.fetchMessages(mailBox, uids,
                 filter);
-
-        getMailStoreManager().storeMessages(messages);
+        mailStoreManager.storeMessages(messages);
     }
 
     public List<MailMessageSummary> getMessageSummaries(MailUser user, String mailBoxToken,
-            MailFolder folder, ResultParams params) {
-        return getMailStoreManager().getMessageSummaries(user, mailBoxToken, folder, params);
+            MailFolder folder, ResultParams params, boolean synchronize) {
+        MailBox mailBox = mailStoreManager.getMailBox(user, mailBoxToken);
+        if (mailBox == null) {
+            //TODO: throw ApplicationException
+        }
+        if (synchronize) {
+            fetchAndStoreMessages(mailBox, null);
+        }
+        return mailStoreManager.getMessageSummaries(user, mailBox, folder, params);
     }
 
     public MailSessionManager getMailSessionManager() {
