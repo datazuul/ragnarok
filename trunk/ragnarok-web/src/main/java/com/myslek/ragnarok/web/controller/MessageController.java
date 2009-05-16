@@ -34,12 +34,12 @@ public class MessageController {
     private DataModel messages;
 
     @EJB
-    private MailManagerFacade mailFacade;
+    private MailManagerFacade mailManagerFacade;
 
     private int firstItem = 0;
     private int batchSize = 10;
     private int currentFirstItem = 0;
-    private boolean synchronize = true;
+    private boolean synchronizeRequested = false;
 
     public DataModel getMessages() {
         FacesContext ctx = FacesContext.getCurrentInstance();
@@ -47,6 +47,7 @@ public class MessageController {
         String mailBoxToken = FacesUtils.getRequestParam(ctx, MailConstatnts.MAILBOX_ID);
         MailFolder folder = FacesUtils.getRequestParamAsEnum(ctx, MailFolder.class,
                 MailConstatnts.FOLDER);
+
         if (validateInput(user, mailBoxToken, folder)) {
             if (messages == null || currentFirstItem != firstItem) {
                 messages = getNextMessages(user, mailBoxToken, folder);
@@ -58,8 +59,10 @@ public class MessageController {
     }
 
     protected DataModel getNextMessages(MailUser user, String mailBoxToken, MailFolder folder) {
+        boolean synchronize = messages == null || synchronizeRequested;
         ResultParams params = new ResultParams(firstItem, batchSize);
-        messages = new ListDataModel(mailFacade.getMessageSummaries(user, mailBoxToken, folder, params, synchronize));
+        messages = new ListDataModel(mailManagerFacade.getMessageSummaries(user, mailBoxToken,
+                folder, params, synchronize));
         currentFirstItem = firstItem;
         return messages;
     }
