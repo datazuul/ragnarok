@@ -24,7 +24,7 @@ import javax.faces.model.ListDataModel;
 
 import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailUser;
-import com.myslek.ragnarok.logic.MailManagerFacade;
+import com.myslek.ragnarok.logic.MailManager;
 import com.myslek.ragnarok.persistence.ResultParams;
 import com.myslek.ragnarok.web.common.FacesUtils;
 import com.myslek.ragnarok.web.common.MailConstatnts;
@@ -34,7 +34,7 @@ public class MessageController {
     private DataModel messages;
 
     @EJB
-    private MailManagerFacade mailManagerFacade;
+    private MailManager mailManager;
 
     private int firstItem = 0;
     private int batchSize = 10;
@@ -61,7 +61,7 @@ public class MessageController {
     protected DataModel getNextMessages(MailUser user, String mailBoxToken, MailFolder folder) {
         boolean synchronize = messages == null || synchronizeRequested;
         ResultParams params = new ResultParams(firstItem, batchSize);
-        messages = new ListDataModel(mailManagerFacade.getMessageSummaries(user, mailBoxToken,
+        messages = new ListDataModel(mailManager.getMessageSummaries(user, mailBoxToken,
                 folder, params, synchronize));
         currentFirstItem = firstItem;
         return messages;

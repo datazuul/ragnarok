@@ -15,7 +15,7 @@ import com.myslek.ragnarok.persistence.ResultParams;
  * components (i.e. connectivity, storage)
  */
 @Local
-public interface MailManagerFacade {
+public interface MailManager {
 
     List<MailMessageSummary> getMessageSummaries(MailUser user, String mailBoxToken, MailFolder folder,
             ResultParams params, boolean synchronize);

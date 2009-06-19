@@ -29,9 +29,9 @@ import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.domain.MailMessageSummary;
 import com.myslek.ragnarok.domain.MailPart;
 import com.myslek.ragnarok.domain.MailUser;
+import com.myslek.ragnarok.mail.MailTestUtils;
 import com.myslek.ragnarok.persistence.MailStoreDao;
 import com.myslek.ragnarok.persistence.ResultParams;
-import com.myslek.ragnarok.test.common.MailTestUtils;
 
 public class MailStoreDaoBeanTest extends TestCase {
 
@@ -55,7 +55,7 @@ public class MailStoreDaoBeanTest extends TestCase {
         Properties props = new Properties();
         props.put(Context.INITIAL_CONTEXT_FACTORY,
                 "org.apache.openejb.client.LocalInitialContextFactory");
-        props.setProperty("openejb.altdd.prefix", "test");
+        props.setProperty("openejb.altdd.prefix", "test.");
 
         props.put("testdb", "new://Resource?type=DataSource");
         props.put("testdb.JdbcDriver", "org.h2.Driver");
