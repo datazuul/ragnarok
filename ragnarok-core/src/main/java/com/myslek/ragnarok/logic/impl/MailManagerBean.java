@@ -26,14 +26,14 @@ import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailMessage;
 import com.myslek.ragnarok.domain.MailMessageSummary;
 import com.myslek.ragnarok.domain.MailUser;
-import com.myslek.ragnarok.logic.MailManagerFacade;
+import com.myslek.ragnarok.logic.MailManager;
 import com.myslek.ragnarok.logic.MailSessionManager;
 import com.myslek.ragnarok.logic.MailStoreManager;
 import com.myslek.ragnarok.mail.MessageFilter;
 import com.myslek.ragnarok.persistence.ResultParams;
 
 @Stateless
-public class MailManagerFacadeBean implements MailManagerFacade {
+public class MailManagerBean implements MailManager {
 
     @EJB
     private MailSessionManager mailSessionManager;
