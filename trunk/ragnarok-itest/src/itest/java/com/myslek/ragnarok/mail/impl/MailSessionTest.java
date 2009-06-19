@@ -38,7 +38,7 @@ import com.myslek.ragnarok.mail.MailSessionFactory;
 /**
  * The Class MailSessionTestCase.
  */
-public class MailSessionIntegrationTestCase extends TestCase {
+public class MailSessionTest extends TestCase {
 
 	/** The mail session factory. */
 	private MailSessionFactory mailSessionFactory = new DefaultMailSessionFactory();
