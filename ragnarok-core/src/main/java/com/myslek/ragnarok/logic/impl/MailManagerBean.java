@@ -48,12 +48,12 @@ public class MailManagerBean implements MailManager {
     }
 
     public List<MailMessageSummary> getMessageSummaries(MailUser user, String mailBoxToken,
-            MailFolder folder, ResultParams params, boolean synchronize) {
+            MailFolder folder, ResultParams params, boolean syncWithMailServer) {
         MailBox mailBox = mailStoreManager.getMailBox(user, mailBoxToken);
         if (mailBox == null) {
             //TODO: throw ApplicationException
         }
-        if (synchronize) {
+        if (syncWithMailServer) {
             fetchAndStoreMessages(mailBox, null);
         }
         return mailStoreManager.getMessageSummaries(user, mailBox, folder, params);
