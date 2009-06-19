@@ -39,7 +39,7 @@ public class MessageController {
     private int firstItem = 0;
     private int batchSize = 10;
     private int currentFirstItem = 0;
-    private boolean synchronizeRequested = false;
+    private boolean refresh = false;
 
     public DataModel getMessages() {
         FacesContext ctx = FacesContext.getCurrentInstance();
@@ -59,10 +59,10 @@ public class MessageController {
     }
 
     protected DataModel getNextMessages(MailUser user, String mailBoxToken, MailFolder folder) {
-        boolean synchronize = messages == null || synchronizeRequested;
+        boolean syncWithMailServer = messages == null || refresh;
         ResultParams params = new ResultParams(firstItem, batchSize);
         messages = new ListDataModel(mailManager.getMessageSummaries(user, mailBoxToken,
-                folder, params, synchronize));
+                folder, params, syncWithMailServer));
         currentFirstItem = firstItem;
         return messages;
     }

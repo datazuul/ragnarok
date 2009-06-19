@@ -18,5 +18,5 @@ import com.myslek.ragnarok.persistence.ResultParams;
 public interface MailManager {
 
     List<MailMessageSummary> getMessageSummaries(MailUser user, String mailBoxToken, MailFolder folder,
-            ResultParams params, boolean synchronize);
+            ResultParams params, boolean syncWithMailServer);
 }
