@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailMessageSummary;
 import com.myslek.ragnarok.domain.MailUser;
@@ -19,4 +20,8 @@ public interface MailManager {
 
     List<MailMessageSummary> getMessageSummaries(MailUser user, String mailBoxToken, MailFolder folder,
             ResultParams params, boolean syncWithMailServer);
+    
+    void saveMailUser(MailUser user);
+    
+    void saveMailBox(MailBox mailBox);
 }

@@ -37,4 +37,8 @@ public interface MailStoreManager {
             MailFolder folder, ResultParams params);
     
     MailBox getMailBox(MailUser user, String mailBoxToken);
+    
+    void saveMailUser(MailUser user);
+    
+    void saveMailBox(MailBox mailBox);
 }
