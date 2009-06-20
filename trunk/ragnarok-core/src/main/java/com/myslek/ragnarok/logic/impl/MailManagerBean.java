@@ -74,4 +74,12 @@ public class MailManagerBean implements MailManager {
     public void setMailStoreManager(MailStoreManager mailStoreManager) {
         this.mailStoreManager = mailStoreManager;
     }
+
+    public void saveMailBox(MailBox mailBox) {
+        mailStoreManager.saveMailBox(mailBox);
+    }
+
+    public void saveMailUser(MailUser user) {
+        mailStoreManager.saveMailUser(user);
+    }
 }
