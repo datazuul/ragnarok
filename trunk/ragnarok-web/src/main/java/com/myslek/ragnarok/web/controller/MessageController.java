@@ -16,6 +16,7 @@
 package com.myslek.ragnarok.web.controller;
 
 import java.util.Collections;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
@@ -23,8 +24,10 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
 import com.myslek.ragnarok.domain.MailFolder;
+import com.myslek.ragnarok.domain.MailMessageSummary;
 import com.myslek.ragnarok.domain.MailUser;
 import com.myslek.ragnarok.logic.MailManager;
+import com.myslek.ragnarok.mail.exception.MailException;
 import com.myslek.ragnarok.persistence.ResultParams;
 import com.myslek.ragnarok.web.common.FacesUtils;
 import com.myslek.ragnarok.web.common.MailConstatnts;
@@ -61,8 +64,14 @@ public class MessageController {
     protected DataModel getNextMessages(MailUser user, String mailBoxToken, MailFolder folder) {
         boolean syncWithMailServer = messages == null || refresh;
         ResultParams params = new ResultParams(firstItem, batchSize);
-        messages = new ListDataModel(mailManager.getMessageSummaries(user, mailBoxToken,
-                folder, params, syncWithMailServer));
+        List<MailMessageSummary> result = null;
+        try {
+            result = mailManager.getMessageSummaries(user, mailBoxToken,
+                    folder, params, syncWithMailServer);
+        } catch (MailException e) {
+            //TODO: handle exception
+        }
+        messages = new ListDataModel(result);
         currentFirstItem = firstItem;
         return messages;
     }

@@ -30,6 +30,8 @@ import com.myslek.ragnarok.logic.MailManager;
 import com.myslek.ragnarok.logic.MailSessionManager;
 import com.myslek.ragnarok.logic.MailStoreManager;
 import com.myslek.ragnarok.mail.MessageFilter;
+import com.myslek.ragnarok.mail.exception.MailException;
+import com.myslek.ragnarok.mail.exception.MailExceptionReason;
 import com.myslek.ragnarok.persistence.ResultParams;
 
 @Stateless
@@ -42,16 +44,16 @@ public class MailManagerBean implements MailManager {
 
     protected void fetchAndStoreMessages(MailBox mailBox, MessageFilter filter) {
         Collection<String> uids = mailStoreManager.getUids(mailBox, MailFolder.INBOX);
-        Collection<MailMessage> messages = mailSessionManager.fetchMessages(mailBox, uids,
-                filter);
+        Collection<MailMessage> messages = mailSessionManager.fetchMessages(mailBox, uids, filter);
         mailStoreManager.storeMessages(messages);
     }
 
     public List<MailMessageSummary> getMessageSummaries(MailUser user, String mailBoxToken,
-            MailFolder folder, ResultParams params, boolean syncWithMailServer) {
+            MailFolder folder, ResultParams params, boolean syncWithMailServer)
+            throws MailException {
         MailBox mailBox = mailStoreManager.getMailBox(user, mailBoxToken);
         if (mailBox == null) {
-            //TODO: throw ApplicationException
+            throw new MailException(MailExceptionReason.M001);
         }
         if (syncWithMailServer) {
             fetchAndStoreMessages(mailBox, null);
