@@ -34,7 +34,7 @@ import com.myslek.ragnarok.mail.exception.MailException;
 import com.myslek.ragnarok.mail.exception.MailExceptionReason;
 import com.myslek.ragnarok.persistence.ResultParams;
 
-@Stateless
+@Stateless(name = "ejb/MailManager")
 public class MailManagerBean implements MailManager {
 
     @EJB
