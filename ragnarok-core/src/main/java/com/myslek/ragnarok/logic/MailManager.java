@@ -8,6 +8,7 @@ import com.myslek.ragnarok.domain.MailBox;
 import com.myslek.ragnarok.domain.MailFolder;
 import com.myslek.ragnarok.domain.MailMessageSummary;
 import com.myslek.ragnarok.domain.MailUser;
+import com.myslek.ragnarok.mail.exception.MailException;
 import com.myslek.ragnarok.persistence.ResultParams;
 
 // TODO: Auto-generated Javadoc
@@ -18,10 +19,11 @@ import com.myslek.ragnarok.persistence.ResultParams;
 @Local
 public interface MailManager {
 
-    List<MailMessageSummary> getMessageSummaries(MailUser user, String mailBoxToken, MailFolder folder,
-            ResultParams params, boolean syncWithMailServer);
-    
-    void saveMailUser(MailUser user);
-    
-    void saveMailBox(MailBox mailBox);
+    List<MailMessageSummary> getMessageSummaries(MailUser user, String mailBoxToken,
+            MailFolder folder, ResultParams params, boolean syncWithMailServer)
+            throws MailException;
+
+    void saveMailUser(MailUser user) throws MailException;
+
+    void saveMailBox(MailBox mailBox) throws MailException;
 }
