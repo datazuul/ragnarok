@@ -11,6 +11,10 @@
 
   <packaging>pom</packaging>
 
+  <properties>
+    <jboss.seam.version>2.1.1.GA</jboss.seam.version>
+  </properties>
+
   <!-- Additional remote repositories -->
   <repositories>
     <repository>
@@ -52,6 +56,18 @@
         <groupId>javaee</groupId>
         <artifactId>javaee-api</artifactId>
         <version>5</version>
+      </dependency>
+      <!-- JBoss Seam -->
+      <dependency>
+        <groupId>org.jboss.seam</groupId>
+        <artifactId>jboss-seam</artifactId>
+        <version>${jboss.seam.version}</version>
+      </dependency>
+      <!-- Hibernate Validator -->
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>3.0.0.GA</version>
       </dependency>
       <!-- Hibernate -->
       <dependency>
