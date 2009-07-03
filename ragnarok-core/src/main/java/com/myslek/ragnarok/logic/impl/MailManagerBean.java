@@ -84,4 +84,16 @@ public class MailManagerBean implements MailManager {
     public void saveMailUser(MailUser user) {
         mailStoreManager.saveMailUser(user);
     }
+
+    public void removeMailUser(String username) {
+        mailStoreManager.removeMailUser(username);
+    }
+
+    public MailUser getMailUser(String username) {
+        return mailStoreManager.getMailUser(username);
+    }
+
+    public MailUser getMailUser(String username, String password) {
+        return mailStoreManager.getMailUser(username, password);
+    }
 }

@@ -26,4 +26,10 @@ public interface MailManager {
     void saveMailUser(MailUser user) throws MailException;
 
     void saveMailBox(MailBox mailBox) throws MailException;
+    
+    public void removeMailUser(String username);
+    
+    public MailUser getMailUser(String username);
+    
+    public MailUser getMailUser(String username, String password);
 }

@@ -65,4 +65,16 @@ public class MailStoreManagerBean implements MailStoreManager {
     public void saveMailUser(MailUser user) {
         mailStoreDao.persist(user);
     }
+
+    public void removeMailUser(String username) {
+        mailStoreDao.removeMailUser(username);
+    }
+
+    public MailUser getMailUser(String username) {
+        return mailStoreDao.getMailUser(username);
+    }
+
+    public MailUser getMailUser(String username, String password) {
+        return mailStoreDao.getMailUser(username, password);
+    }
 }
