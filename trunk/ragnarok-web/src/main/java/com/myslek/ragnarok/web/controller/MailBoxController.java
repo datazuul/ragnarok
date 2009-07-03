@@ -32,7 +32,7 @@ import com.myslek.ragnarok.persistence.ResultParams;
 import com.myslek.ragnarok.web.common.FacesUtils;
 import com.myslek.ragnarok.web.common.MailConstatnts;
 
-public class MessageController {
+public class MailBoxController {
 
     private DataModel messages;
 
