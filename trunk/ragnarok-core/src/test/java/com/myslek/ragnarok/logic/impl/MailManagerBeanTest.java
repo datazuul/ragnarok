@@ -24,20 +24,18 @@ import junit.framework.TestCase;
 
 import com.myslek.ragnarok.domain.MailUser;
 import com.myslek.ragnarok.logic.MailManager;
-import com.myslek.ragnarok.mail.exception.MailException;
 
 public class MailManagerBeanTest extends TestCase {
-    
+
     private Context context;
-    
+
     private MailManager mailManager;
-    
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         Properties props = new Properties();
-        props.put(Context.INITIAL_CONTEXT_FACTORY,
-                "org.apache.openejb.client.LocalInitialContextFactory");
+        props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.LocalInitialContextFactory");
         props.setProperty("openejb.altdd.prefix", "test.");
 
         props.put("testdb", "new://Resource?type=DataSource");
@@ -53,16 +51,19 @@ public class MailManagerBeanTest extends TestCase {
 
         mailManager = (MailManager) context.lookup("ejb/MailManagerLocal");
     }
-    
-    public void testSaveMailUser() {
+
+    public void testSaveMailUser() throws Exception {
         MailUser user = new MailUser();
-        user.setUsername("ragnarok-user");
+        user.setUsername("ragnarok");
         user.setPassword("ragnarok");
+
+        mailManager.saveMailUser(user);
+
+        MailUser storedUser = mailManager.getMailUser("ragnarok");
+        assertNotNull("storedUser should not be null!", storedUser);
+        assertEquals("storedUser username should be: ragnarok", "ragnarok", storedUser.getUsername());
+        assertEquals("storedUser password should be: ragnarok", "ragnarok", storedUser.getPassword());
         
-        try {
-            mailManager.saveMailUser(user);
-        } catch (MailException e) {
-            fail(e.getMessage());
-        }
+        mailManager.removeMailUser("ragnarok");
     }
 }
