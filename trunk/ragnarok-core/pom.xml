@@ -16,7 +16,7 @@
   <!-- GlassFish AppServer home directory -->
   <properties>
     <glassfish.home>c:/Users/rafal/dev/glassfish</glassfish.home>
-    <peristenceunit>ragnarok</peristenceunit>
+    <persistence.unit.name>ragnarok</persistence.unit.name>
   </properties>
 
   <dependencies>
@@ -88,7 +88,6 @@
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.5.0</version>
     </dependency>
-
     <!-- test dependencies -->
     <dependency>
       <groupId>junit</groupId>
@@ -122,8 +121,13 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -157,7 +161,7 @@
             </component>
           </components>
           <componentProperties>
-            <persistenceunit>${peristenceunit}</persistenceunit>
+            <persistenceunit>${persistence.unit.name}</persistenceunit>
             <export>false</export>
             <format>true</format>
             <outputfilename>${pom.artifactId}-${pom.version}.sql</outputfilename>

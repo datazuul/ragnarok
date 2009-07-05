@@ -195,7 +195,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
   <dependencies>
     <dependency>
       <groupId>commons-lang</groupId>
@@ -203,8 +202,6 @@
       <version>2.4</version>
     </dependency>
   </dependencies>
-
-
   <build>
     <pluginManagement>
       <plugins>
@@ -258,13 +255,10 @@
         </plugin>
       </plugins>
     </pluginManagement>
-
     <plugins>
       <!-- Plugins -->
     </plugins>
-
   </build>
-
   <reporting>
     <plugins>
       <plugin>
@@ -282,7 +276,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-report-plugin</artifactId>
       </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
@@ -306,12 +299,77 @@
           <targetJdk>1.5</targetJdk>
         </configuration>
       </plugin>
-
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </reporting>
-
+  <profiles>
+    <profile>
+      <id>h2</id>
+      <properties>
+        <jta.data.source>testdb</jta.data.source>
+        <hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
+        <hibernate.hbm2ddl.auto>create-drop</hibernate.hbm2ddl.auto>
+        <hibernate.show_sql>true</hibernate.show_sql>
+      </properties>
+    </profile>
+    <profile>
+      <id>mysql</id>
+      <properties>
+        <jta.data.source>jdbc/ragnarok</jta.data.source>
+        <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
+        <hibernate.hbm2ddl.auto></hibernate.hbm2ddl.auto>
+        <hibernate.show_sql>false</hibernate.show_sql>
+        <maven.test.skip>true</maven.test.skip>
+      </properties>
+    </profile>
+    <!-- Glassfish V2 Profile -->
+    <profile>
+      <id>glassfish</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.glassfish.maven.plugin</groupId>
+            <artifactId>maven-glassfish-plugin</artifactId>
+            <version>2.1</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>undeploy</goal>
+                  <goal>deploy</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <glassfishDirectory>${glassfish.home}</glassfishDirectory>
+              <user>${glassfish.adminUser}</user>
+              <adminPassword>${glassfish.adminPassword}</adminPassword>
+              <autoCreate>true</autoCreate>
+              <debug>true</debug>
+              <echo>false</echo>
+              <terse>true</terse>
+              <skip>${test.int.skip}</skip>
+              <domain>
+                <name>${project.artifactId}</name>
+                <adminPort>4848</adminPort>
+                <httpPort>8080</httpPort>
+                <httpsPort>8443</httpsPort>
+                <iiopPort>3700</iiopPort>
+                <jmsPort>7676</jmsPort>
+                <reuse>false</reuse>
+              </domain>
+              <components>
+                <component>
+                  <name>${project.artifactId}</name>
+                  <artifact>${project.build.directory}/${project.build.finalName}.${project.packaging}</artifact>
+                </component>
+              </components>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
