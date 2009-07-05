@@ -33,6 +33,18 @@
       <artifactId>jboss-seam</artifactId>
       <version>${jboss.seam.version}</version>
       <type>ejb</type>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.el</groupId>
+          <artifactId>el-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>jboss</groupId>
+      <artifactId>javassist</artifactId>
+      <version>3.1</version>
+      <type>jar</type>
     </dependency>
     <!-- Hibernate Validator -->
     <dependency>
@@ -64,6 +76,12 @@
         <artifactId>maven-ear-plugin</artifactId>
         <configuration>
           <version>5</version>
+          <defaultLibBundleDir>lib</defaultLibBundleDir>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+            </manifest>
+          </archive>
           <modules>
             <webModule>
               <groupId>com.myslek.ragnarok</groupId>
@@ -87,6 +105,11 @@
             <jarModule>
               <groupId>org.hibernate</groupId>
               <artifactId>hibernate-validator</artifactId>
+              <bundleDir>lib</bundleDir>
+            </jarModule>
+            <jarModule>
+              <groupId>jboss</groupId>
+              <artifactId>javassist</artifactId>
               <bundleDir>lib</bundleDir>
             </jarModule>
           </modules>
