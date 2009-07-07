@@ -50,12 +50,6 @@
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
     </dependency>
-    <!-- JBoss Seam -->
-    <dependency>
-      <groupId>org.jboss.seam</groupId>
-      <artifactId>jboss-seam</artifactId>
-      <scope>provided</scope>
-    </dependency>
     <!-- Hibernate Validator -->
     <dependency>
       <groupId>org.hibernate</groupId>
