@@ -27,24 +27,46 @@
       <version>${pom.version}</version>
       <type>war</type>
     </dependency>
-    <!-- JBoss Seam -->
+    <!-- Hibernate -->
     <dependency>
-      <groupId>org.jboss.seam</groupId>
-      <artifactId>jboss-seam</artifactId>
-      <version>${jboss.seam.version}</version>
-      <type>ejb</type>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
       <exclusions>
         <exclusion>
-          <groupId>javax.el</groupId>
-          <artifactId>el-api</artifactId>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>jboss</groupId>
-      <artifactId>javassist</artifactId>
-      <version>3.1</version>
-      <type>jar</type>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-annotations</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.5.0</version>
     </dependency>
     <!-- Hibernate Validator -->
     <dependency>
@@ -92,29 +114,91 @@
               <groupId>com.myslek.ragnarok</groupId>
               <artifactId>ragnarok-core</artifactId>
             </ejbModule>
-            <ejbModule>
-              <groupId>org.jboss.seam</groupId>
-              <artifactId>jboss-seam</artifactId>
-              <bundleDir>lib</bundleDir>
-            </ejbModule>
-            <jarModule>
-              <groupId>commons-beanutils</groupId>
-              <artifactId>commons-beanutils</artifactId>
-              <bundleDir>lib</bundleDir>
-            </jarModule>
-            <jarModule>
-              <groupId>org.hibernate</groupId>
-              <artifactId>hibernate-validator</artifactId>
-              <bundleDir>lib</bundleDir>
-            </jarModule>
-            <jarModule>
-              <groupId>jboss</groupId>
-              <artifactId>javassist</artifactId>
-              <bundleDir>lib</bundleDir>
-            </jarModule>
           </modules>
         </configuration>
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <!-- Glassfish V2 Profile -->
+    <profile>
+      <id>glassfish</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.glassfish.maven.plugin</groupId>
+            <artifactId>maven-glassfish-plugin</artifactId>
+            <version>2.1</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>undeploy</goal>
+                  <goal>deploy</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <glassfishDirectory>${glassfish.home}</glassfishDirectory>
+              <user>${glassfish.adminUser}</user>
+              <adminPassword>${glassfish.adminPassword}</adminPassword>
+              <autoCreate>true</autoCreate>
+              <debug>true</debug>
+              <echo>false</echo>
+              <terse>true</terse>
+              <skip>${test.int.skip}</skip>
+              <domain>
+                <name>${project.artifactId}</name>
+                <adminPort>4848</adminPort>
+                <httpPort>8080</httpPort>
+                <httpsPort>8443</httpsPort>
+                <iiopPort>3700</iiopPort>
+                <jmsPort>7676</jmsPort>
+                <reuse>false</reuse>
+                <resources>
+                  <jdbcDataSource>
+                    <name>jdbc/ragnarok</name>
+                    <type>connectionPoolDataSource</type>
+                    <poolName>RagnarokPool</poolName>
+                    <className>com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource</className>
+                    <description>Ragnarok JDBC Connection Pool</description>
+                    <allowNonComponentCallers>false</allowNonComponentCallers>
+                    <validateConnections>true</validateConnections>
+                    <validationMethod>metaData</validationMethod>
+                    <properties>
+                      <property>
+                        <name>portNumber</name>
+                        <value>3306</value>
+                      </property>
+                      <property>
+                        <name>password</name>
+                        <value>ragnarok</value>
+                      </property>
+                      <property>
+                        <name>user</name>
+                        <value>ragnarok</value>
+                      </property>
+                      <property>
+                        <name>serverName</name>
+                        <value>localhost</value>
+                      </property>
+                      <property>
+                        <name>databaseName</name>
+                        <value>ragnarok</value>
+                      </property>
+                    </properties>
+                  </jdbcDataSource>
+                </resources>
+              </domain>
+              <components>
+                <component>
+                  <name>${project.artifactId}</name>
+                  <artifact>${project.build.directory}/${project.build.finalName}.${project.packaging}</artifact>
+                </component>
+              </components>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

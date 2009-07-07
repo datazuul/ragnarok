@@ -11,10 +11,6 @@
 
   <packaging>pom</packaging>
 
-  <properties>
-    <jboss.seam.version>2.1.1.GA</jboss.seam.version>
-  </properties>
-
   <!-- Additional remote repositories -->
   <repositories>
     <repository>
@@ -66,33 +62,6 @@
         <groupId>javax.activation</groupId>
         <artifactId>activation</artifactId>
         <version>1.1.1</version>
-      </dependency>
-      <!-- JBoss Seam -->
-      <dependency>
-        <groupId>org.jboss.seam</groupId>
-        <artifactId>jboss-seam</artifactId>
-        <version>${jboss.seam.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.seam</groupId>
-        <artifactId>jboss-seam-ui</artifactId>
-        <version>${jboss.seam.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.seam</groupId>
-        <artifactId>jboss-seam-debug</artifactId>
-        <version>${jboss.seam.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.seam</groupId>
-        <artifactId>jboss-el</artifactId>
-        <version>2.0.0.GA</version>
-      </dependency>
-      <!-- Richfaces -->
-      <dependency>
-        <groupId>org.richfaces.ui</groupId>
-        <artifactId>richfaces-ui</artifactId>
-        <version>3.1.2.GA</version>
       </dependency>
       <!-- Facelets -->
       <dependency>
@@ -319,52 +288,6 @@
         <hibernate.show_sql>false</hibernate.show_sql>
         <maven.test.skip>true</maven.test.skip>
       </properties>
-    </profile>
-    <!-- Glassfish V2 Profile -->
-    <profile>
-      <id>glassfish</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.glassfish.maven.plugin</groupId>
-            <artifactId>maven-glassfish-plugin</artifactId>
-            <version>2.1</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>undeploy</goal>
-                  <goal>deploy</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <glassfishDirectory>${glassfish.home}</glassfishDirectory>
-              <user>${glassfish.adminUser}</user>
-              <adminPassword>${glassfish.adminPassword}</adminPassword>
-              <autoCreate>true</autoCreate>
-              <debug>true</debug>
-              <echo>false</echo>
-              <terse>true</terse>
-              <skip>${test.int.skip}</skip>
-              <domain>
-                <name>${project.artifactId}</name>
-                <adminPort>4848</adminPort>
-                <httpPort>8080</httpPort>
-                <httpsPort>8443</httpsPort>
-                <iiopPort>3700</iiopPort>
-                <jmsPort>7676</jmsPort>
-                <reuse>false</reuse>
-              </domain>
-              <components>
-                <component>
-                  <name>${project.artifactId}</name>
-                  <artifact>${project.build.directory}/${project.build.finalName}.${project.packaging}</artifact>
-                </component>
-              </components>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
     </profile>
   </profiles>
 </project>
